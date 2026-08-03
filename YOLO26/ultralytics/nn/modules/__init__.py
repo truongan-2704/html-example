@@ -1,0 +1,439 @@
+# Ultralytics 🚀 AGPL-3.0 License - https://ultralytics.com/license
+"""
+Ultralytics modules.
+
+Example:
+    Visualize a module with Netron.
+    ```python
+    from ultralytics.nn.modules import *
+    import torch
+    import os
+
+    x = torch.ones(1, 128, 40, 40)
+    m = Conv(128, 128)
+    f = f"{m._get_name()}.onnx"
+    torch.onnx.export(m, x, f)
+    os.system(f"onnxslim {f} {f} && open {f}")  # pip install onnxslim
+    ```
+"""
+
+from .BiFPN import (BiFPN_Concat, BiFPN, BiFPN_Transformer)
+
+from .litefusion import LiteFusion
+
+from .xbn_blocks import MSSO, DMC_Block, RXG_Fuse
+
+from .EMA import EMA
+
+from .SimAM import SimAM
+
+from .ShuffleAttention import ShuffleAttention
+
+from .TripletAttention import TripletAttention
+
+from .MHSA import MHSA
+
+from .CBAM import CBAM
+
+from .ECA import ECA
+
+from .AKConv import AKConv
+from .conv import (
+    CBAM,
+    ChannelAttention,
+    Concat,
+    Conv,
+    Conv2,
+    ConvTranspose,
+    DWConv,
+    DWConvTranspose2d,
+    Focus,
+    GhostConv,
+    Index,
+    LightConv,
+    RepConv,
+    SpatialAttention,
+    Dynamic_conv2d,
+)
+
+from .CA import CoordAtt
+
+from .GAM import GAM
+
+from .SK import SKAttention
+
+from .LAE import LAE, MSFM
+
+from .IDC import InceptionDWConv2d, C3k2_IDC, Bottleneck_IDC
+
+from .starfusion_block import C3k2_DCNF
+
+from .starfusion_block_v2 import C3k2_DCNF_V2
+
+from .starfusion_block_v3 import C3k2_DCNF_V3
+
+from .starfusion_block_v1plus import C3k2_DCNF_V1Plus
+
+from .starfusion_block_v4 import C3k2_DCNF_V4
+
+from .starfusion_block_v5 import C3k2_DCNF_V5
+
+from .starfusion_block_v6 import C3k2_DCNF_V6
+
+from .edge_blocks import PConv, FasterBottleneck, C3k2_Faster, GSConv, GSBottleneck, VoVGSCSP
+
+from .phoenix_blocks import HeteroConv, DualPoolGate, PhoenixBottleneck, C3k2_Phoenix, PhoenixCSP
+
+from .chimera_blocks import TridentConv, SpectralGate, ChimeraBottleneck, C3k2_Chimera, ChimeraCSP, CrossScaleModulator
+
+from .nexus_blocks import OmniDirConv, NormRatioGate, NexusBottleneck, C3k2_Nexus, NexusCSP, PolarizedRefine, FastOmniDirConv, FastNormRatioGate, FastNexusBottleneck, C3k2_NexusFast, NexusCSPFast, FastPolarizedRefine
+
+from .prism_blocks import DualFreqConv, MomentContrastGate, PrismBottleneck, C3k2_Prism, PrismCSP, FreqSpatialRefine
+
+from .prism_v2_blocks import TriFreqConv, FreqContrastGate, PrismV2Bottleneck, C3k2_PrismV2, PrismV2CSP, AdaptiveFreqRefine
+
+from .zenith_blocks import WaveletConv, TopologicalGate, ZenithBottleneck, C3k2_Zenith, ZenithCSP, AdaptiveScaleRouter
+
+from .spectra_blocks import SpectraConv, WaveletEnergyGate, SpectraBottleneck, C3k2_Spectra, SpectraCSP, HaarWavelet2D
+
+from .hybrid_blocks import (
+    C3k2_NexusPrism, NexusPrismCSP,
+    C3k2_PrismEdge, PrismEdgeCSP,
+    C3k2_PhoenixNexus, PhoenixNexusCSP,
+    C3k2_ChimeraPrism, ChimeraPrismCSP,
+    C3k2_SpectraEdge, SpectraEdgeCSP,
+)
+
+from .safeguard_blocks import (
+    LightCoordAtt, SafeGuardPConv, SafeGuardBottleneck,
+    C3k2_SafeGuard, SafeGuardCSP, BodyContextModule,
+)
+
+from .yolo13_blocks import (
+    MSConv, GatedChannelFusion, DynamicSpatialFusion,
+    YOLO13Bottleneck, YOLO13BottleneckLight, C3k2_YOLO13, YOLO13CSP,
+    AdaptiveDown, EnhancedSPPF, ScaleAwareAttention, YOLO13Stem, MSConvBlock,
+)
+
+from .SHSA import SHSA
+
+from .EfficientNetV2 import MBConv,FusedMBConv, SE
+
+from .gsstar_blocks import GSStarBlock, GSStarCSP, GSStarUnit, GhostUnit, StarLite
+
+from .c3k2_titan_blocks import (
+    C3k2_Titan, C3k_Titan, TitanBottleneck,
+    PartialConv3x3, RepMultiKernelDW, StarOp, EMALite,
+)
+
+from .EfficientNetV2_v2 import MBConvV2, FusedMBConvV2, SEv2, FeatureAlign
+
+from .EfficientNetV4 import MBConvV4, FusedMBConvV4, CASE, MKDWConv, LayerScale, FeatureAlignV4
+
+from .MobileNetV4 import MNV4Conv, MNV4UIB, MNV4Hybrid, MobileMQA, FeatureAlignMNV4
+
+from .MobileNetV4Pro import MNV4ProConv, MNV4ProUIB, MNV4ProHybrid, MNV4ProNeck, EfficientGQA, FeatureAlignMNV4Pro
+
+from .TransformerHybrid import SwinStage, ViTStage, MobileFormerStage, FeatureAlignTF
+
+from .block import (
+    C1,
+    C2,
+    C2PSA,
+    C3,
+    C3TR,
+    CIB,
+    DFL,
+    ELAN1,
+    PSA,
+    SPP,
+    SPPELAN,
+    SPPF,
+    AConv,
+    ADown,
+    Attention,
+    BNContrastiveHead,
+    Bottleneck,
+    BottleneckCSP,
+    C2f,
+    C2fAttn,
+    C2fCIB,
+    C2fPSA,
+    C3Ghost,
+    C3k2,
+    C3x,
+    CBFuse,
+    CBLinear,
+    ContrastiveHead,
+    GhostBottleneck,
+    HGBlock,
+    HGStem,
+    ImagePoolingAttn,
+    Proto,
+    RepC3,
+    RepNCSPELAN4,
+    RepVGGDW,
+    ResNetLayer,
+    SCDown,
+    TorchVision,
+    A2C2f,
+    A2C2f_SimAM,
+    C3k2_CBAM,
+    Proto26,
+    SAVPE,
+    SwiGLUFFN,
+    RealNVP,
+    Residual,
+)
+from .conv import (
+    CBAM,
+    ChannelAttention,
+    Concat,
+    Conv,
+    Conv2,
+    ConvTranspose,
+    DWConv,
+    DWConvTranspose2d,
+    Focus,
+    GhostConv,
+    Index,
+    LightConv,
+    RepConv,
+    SpatialAttention,
+)
+from .head import (
+    OBB,
+    OBB26,
+    Classify,
+    Detect,
+    LRPCHead,
+    Pose,
+    Pose26,
+    RTDETRDecoder,
+    Segment,
+    Segment26,
+    SemanticSegment,
+    WorldDetect,
+    YOLOEDetect,
+    YOLOESegment,
+    YOLOESegment26,
+    v10Detect,
+)
+from .transformer import (
+    AIFI,
+    MLP,
+    DeformableTransformerDecoder,
+    DeformableTransformerDecoderLayer,
+    LayerNorm2d,
+    MLPBlock,
+    MSDeformAttn,
+    TransformerBlock,
+    TransformerEncoderLayer,
+    TransformerLayer,
+)
+
+__all__ = (
+    "Conv",
+    "Conv2",
+    "LightConv",
+    "RepConv",
+    "DWConv",
+    "DWConvTranspose2d",
+    "ConvTranspose",
+    "Focus",
+    "GhostConv",
+    "ChannelAttention",
+    "SpatialAttention",
+    "CBAM",
+    "Concat",
+    "TransformerLayer",
+    "TransformerBlock",
+    "MLPBlock",
+    "LayerNorm2d",
+    "DFL",
+    "HGBlock",
+    "HGStem",
+    "SPP",
+    "SPPF",
+    "C1",
+    "C2",
+    "C3",
+    "C2f",
+    "C3k2",
+    "SCDown",
+    "C2fPSA",
+    "C2PSA",
+    "C2fAttn",
+    "C3x",
+    "C3TR",
+    "C3Ghost",
+    "GhostBottleneck",
+    "Bottleneck",
+    "BottleneckCSP",
+    "Proto",
+    "Detect",
+    "Segment",
+    "Pose",
+    "Classify",
+    "TransformerEncoderLayer",
+    "RepC3",
+    "RTDETRDecoder",
+    "AIFI",
+    "DeformableTransformerDecoder",
+    "DeformableTransformerDecoderLayer",
+    "MSDeformAttn",
+    "MLP",
+    "ResNetLayer",
+    "OBB",
+    "WorldDetect",
+    "v10Detect",
+    "ImagePoolingAttn",
+    "ContrastiveHead",
+    "BNContrastiveHead",
+    "RepNCSPELAN4",
+    "ADown",
+    "SPPELAN",
+    "CBFuse",
+    "CBLinear",
+    "AConv",
+    "ELAN1",
+    "RepVGGDW",
+    "CIB",
+    "C2fCIB",
+    "Attention",
+    "PSA",
+    "TorchVision",
+    "Index",
+    "A2C2f",
+    "A2C2f_SimAM",
+    "LAE",
+    "C3k2_DCNF",
+    "C3k2_DCNF_V2",
+    "C3k2_DCNF_V3",
+    "C3k2_DCNF_V1Plus",
+    "C3k2_DCNF_V4",
+    "C3k2_DCNF_V5",
+    "C3k2_DCNF_V6",
+    "MBConvV2",
+    "FusedMBConvV2",
+    "SEv2",
+    "FeatureAlign",
+    "PConv",
+    "FasterBottleneck",
+    "C3k2_Faster",
+    "GSConv",
+    "GSBottleneck",
+    "VoVGSCSP",
+    "HeteroConv",
+    "DualPoolGate",
+    "PhoenixBottleneck",
+    "C3k2_Phoenix",
+    "PhoenixCSP",
+    "TridentConv",
+    "SpectralGate",
+    "ChimeraBottleneck",
+    "C3k2_Chimera",
+    "ChimeraCSP",
+    "CrossScaleModulator",
+    "OmniDirConv",
+    "NormRatioGate",
+    "NexusBottleneck",
+    "C3k2_Nexus",
+    "NexusCSP",
+    "PolarizedRefine",
+    "FastOmniDirConv",
+    "FastNormRatioGate",
+    "FastNexusBottleneck",
+    "C3k2_NexusFast",
+    "NexusCSPFast",
+    "FastPolarizedRefine",
+    "MBConvV4",
+    "FusedMBConvV4",
+    "CASE",
+    "MKDWConv",
+    "LayerScale",
+    "FeatureAlignV4",
+    "MNV4Conv",
+    "MNV4UIB",
+    "MNV4Hybrid",
+    "MobileMQA",
+    "FeatureAlignMNV4",
+    "SwinStage",
+    "ViTStage",
+    "MobileFormerStage",
+    "FeatureAlignTF",
+    "DualFreqConv",
+    "MomentContrastGate",
+    "PrismBottleneck",
+    "C3k2_Prism",
+    "PrismCSP",
+    "FreqSpatialRefine",
+    "MNV4ProConv",
+    "MNV4ProUIB",
+    "MNV4ProHybrid",
+    "MNV4ProNeck",
+    "EfficientGQA",
+    "FeatureAlignMNV4Pro",
+    "WaveletConv",
+    "TopologicalGate",
+    "ZenithBottleneck",
+    "C3k2_Zenith",
+    "ZenithCSP",
+    "AdaptiveScaleRouter",
+    "TriFreqConv",
+    "FreqContrastGate",
+    "PrismV2Bottleneck",
+    "C3k2_PrismV2",
+    "PrismV2CSP",
+    "AdaptiveFreqRefine",
+    "SpectraConv",
+    "WaveletEnergyGate",
+    "SpectraBottleneck",
+    "C3k2_Spectra",
+    "SpectraCSP",
+    "HaarWavelet2D",
+    "C3k2_NexusPrism",
+    "NexusPrismCSP",
+    "C3k2_PrismEdge",
+    "PrismEdgeCSP",
+    "C3k2_PhoenixNexus",
+    "PhoenixNexusCSP",
+    "C3k2_ChimeraPrism",
+    "ChimeraPrismCSP",
+    "C3k2_SpectraEdge",
+    "SpectraEdgeCSP",
+    "LightCoordAtt",
+    "SafeGuardPConv",
+    "SafeGuardBottleneck",
+    "C3k2_SafeGuard",
+    "SafeGuardCSP",
+    "BodyContextModule",
+    "MSConv",
+    "GatedChannelFusion",
+    "DynamicSpatialFusion",
+    "YOLO13Bottleneck",
+    "YOLO13BottleneckLight",
+    "C3k2_YOLO13",
+    "YOLO13CSP",
+    "AdaptiveDown",
+    "EnhancedSPPF",
+    "ScaleAwareAttention",
+    "YOLO13Stem",
+    "MSConvBlock",
+    "LiteFusion",
+    "MSSO",
+    "DMC_Block",
+    "RXG_Fuse",
+    "GSStarBlock",
+    "GSStarCSP",
+    "GSStarUnit",
+    "GhostUnit",
+    "StarLite",
+    "C3k2_Titan",
+    "C3k_Titan",
+    "TitanBottleneck",
+    "PartialConv3x3",
+    "RepMultiKernelDW",
+    "StarOp",
+    "EMALite",
+)

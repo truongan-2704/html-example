@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['Black Rot', 'Powdery_mildew', 'Rust', 'scab']
+
+roboflow:
+  workspace: clljy
+  project: apple_leaf_detection
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/clljy/apple_leaf_detection/dataset/1

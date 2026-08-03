@@ -1,0 +1,38 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="torch" />
+          <option value="torchvision" />
+          <option value="numpy" />
+          <option value="albumentations" />
+          <option value="supervision" />
+          <option value="timm" />
+          <option value="onnx" />
+          <option value="onnxruntime-gpu" />
+          <option value="onnxslim" />
+          <option value="PyYAML" />
+          <option value="tqdm" />
+          <option value="matplotlib" />
+          <option value="pandas" />
+          <option value="tensorboard" />
+          <option value="gradio" />
+          <option value="thop" />
+          <option value="safetensors" />
+          <option value="scikit-learn" />
+          <option value="seaborn" />
+          <option value="onnx-simplifier" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyStubPackagesAdvertiser" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="pandas" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

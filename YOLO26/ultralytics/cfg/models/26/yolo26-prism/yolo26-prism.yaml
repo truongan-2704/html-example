@@ -1,0 +1,61 @@
+# Ultralytics YOLO 🚀, AGPL-3.0 license
+# ═══════════════════════════════════════════════════════════════════════════
+# YOLO26-Prism: End-to-End Frequency-Decomposed Detection Architecture
+# ═══════════════════════════════════════════════════════════════════════════
+#
+# Integrating YOLO-Prism Innovations into YOLO26:
+#   1. Backbone: C3k2_Prism (DualFreqConv + MomentContrastGate)
+#      - Dual-frequency spatial processing: LO (5x5) + HI (3x3 on parameter-free High-Pass filter)
+#      - MomentContrastGate: L2/L1 Cauchy-Schwarz concentration channel attention
+#      - e=0.25 split ratio on early stages (P2, P3) for parameter efficiency
+#   2. Attention Tail: C2PSA after SPPF for global contextual refinement before FPN
+#   3. Neck: PrismCSP (PrismBottleneck + FreqSpatialRefine)
+#      - FASR dual-frequency spatial attention (low-freq semantic map + high-freq edge map)
+#   4. Head: End-to-End NMS-Free Detection (end2end: True, reg_max: 1)
+
+nc: 80 # number of classes
+end2end: True # whether to use end-to-end NMS-free mode
+reg_max: 1 # DFL bins
+
+scales:
+  # [depth_mul, width_mul, max_channels]
+  n: [0.50, 0.25, 1024] # Prism26-n
+  s: [0.50, 0.50, 1024] # Prism26-s
+  m: [0.50, 1.00, 512]  # Prism26-m
+  l: [1.00, 1.00, 512]  # Prism26-l
+  x: [1.00, 1.50, 512]  # Prism26-x
+
+# YOLO26-Prism backbone
+backbone:
+  # [from, repeats, module, args]
+  - [-1, 1, Conv, [64, 3, 2]]                    # 0-P1/2
+  - [-1, 1, Conv, [128, 3, 2]]                   # 1-P2/4
+  - [-1, 2, C3k2_Prism, [256, False, 0.25]]      # 2-P2/4   DualFreqConv + MCG (e=0.25)
+  - [-1, 1, Conv, [256, 3, 2]]                   # 3-P3/8
+  - [-1, 2, C3k2_Prism, [512, False, 0.25]]      # 4-P3/8   DualFreqConv + MCG (e=0.25)
+  - [-1, 1, Conv, [512, 3, 2]]                   # 5-P4/16
+  - [-1, 2, C3k2_Prism, [512, True]]             # 6-P4/16  DualFreqConv + MCG (c3k=True)
+  - [-1, 1, Conv, [1024, 3, 2]]                  # 7-P5/32
+  - [-1, 2, C3k2_Prism, [1024, True]]            # 8-P5/32  DualFreqConv + MCG (c3k=True)
+  - [-1, 1, SPPF, [1024, 5, 3, True]]            # 9-P5/32  Enhanced SPPF
+  - [-1, 2, C2PSA, [1024]]                       # 10-P5/32 C2PSA Attention Tail
+
+# YOLO26-Prism head
+head:
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]   # 11 FPN P5->P4
+  - [[-1, 6], 1, Concat, [1]]                     # 12 Concat with backbone P4 (layer 6)
+  - [-1, 2, PrismCSP, [512, True]]               # 13 Prism fusion with FASR
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]   # 14 FPN P4->P3
+  - [[-1, 4], 1, Concat, [1]]                     # 15 Concat with backbone P3 (layer 4)
+  - [-1, 2, PrismCSP, [256, True]]               # 16 Prism fusion with FASR (P3/8-small)
+
+  - [-1, 1, Conv, [256, 3, 2]]                    # 17 PAN P3->P4
+  - [[-1, 13], 1, Concat, [1]]                    # 18 Concat with head P4 (layer 13)
+  - [-1, 2, PrismCSP, [512, True]]               # 19 Prism fusion with FASR (P4/16-medium)
+
+  - [-1, 1, Conv, [512, 3, 2]]                    # 20 PAN P4->P5
+  - [[-1, 10], 1, Concat, [1]]                    # 21 Concat with backbone C2PSA P5 (layer 10)
+  - [-1, 1, PrismCSP, [1024, True, 0.5, True]]   # 22 Prism fusion with FASR (P5/32-large)
+
+  - [[16, 19, 22], 1, Detect, [nc]]               # 23 Detect(P3, P4, P5)

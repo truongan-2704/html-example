@@ -1,0 +1,77 @@
+# Ultralytics YOLO 🚀, AGPL-3.0
+# YOLO12 POWER FINAL V2: Heavy Backbone (C2PSA + Triplet) + BiFPN + Full CoordAtt
+
+nc: 80
+scales:
+  n: [0.50, 0.25, 1024]
+  s: [0.50, 0.50, 1024]
+  m: [0.50, 1.00, 512]
+  l: [1.00, 1.00, 512]
+  x: [1.00, 1.50, 512]
+
+# =============================================================================
+# BACKBONE (Updated: Add C2PSA, Keep Triplet)
+# =============================================================================
+backbone:
+  - [-1, 1, Conv, [64, 3, 2]]             # 0
+  - [-1, 1, Conv, [128, 3, 2]]            # 1
+  - [-1, 2, C3k2, [256, False, 0.25]]     # 2
+  - [-1, 1, Conv, [256, 3, 2]]            # 3
+  - [-1, 2, C3k2, [512, False, 0.25]]     # 4
+  - [-1, 1, Conv, [512, 3, 2]]            # 5
+  - [-1, 2, C3k2, [512, True]]            # 6
+  - [-1, 1, Conv, [1024, 3, 2]]           # 7
+  - [-1, 2, C3k2, [1024, True]]           # 8
+  - [-1, 1, SPPF, [1024, 5]]              # 9
+
+  # ✅ BỔ SUNG C2PSA (Chuẩn bài YOLO)
+  - [-1, 1, C2PSA, [1024]]                # 10
+
+  # 🔥 Giữ lại TripletAttention (Siêu mạnh)
+  - [-1, 1, TripletAttention, [1024]]     # 11 (Output Backbone P5)
+
+# =============================================================================
+# HEAD (BiFPN + Full CoordAtt) - Index Shifted +1
+# =============================================================================
+head:
+  # === Top-down ===
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]   # 12
+  - [[-1, 6], 1, BiFPN, [256]]                   # 13
+  - [-1, 2, C3k2, [256, False]]                  # 14
+
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]   # 15
+  - [[-1, 4], 1, BiFPN, [256]]                   # 16
+  - [-1, 2, C3k2, [256, False]]                  # 17
+  - [-1, 1, CoordAtt, []]                        # 18 (Index cũ 17 -> 18)
+
+  # === P2 Loop ===
+  - [-1, 1, nn.Upsample, [None, 2, "nearest"]]   # 19
+  - [[-1, 2], 1, BiFPN, [256]]                   # 20
+  - [-1, 3, C3k2, [128, False]]                  # 21
+  - [-1, 1, CoordAtt, []]                        # 22 (Index cũ 21 -> 22)
+
+  # === Bottom-up ===
+  # P3 Output
+  - [-1, 1, Conv, [256, 3, 2]]                   # 23
+  # Input update: [-1, 4, 18] (Layer 18 là CoordAtt nhánh trên)
+  - [[-1, 4, 18], 1, BiFPN, [256]]               # 24
+  - [-1, 4, C3k2, [256, False]]                  # 25
+  - [-1, 1, CoordAtt, []]                        # 26 -> Ready P3
+
+  # P4 Output
+  - [-1, 1, Conv, [256, 3, 2]]                   # 27
+  # Input update: [-1, 6, 14] (Layer 14 là C3k2 nhánh trên)
+  - [[-1, 6, 14], 1, BiFPN, [256]]               # 28
+  - [-1, 4, C3k2, [512, False]]                  # 29
+  - [-1, 1, CoordAtt, []]                        # 30 -> Ready P4
+
+  # P5 Output
+  - [-1, 1, Conv, [256, 3, 2]]                   # 31
+  # 🔥 Input update: [-1, 11] (Nối vào Layer 11 - TripletAttention cuối Backbone)
+  - [[-1, 11], 1, BiFPN, [512]]                  # 32
+  - [-1, 2, C3k2, [1024, True]]                  # 33
+  - [-1, 1, CoordAtt, []]                        # 34 -> Ready P5
+
+  # Detect
+  # Input update: [26, 30, 34]
+  - [[26, 30, 34], 1, Detect, [nc]]
