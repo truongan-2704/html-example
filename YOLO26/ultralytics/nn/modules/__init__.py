@@ -125,6 +125,14 @@ from .aether_blocks import (
     AetherResonantCore,
 )
 
+from .orthogonal_blocks import (
+    OHRConv,
+    OrthoBottleneck,
+    C3k2_Ortho,
+    OSIFusion,
+    SESPGate,
+)
+
 from .SHSA import SHSA
 
 from .EfficientNetV2 import MBConv,FusedMBConv, SE
@@ -455,4 +463,9 @@ __all__ = (
     "AetherCSP",
     "AetherCSAF",
     "AetherResonantCore",
+    "OHRConv",
+    "OrthoBottleneck",
+    "C3k2_Ortho",
+    "OSIFusion",
+    "SESPGate",
 )

@@ -239,6 +239,11 @@ from ultralytics.nn.modules import (
     AetherCSP,
     AetherCSAF,
     AetherResonantCore,
+    OHRConv,
+    OrthoBottleneck,
+    C3k2_Ortho,
+    OSIFusion,
+    SESPGate,
 )
 from ultralytics.utils import (
     DEFAULT_CFG_DICT,
@@ -427,6 +432,8 @@ class BaseModel(torch.nn.Module):
                 if isinstance(m, RepVGGDW):
                     m.fuse()
                     m.forward = m.forward_fuse
+                if isinstance(m, (OHRConv, C3k2_Ortho, SESPGate, OSIFusion)) and hasattr(m, "fuse"):
+                    m.fuse()
                 if isinstance(m, Detect) and getattr(m, "end2end", False):
                     m.fuse()  # remove one2many head
             self.info(verbose=verbose)
@@ -2166,6 +2173,9 @@ def parse_model(d, ch, verbose=True):
             AetherBottleneck,
             C3k2_Aether,
             AetherCSP,
+            OHRConv,
+            OrthoBottleneck,
+            C3k2_Ortho,
         }
     )
     repeat_modules = frozenset(  # modules with 'repeat' arguments
@@ -2262,6 +2272,9 @@ def parse_model(d, ch, verbose=True):
             AetherBottleneck,
             C3k2_Aether,
             AetherCSP,
+            OHRConv,
+            OrthoBottleneck,
+            C3k2_Ortho,
         }
     )
     for i, (f, n, m, args) in enumerate(d["backbone"] + d["head"]):  # from, number, module, args
@@ -2292,7 +2305,7 @@ def parse_model(d, ch, verbose=True):
             if m in repeat_modules:
                 args.insert(2, n)  # number of repeats
                 n = 1
-            if m in {C3k2, C3k2_Prism, C3k2_PrismV2, C3k2_Phoenix, C3k2_Chimera, C3k2_Nexus, C3k2_Zenith, C3k2_Spectra, C3k2_SafeGuard, C3k2_YOLO13, C3k2_Aether}:  # for M/L/X sizes
+            if m in {C3k2, C3k2_Prism, C3k2_PrismV2, C3k2_Phoenix, C3k2_Chimera, C3k2_Nexus, C3k2_Zenith, C3k2_Spectra, C3k2_SafeGuard, C3k2_YOLO13, C3k2_Aether, C3k2_Ortho}:  # for M/L/X sizes
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
@@ -2359,6 +2372,14 @@ def parse_model(d, ch, verbose=True):
             c1 = [ch[x] for x in f] if isinstance(f, list) else ch[f]
             c2 = make_divisible(min(args[0], max_channels) * width, 8)
             args = [c1, c2, *args[1:]]
+        elif m is OSIFusion:
+            c1_loc, c1_glb = ch[f[0]], ch[f[1]]
+            c2 = make_divisible(min(args[0], max_channels) * width, 8)
+            args = [c1_loc, c1_glb, c2, *args[1:]]
+        elif m is SESPGate:
+            c_fine, c_coarse = ch[f[0]], ch[f[1]]
+            c2 = c_coarse
+            args = [c_fine, c_coarse]
         elif m in frozenset({TorchVision, Index}):
             c2 = args[0]
             c1 = ch[f]
