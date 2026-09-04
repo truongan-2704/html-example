@@ -38,6 +38,7 @@ from .CBAM import CBAM
 from .ECA import ECA
 
 from .AKConv import AKConv
+from .custom_af import AFConv2d, CBAM, C2f_AF, AF_Detect
 from .conv import (
     CBAM,
     ChannelAttention,
@@ -113,6 +114,15 @@ from .yolo13_blocks import (
     MSConv, GatedChannelFusion, DynamicSpatialFusion,
     YOLO13Bottleneck, YOLO13BottleneckLight, C3k2_YOLO13, YOLO13CSP,
     AdaptiveDown, EnhancedSPPF, ScaleAwareAttention, YOLO13Stem, MSConvBlock,
+)
+
+from .aether_blocks import (
+    OSMConv,
+    AetherBottleneck,
+    C3k2_Aether,
+    AetherCSP,
+    AetherCSAF,
+    AetherResonantCore,
 )
 
 from .SHSA import SHSA
@@ -436,4 +446,13 @@ __all__ = (
     "RepMultiKernelDW",
     "StarOp",
     "EMALite",
+    "AFConv2d",
+    "C2f_AF",
+    "AF_Detect",
+    "OSMConv",
+    "AetherBottleneck",
+    "C3k2_Aether",
+    "AetherCSP",
+    "AetherCSAF",
+    "AetherResonantCore",
 )

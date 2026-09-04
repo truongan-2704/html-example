@@ -12,6 +12,10 @@ import torch.nn as nn
 
 from ultralytics.nn.autobackend import check_class_names
 from ultralytics.nn.modules import (
+    AFConv2d,
+    AF_Detect,
+    C2f_AF,
+    CBAM,
     AIFI,
     C1,
     C2,
@@ -229,6 +233,12 @@ from ultralytics.nn.modules import (
     C3k2_CBAM,
     Dynamic_conv2d,
     UNetV2,
+    OSMConv,
+    AetherBottleneck,
+    C3k2_Aether,
+    AetherCSP,
+    AetherCSAF,
+    AetherResonantCore,
 )
 from ultralytics.utils import (
     DEFAULT_CFG_DICT,
@@ -2150,6 +2160,12 @@ def parse_model(d, ch, verbose=True):
             AdaptiveDown,
             EnhancedSPPF,
             MSConvBlock,
+            AFConv2d,
+            C2f_AF,
+            OSMConv,
+            AetherBottleneck,
+            C3k2_Aether,
+            AetherCSP,
         }
     )
     repeat_modules = frozenset(  # modules with 'repeat' arguments
@@ -2241,6 +2257,11 @@ def parse_model(d, ch, verbose=True):
             AdaptiveDown,
             EnhancedSPPF,
             MSConvBlock,
+            C2f_AF,
+            OSMConv,
+            AetherBottleneck,
+            C3k2_Aether,
+            AetherCSP,
         }
     )
     for i, (f, n, m, args) in enumerate(d["backbone"] + d["head"]):  # from, number, module, args
@@ -2271,7 +2292,7 @@ def parse_model(d, ch, verbose=True):
             if m in repeat_modules:
                 args.insert(2, n)  # number of repeats
                 n = 1
-            if m in {C3k2, C3k2_Prism, C3k2_PrismV2, C3k2_Phoenix, C3k2_Chimera, C3k2_Nexus, C3k2_Zenith, C3k2_Spectra, C3k2_SafeGuard, C3k2_YOLO13}:  # for M/L/X sizes
+            if m in {C3k2, C3k2_Prism, C3k2_PrismV2, C3k2_Phoenix, C3k2_Chimera, C3k2_Nexus, C3k2_Zenith, C3k2_Spectra, C3k2_SafeGuard, C3k2_YOLO13, C3k2_Aether}:  # for M/L/X sizes
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
@@ -2308,13 +2329,18 @@ def parse_model(d, ch, verbose=True):
                 Pose26,
                 OBB,
                 OBB26,
+                AF_Detect,
             }
         ):
             args.extend([reg_max, end2end, [ch[x] for x in f]])
             if m is Segment or m is YOLOESegment or m is Segment26 or m is YOLOESegment26:
                 args[2] = make_divisible(min(args[2], max_channels) * width, 8)
-            if m in {Detect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26}:
+            if m in {Detect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26, AF_Detect}:
                 m.legacy = legacy
+        elif m is CBAM:
+            c1 = ch[f]
+            c2 = c1
+            args = [c1, *args]
         elif m is SemanticSegment:
             args.append([ch[x] for x in f])  # nc, ch tuple
         elif m is v10Detect:
@@ -2329,6 +2355,10 @@ def parse_model(d, ch, verbose=True):
             args = [c1, c2, *args[1:]]
         elif m is CBFuse:
             c2 = ch[f[-1]]
+        elif m in frozenset({AetherCSAF, AetherResonantCore}):
+            c1 = [ch[x] for x in f] if isinstance(f, list) else ch[f]
+            c2 = make_divisible(min(args[0], max_channels) * width, 8)
+            args = [c1, c2, *args[1:]]
         elif m in frozenset({TorchVision, Index}):
             c2 = args[0]
             c1 = ch[f]
