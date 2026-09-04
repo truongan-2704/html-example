@@ -101,6 +101,8 @@ class OHRConv(nn.Module):
                 for i in range(c1):
                     self.conv_lap.weight[i, 0] = lap_stencil
             self.bn_lap = nn.BatchNorm2d(c1)
+            # Detail enhancer balance: avoid amplifying stain/background noise
+            nn.init.constant_(self.bn_lap.weight, 0.2)
             # 4. Identity branch (if applicable)
             self.bn_id = nn.BatchNorm2d(c2)
         else:
@@ -233,7 +235,7 @@ class C3k2_Ortho(nn.Module):
 # ─────────────────────────────────────────────────────────────────────────────
 class SESPGate(nn.Module):
     """
-    Scale-Exclusive Subspace Projection Gate (SESP-Gate).
+    Scale-Exclusive Subspace Projection Gate (SESP-Gate v2).
     
     Triệt tiêu triệt để hiện tượng trùng lặp Bounding Box giữa các tầng (BCCD dense cells).
     Takes [P_fine, P_coarse].
@@ -241,8 +243,8 @@ class SESPGate(nn.Module):
     Subtracts / zeros out fine activations from P_coarse:
         P_coarse_clean = P_coarse * (1.0 - Downsample(Sigmoid(Proj(P_fine))))
     
-    Eliminates 70-85% of redundant overlapping candidate boxes BEFORE NMS,
-    crushing NMS latency from 13.1ms down to < 1.5ms!
+    Uses smooth Conv3x3 refinement to avoid high-frequency stain noise before Detect Head,
+    preventing candidate box explosion in NMS!
     """
     def __init__(self, c_fine, c_coarse):
         super().__init__()
@@ -250,10 +252,15 @@ class SESPGate(nn.Module):
             nn.Conv2d(c_fine, 1, kernel_size=1, bias=True),
             nn.Sigmoid()
         )
-        self.refine = OHRConv(c_coarse, c_coarse, k=3, s=1)
+        # Initialize bias to -2.0 so Sigmoid(-2.0) ≈ 0.12 (clean background prior)
+        nn.init.constant_(self.proj_mask[0].bias, -2.0)
+        
+        # Smooth refinement without high-frequency Laplacian noise
+        self.refine = Conv(c_coarse, c_coarse, 3, 1)
 
     def switch_to_deploy(self):
-        self.refine.switch_to_deploy()
+        if hasattr(self.refine, "fuse"):
+            self.refine.fuse()
 
     def fuse(self):
         self.switch_to_deploy()
@@ -283,15 +290,16 @@ class SESPGate(nn.Module):
 # ─────────────────────────────────────────────────────────────────────────────
 class OSIFusion(nn.Module):
     """
-    Orthogonal Spectral Interference Fusion (OSIFusion).
+    Orthogonal Spectral Interference Fusion (OSIFusion v2).
     
     Replaces PANet Concat and BiFPN scalar weights.
     Fuses local scale feature and global context feature WITHOUT CONCATENATION:
         Y = Local + alpha * Resized(Global)
     where alpha is a learned per-channel wave mixing parameter.
     Zero channel phình, 50% less memory traffic than PANet!
+    Smooth spatial aggregation avoids injecting second-order Laplacian noise before Detect.
     """
-    def __init__(self, c_local, c_global, c_out):
+    def __init__(self, c_local, c_global, c_out, refine=True):
         super().__init__()
         self.c_out = c_out
         self.proj_loc = Conv(c_local, c_out, 1) if c_local != c_out else nn.Identity()
@@ -300,11 +308,12 @@ class OSIFusion(nn.Module):
         # Learnable per-channel interference weight (initialized to 0.5)
         self.alpha = nn.Parameter(torch.full((1, c_out, 1, 1), 0.5, dtype=torch.float32))
 
-        # Refine fused feature with deployable OHRConv
-        self.refine = OHRConv(c_out, c_out, k=3, s=1)
+        # Smooth spatial refinement (optional when followed by SESPGate)
+        self.refine = Conv(c_out, c_out, 3, 1) if refine else nn.Identity()
 
     def switch_to_deploy(self):
-        self.refine.switch_to_deploy()
+        if hasattr(self.refine, "fuse"):
+            self.refine.fuse()
 
     def fuse(self):
         self.switch_to_deploy()
