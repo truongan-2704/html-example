@@ -118,6 +118,7 @@ from .yolo13_blocks import (
 
 from .aether_blocks import (
     OSMConv,
+    RepOSMConv,
     AetherBottleneck,
     C3k2_Aether,
     AetherCSP,
@@ -458,6 +459,7 @@ __all__ = (
     "C2f_AF",
     "AF_Detect",
     "OSMConv",
+    "RepOSMConv",
     "AetherBottleneck",
     "C3k2_Aether",
     "AetherCSP",

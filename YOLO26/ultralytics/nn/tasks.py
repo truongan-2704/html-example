@@ -234,6 +234,7 @@ from ultralytics.nn.modules import (
     Dynamic_conv2d,
     UNetV2,
     OSMConv,
+    RepOSMConv,
     AetherBottleneck,
     C3k2_Aether,
     AetherCSP,
@@ -432,7 +433,7 @@ class BaseModel(torch.nn.Module):
                 if isinstance(m, RepVGGDW):
                     m.fuse()
                     m.forward = m.forward_fuse
-                if isinstance(m, (OHRConv, C3k2_Ortho, SESPGate, OSIFusion)) and hasattr(m, "fuse"):
+                if isinstance(m, (OHRConv, C3k2_Ortho, SESPGate, OSIFusion, OSMConv, RepOSMConv, C3k2_Aether, AetherCSAF, AetherResonantCore, AetherCSP, AetherBottleneck)) and hasattr(m, "fuse"):
                     m.fuse()
                 if isinstance(m, Detect) and getattr(m, "end2end", False):
                     m.fuse()  # remove one2many head
