@@ -104,6 +104,9 @@ def test_full_model(cfg_path="ultralytics/cfg/models/11/yolo11-Orthogonal/yolo11
     print(f"{'='*70}")
     pytorch_model.fuse()
     print("✓ Model.fuse() executed successfully!")
+    fused_params = sum(p.numel() for p in pytorch_model.parameters())
+    print(f"  - Fused Deployment Parameters: {fused_params:,}")
+    model.info(detailed=False)
 
     # Post-fuse forward pass & benchmark latency
     print("\nBenchmarking raw inference speed over 30 runs...")

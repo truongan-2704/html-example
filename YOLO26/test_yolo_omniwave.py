@@ -150,10 +150,21 @@ def test_individual_blocks():
     p4 = torch.randn(2, 128, 40, 40, device=device)
     p5 = torch.randn(2, 256, 20, 20, device=device)
     head = AMDetect(nc=80, ch=(64, 128, 256)).to(device)
+    head.stride = torch.tensor([8.0, 16.0, 32.0], device=device)
+    head.bias_init()
+
+    # Verify training mode returns dict for v8DetectionLoss
+    head.train()
+    out_train = head([p3, p4, p5])
+    assert isinstance(out_train, dict), f"Training output must be dict, got {type(out_train)}"
+    assert "boxes" in out_train and "scores" in out_train, "Dict must contain 'boxes' and 'scores'"
+    print(f"✓ AMDetect (Train Mode): Validated dict with boxes {tuple(out_train['boxes'].shape)}, scores {tuple(out_train['scores'].shape)}")
+
+    # Verify inference mode
     head.eval()
     with torch.no_grad():
-        out_head = head([p3, p4, p5])
-    print(f"✓ AMDetect Head:       P3/P4/P5 -> Detection shape={tuple(out_head[0].shape)}")
+        out_eval = head([p3, p4, p5])
+    print(f"✓ AMDetect (Eval Mode):  Validated detection tuple with shape {tuple(out_eval[0].shape)}")
     print("✓ All Individual Blocks Passed Successfully!")
 
 
@@ -192,11 +203,19 @@ def test_full_model_yaml():
         out = model.model(dummy_input)
         elapsed_ms = (time.perf_counter() - t0) * 1000
 
-    print(f"✓ Forward Pass Succeeded in {elapsed_ms:.2f} ms")
+    print(f"✓ Eval Forward Pass Succeeded in {elapsed_ms:.2f} ms")
     if isinstance(out, (tuple, list)):
         print(f"✓ Raw Model Output Shape: {tuple(out[0].shape)}")
     else:
         print(f"✓ Raw Model Output Shape: {tuple(out.shape)}")
+
+    # Test Training Forward Pass (validates compatibility with v8DetectionLoss)
+    model.model.train()
+    with torch.no_grad():
+        out_train = model.model(dummy_input)
+    assert isinstance(out_train, dict), f"Model in train mode must return dict, got {type(out_train)}"
+    assert "boxes" in out_train and "scores" in out_train, "Dict must contain 'boxes' and 'scores'"
+    print(f"✓ Train Forward Pass Succeeded -> Validated dict with 'boxes' {tuple(out_train['boxes'].shape)} for v8DetectionLoss")
 
     # Test model.fuse()
     print("\nExecuting model.fuse()...")

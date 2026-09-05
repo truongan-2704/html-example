@@ -40,7 +40,7 @@ backbone:
 
   # ── Stage 1: P1 → P2 ──
   - [-1, 1, Conv, [128, 3, 2]]                  # 1-P2/4 (32 ch)
-  - [-1, 2, C3k2_Ortho, [256, False, 0.25]]     # 2-P2/4 (64 ch)
+  - [-1, 2, C3k2, [256, False, 0.25]]           # 2-P2/4 (64 ch - tiết kiệm GFLOPs ở độ phân giải 160x160)
 
   # ── Stage 2: P2 → P3 (small objects) ──
   - [-1, 1, Conv, [256, 3, 2]]                  # 3-P3/8 (64 ch)
@@ -52,29 +52,33 @@ backbone:
 
   # ── Stage 4: P4 → P5 (large objects) ──
   - [-1, 1, Conv, [1024, 3, 2]]                 # 7-P5/32 (256 ch)
-  - [-1, 2, C3k2_Ortho, [1024, True]]           # 8-P5/32 (Backbone P5, 256 ch)
+  - [-1, 2, C3k2_Ortho, [1024, False, 0.25]]    # 8-P5/32 (Backbone P5, 256 ch - tối ưu nhẹ)
   - [-1, 1, SPPF, [1024, 5]]                    # 9-P5/32 (Backbone P5, 256 ch)
+  - [-1, 1, SimAM, []]                          # 10-P5/32 (3D Attention không tham số, 0 params)
 
 head:
   # ════════════════════════ Top-Down Semantic Wave ════════════════════════
-  # Wave 1: Fuse P4 (from 6, 128ch) and P5 (from 9, 256ch) without Concat!
-  - [[6, 9], 1, OSIFusion, [512]]               # 10 P4_td_fused (128 ch @ 40x40)
-  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 11 P4_td_refined (128 ch @ 40x40)
+  # Wave 1: Fuse P4 (from 6, 128ch) and P5 (from 10, 256ch) without Concat!
+  - [[6, 10], 1, OSIFusion, [512]]              # 11 P4_td_fused (128 ch @ 40x40)
+  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 12 P4_td_refined (128 ch @ 40x40)
 
-  # Wave 2: Fuse P3 (from 4, 128ch) and P4 (from 11, 128ch) without Concat!
-  - [[4, 11], 1, OSIFusion, [256]]              # 12 P3_out_fused (64 ch @ 80x80)
-  - [-1, 1, C3k2_Ortho, [256, False, 0.25]]     # 13 P3_out_refined (64 ch @ 80x80, small objects)
+  # Wave 2: Fuse P3 (from 4, 128ch) and P4 (from 12, 128ch) without Concat!
+  - [[4, 12], 1, OSIFusion, [256]]              # 13 P3_out_fused (64 ch @ 80x80)
+  - [-1, 1, C3k2_Ortho, [256, False, 0.375]]    # 14 P3_out_refined (64 ch @ 80x80, tăng cường tiểu cầu)
 
   # ════════════════════════ Bottom-Up Detail Wave ════════════════════════
   # Detail Wave 1: Send fine boundary details from P3 UP into P4
-  - [-1, 1, Conv, [256, 3, 2]]                  # 14 P3 -> P4 downsample (64 ch @ 40x40)
-  - [[11, 14], 1, OSIFusion, [512]]             # 15 P4_bu_fused (128 ch @ 40x40)
-  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 16 P4_out_refined (128 ch @ 40x40, medium objects)
+  - [-1, 1, Conv, [256, 3, 2]]                  # 15 P3 -> P4 downsample (64 ch @ 40x40)
+  - [[12, 15], 1, OSIFusion, [512]]             # 16 P4_bu_fused (128 ch @ 40x40)
+  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 17 P4_out_refined (128 ch @ 40x40, medium objects)
 
   # Detail Wave 2: Send enriched details from P4 UP into P5
-  - [-1, 1, Conv, [512, 3, 2]]                  # 17 P4 -> P5 downsample (128 ch @ 20x20)
-  - [[9, 17], 1, OSIFusion, [1024]]             # 18 P5_bu_fused (256 ch @ 20x20)
-  - [-1, 1, C3k2_Ortho, [1024, False, 0.25]]    # 19 P5_out_refined (256 ch @ 20x20, large objects)
+  - [-1, 1, Conv, [512, 3, 2]]                  # 18 P4 -> P5 downsample (128 ch @ 20x20)
+  - [[10, 18], 1, OSIFusion, [1024]]            # 19 P5_bu_fused (256 ch @ 20x20)
+  - [-1, 1, C3k2_Ortho, [1024, False, 0.25]]    # 20 P5_out_refined (256 ch @ 20x20, large objects)
 
   # ════════════════════════ Detection Head ════════════════════════
-  - [[13, 16, 19], 1, Detect, [nc]]             # 20 Detect(P3, P4, P5)
+  - [[14, 17, 20], 1, Detect, [nc]]             # 21 Detect(P3, P4, P5)
+
+
+

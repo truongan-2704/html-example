@@ -21,6 +21,7 @@ Core Innovations:
 
 from __future__ import annotations
 
+import copy
 import math
 import torch
 import torch.nn as nn
@@ -28,6 +29,7 @@ import torch.nn.functional as F
 
 from ultralytics.nn.modules.block import DFL
 from ultralytics.nn.modules.conv import Conv, DWConv
+from ultralytics.nn.modules.head import Detect
 from ultralytics.utils.tal import dist2bbox, make_anchors
 
 __all__ = [
@@ -392,53 +394,37 @@ class OmniWaveCSP(nn.Module):
 # 7. ASYMMETRIC MANIFOLD DECOUPLED HEAD (AMDetect) — ULTRA-EFFICIENT
 # ─────────────────────────────────────────────────────────────────────────────
 
-class AMDetect(nn.Module):
+class AMDetect(Detect):
     """
     Asymmetric Manifold Decoupled Head (AMDetect) — Ultra-Efficient Edition.
     
     Key Highlights:
-      1. Low-Rank Manifold Conditioning: Classification semantic features dynamically
+      1. Inherits from Detect to maintain 100% compatibility with Ultralytics loss, validation,
+         and export workflows (eliminates TypeError in v8DetectionLoss).
+      2. Low-Rank Manifold Conditioning: Classification semantic features dynamically
          modulate regression features via rank-compressed projection.
-      2. Depthwise Separable Regression: Eliminates heavy 3x3 standard convolutions in cv2,
+      3. Depthwise Separable Regression: Eliminates heavy 3x3 standard convolutions in cv2,
          cutting Head parameters by >45%.
-      3. Zero Task Misalignment: Strictly conditions bounding box regression on peak class semantics.
+      4. Zero Task Misalignment: Strictly conditions bounding box regression on peak class semantics.
     """
-    dynamic = False
-    export = False
-    format = None
-    max_det = 300
-    agnostic_nms = False
-    shape = None
-    anchors = torch.empty(0)
-    strides = torch.empty(0)
-    legacy = False
-    xyxy = False
-
     def __init__(self, nc: int = 80, reg_max: int = 16, end2end: bool = False, ch: tuple = ()):
-        super().__init__()
-        self.nc = nc
-        self.nl = len(ch)
-        self.reg_max = reg_max
-        self.no = nc + self.reg_max * 4
-        self.stride = torch.zeros(self.nl)
-
+        super().__init__(nc=nc, reg_max=reg_max, end2end=end2end, ch=ch)
         c2 = max((16, ch[0] // 4, self.reg_max * 4))
         c3 = max(ch[0], min(self.nc, 100))
 
-        # Classification branch: Depthwise separable semantic feature extractors
-        self.cv3 = nn.ModuleList(
+        # Classification branch stem
+        self.cv3_stem = nn.ModuleList(
             nn.Sequential(
                 DWConv(x, x, 3),
                 Conv(x, c3, 1),
                 DWConv(c3, c3, 3),
                 Conv(c3, c3, 1),
-                nn.Conv2d(c3, self.nc, 1),
             )
             for x in ch
         )
+        self.cv3_cls = nn.ModuleList(nn.Conv2d(c3, self.nc, 1) for _ in ch)
 
-        # Low-Rank Dynamic Manifold Generators (Conditioning vector for regression)
-        # Compresses c3 -> 16 -> c2*2 to minimize parameters
+        # Dynamic Low-Rank Manifold Conditioner
         self.manifold_proj = nn.ModuleList(
             nn.Sequential(
                 nn.Conv2d(c3, 16, 1, bias=False),
@@ -448,7 +434,7 @@ class AMDetect(nn.Module):
             for _ in ch
         )
 
-        # Regression branch: Lightweight depthwise separable layers modulated by manifold
+        # Regression branch (lightweight depthwise separable)
         self.cv2 = nn.ModuleList(
             nn.Sequential(
                 Conv(x, c2, 1),
@@ -458,53 +444,59 @@ class AMDetect(nn.Module):
             for x in ch
         )
 
-        self.dfl = DFL(self.reg_max) if self.reg_max > 1 else nn.Identity()
+        # Wrap into standard cv3 for compatibility with downstream tools and bias_init
+        self.cv3 = nn.ModuleList(
+            nn.Sequential(self.cv3_stem[i], self.cv3_cls[i]) for i in range(self.nl)
+        )
 
-    def forward(self, x: list[torch.Tensor]) -> tuple[torch.Tensor, list[torch.Tensor]] | dict[str, torch.Tensor] | torch.Tensor:
+        if end2end:
+            self.one2one_cv2 = copy.deepcopy(self.cv2)
+            self.one2one_cv3 = copy.deepcopy(self.cv3)
+
+    def forward_head(
+        self, x: list[torch.Tensor], box_head: torch.nn.Module = None, cls_head: torch.nn.Module = None
+    ) -> dict[str, torch.Tensor]:
+        """Concatenates and returns predicted bounding boxes and class probabilities."""
+        if box_head is None or cls_head is None:
+            return dict()
+        bs = x[0].shape[0]
+        boxes_list = []
+        scores_list = []
         for i in range(self.nl):
-            # Extract intermediate semantic feature (first 4 layers of cv3)
-            feat_cls = self.cv3[i][:4](x[i])
-            cls_out = self.cv3[i][4](feat_cls)
+            # 1. Classification features and class predictions
+            curr_cls = cls_head[i] if cls_head is not None else self.cv3[i]
+            if isinstance(curr_cls, nn.Sequential) and len(curr_cls) == 2:
+                feat_cls = curr_cls[0](x[i])
+                score = curr_cls[1](feat_cls)
+            else:
+                feat_cls = self.cv3_stem[i](x[i])
+                score = self.cv3_cls[i](feat_cls)
 
-            # Low-rank manifold condition
+            # 2. Dynamic Asymmetric Manifold Conditioning (Scale & Shift modulation)
             cond = self.manifold_proj[i](feat_cls)
             gamma, beta = cond.chunk(2, dim=1)
             scale = 1.0 + torch.tanh(gamma)
             shift = beta
 
-            # Modulate regression feature
-            reg_feat = self.cv2[i][0](x[i])
-            reg_feat = self.cv2[i][1](reg_feat) * scale + shift
-            box_out = self.cv2[i][2](reg_feat)
+            # 3. Modulate regression branch
+            reg_feat = box_head[i][0](x[i])
+            reg_feat = box_head[i][1](reg_feat) * scale + shift
+            box = box_head[i][2](reg_feat)
 
-            x[i] = torch.cat((box_out, cls_out), 1)
+            boxes_list.append(box.view(bs, 4 * self.reg_max, -1))
+            scores_list.append(score.view(bs, self.nc, -1))
 
-        if self.training:
-            return x
-
-        y = self._inference(x)
-        return y if self.export else (y, x)
-
-    def _inference(self, x: list[torch.Tensor]) -> torch.Tensor:
-        shape = x[0].shape
-        x_cat = torch.cat([xi.view(shape[0], self.no, -1) for xi in x], 2)
-        if self.dynamic or self.shape != shape:
-            self.anchors, self.strides = (x.transpose(0, 1) for x in make_anchors(x, self.stride, 0.5))
-            self.shape = shape
-
-        box, cls = x_cat.split((self.reg_max * 4, self.nc), 1)
-        lt, rb = self.dfl(box).chunk(2, 1)
-        x1y1 = self.anchors.unsqueeze(0) - lt
-        x2y2 = self.anchors.unsqueeze(0) + rb
-        dbbox = torch.cat((x1y1, x2y2), 1)
-        if not self.xyxy:
-            dbbox = dist2bbox(self.dfl(box), self.anchors.unsqueeze(0), xywh=True, dim=1)
-        dbbox = dbbox * self.strides
-
-        return torch.cat((dbbox, cls.sigmoid()), 1)
+        boxes = torch.cat(boxes_list, dim=-1)
+        scores = torch.cat(scores_list, dim=-1)
+        return dict(boxes=boxes, scores=scores, feats=x)
 
     def bias_init(self):
-        m = self
-        for a, b, s in zip(m.cv2, m.cv3, m.stride):
-            a[-1].bias.data[:] = 1.0
-            b[-1].bias.data[: m.nc] = math.log(5 / m.nc / (640 / s) ** 2)
+        """Initialize detection head biases."""
+        for i, (a, b, s) in enumerate(zip(self.cv2, self.cv3_cls, self.stride)):
+            a[-1].bias.data[:] = 2.0  # box
+            b.bias.data[: self.nc] = math.log(5 / self.nc / (640 / s) ** 2)  # cls
+        if self.end2end:
+            for i, (a, b, s) in enumerate(zip(self.one2one_cv2, self.one2one_cv3, self.stride)):
+                a[-1].bias.data[:] = 2.0
+                b[-1].bias.data[: self.nc] = math.log(5 / self.nc / (640 / s) ** 2)
+
