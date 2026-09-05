@@ -275,6 +275,8 @@ class OSIFusion(nn.Module):
             Conv(c_out, c_out, 1, act=False),
             nn.Sigmoid()
         )
+        # Batch normalization to stabilize activation scale and prevent logit drift
+        self.bn = nn.BatchNorm2d(c_out)
 
     def switch_to_deploy(self):
         if hasattr(self.proj_loc, "fuse"):
@@ -300,7 +302,7 @@ class OSIFusion(nn.Module):
 
         # Dynamic Modulation: global context modulates local detail channels
         g = self.gate(feat_glb)
-        return feat_loc * (1.0 + g) + feat_glb
+        return self.bn(feat_loc * (1.0 + g) + feat_glb)
 
 
 HCMFusion = OSIFusion

@@ -23,6 +23,7 @@
 #      - Sharp, confident classification suppresses false-positive proposals, crushing NMS latency!
 
 nc: 80
+end2end: True # Enable NMS-Free End-to-End dual label assignment (crushing postprocess to ~0.1ms)
 scales:
   # [depth_mul, width_mul, max_channels]
   n: [0.50, 0.25, 1024]    # Orthogonal-n: ~2.1M params (fused), 5.8 GFLOPs (< 1.8ms)
