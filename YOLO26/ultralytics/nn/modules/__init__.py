@@ -128,9 +128,11 @@ from .aether_blocks import (
 
 from .orthogonal_blocks import (
     OHRConv,
+    ODRConv,
     OrthoBottleneck,
     C3k2_Ortho,
     OSIFusion,
+    HCMFusion,
     SESPGate,
 )
 
@@ -466,8 +468,10 @@ __all__ = (
     "AetherCSAF",
     "AetherResonantCore",
     "OHRConv",
+    "ODRConv",
     "OrthoBottleneck",
     "C3k2_Ortho",
     "OSIFusion",
+    "HCMFusion",
     "SESPGate",
 )
