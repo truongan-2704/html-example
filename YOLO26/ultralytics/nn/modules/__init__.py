@@ -136,6 +136,20 @@ from .orthogonal_blocks import (
     SESPGate,
 )
 
+from .omniwave_blocks import (
+    DWT2D,
+    IDWT2D,
+    LinearSSMCore,
+    HighFreqEdgeGate,
+    WaveletSSMCore,
+    RepOWConv,
+    OWBottleneck,
+    OWBottleneckLight,
+    C3k2_OmniWave,
+    OmniWaveCSP,
+    AMDetect,
+)
+
 from .SHSA import SHSA
 
 from .EfficientNetV2 import MBConv,FusedMBConv, SE
@@ -474,4 +488,15 @@ __all__ = (
     "OSIFusion",
     "HCMFusion",
     "SESPGate",
+    "DWT2D",
+    "IDWT2D",
+    "LinearSSMCore",
+    "HighFreqEdgeGate",
+    "WaveletSSMCore",
+    "RepOWConv",
+    "OWBottleneck",
+    "OWBottleneckLight",
+    "C3k2_OmniWave",
+    "OmniWaveCSP",
+    "AMDetect",
 )
