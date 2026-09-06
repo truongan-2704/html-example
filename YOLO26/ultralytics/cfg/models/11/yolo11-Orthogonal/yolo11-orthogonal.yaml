@@ -43,17 +43,17 @@ backbone:
   - [-1, 1, Conv, [128, 3, 2]]                  # 1-P2/4 (32 ch)
   - [-1, 1, C3k2, [256, False, 0.25]]           # 2-P2/4 (64 ch)
 
-  # ── Stage 2: P2 → P3 (small objects & platelets: enriched e=0.5 bandwidth) ──
+  # ── Stage 2: P2 → P3 (small objects & platelets) ──
   - [-1, 1, Conv, [256, 3, 2]]                  # 3-P3/8 (64 ch)
-  - [-1, 1, C3k2_Ortho, [512, False, 0.5]]      # 4-P3/8 (Backbone P3, 128 ch, e=0.5: +47k params)
+  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 4-P3/8 (Backbone P3, 128 ch)
 
   # ── Stage 3: P3 → P4 (medium objects & leukocytes) ──
   - [-1, 1, Conv, [512, 3, 2]]                  # 5-P4/16 (128 ch)
   - [-1, 1, C3k2_Ortho, [512, True]]            # 6-P4/16 (Backbone P4, 128 ch, c3k=True)
 
-  # ── Stage 4: P4 → P5 (large objects & global semantics: c3k=True multi-branch) ──
+  # ── Stage 4: P4 → P5 (large objects & global semantics) ──
   - [-1, 1, Conv, [1024, 3, 2]]                 # 7-P5/32 (256 ch)
-  - [-1, 1, C3k2_Ortho, [1024, True]]           # 8-P5/32 (Backbone P5, 256 ch, c3k=True: +156k params)
+  - [-1, 1, C3k2_Ortho, [1024, False, 0.25]]    # 8-P5/32 (Backbone P5, 256 ch)
   - [-1, 1, SPPF, [1024, 5]]                    # 9-P5/32 (Backbone P5, 256 ch)
   - [-1, 1, SimAM, []]                          # 10-P5/32 (Parameter-free 3D attention)
 
@@ -61,17 +61,17 @@ head:
   # ════════════════════════ Top-Down Semantic Wave (100% Zero-Concat) ════════════════════════
   # Wave 1: Zero-Concat Scale Integration of P4 (from 6, 128ch) and P5 (from 10, 256ch)
   - [[6, 10], 1, OSIFusion, [512]]              # 11 P4_td_fused (128 ch @ 40x40)
-  - [-1, 1, C3k2_Ortho, [512, False, 0.5]]      # 12 P4_td_refined (128 ch @ 40x40, e=0.5: +51k params)
+  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 12 P4_td_refined (128 ch @ 40x40)
 
   # Wave 2: Zero-Concat Scale Integration of P3 (from 4, 128ch) and P4 (from 12, 128ch)
   - [[4, 12], 1, OSIFusion, [256]]              # 13 P3_out_fused (64 ch @ 80x80)
-  - [-1, 1, C3k2_Ortho, [256, True]]            # 14 P3_out_refined (64 ch @ 80x80, c3k=True OrthoC3k Platelet boost: +4k params)
+  - [-1, 1, C3k2_Ortho, [256, False, 0.375]]    # 14 P3_out_refined (64 ch @ 80x80)
 
   # ════════════════════════ Bottom-Up Detail Wave (100% Zero-Concat) ════════════════════════
   # Detail Wave 1: Send fine boundary details from P3 UP into P4 (Zero-Concat!)
   - [-1, 1, Conv, [256, 3, 2]]                  # 15 P3 -> P4 downsample (64 ch @ 40x40)
   - [[12, 15], 1, OSIFusion, [512]]             # 16 P4_bu_fused (128 ch @ 40x40)
-  - [-1, 1, C3k2_Ortho, [512, True]]            # 17 P4_out_refined (128 ch @ 40x40, c3k=True Leukocyte boost: +39k params)
+  - [-1, 1, C3k2_Ortho, [512, False, 0.25]]     # 17 P4_out_refined (128 ch @ 40x40)
 
   # Detail Wave 2: Send enriched details from P4 UP into P5 (Zero-Concat!)
   - [-1, 1, Conv, [512, 3, 2]]                  # 18 P4 -> P5 downsample (128 ch @ 20x20)
