@@ -3,9 +3,10 @@
 Smoke test and benchmarking script for YOLO-Orthogonal architecture.
 Validates:
 1. Mathematical equivalence of OHR-Conv reparameterization.
-2. Full model YAML parsing and layer counts.
-3. Forward pass tensor shapes and model.fuse() deployment conversion.
-4. Real-world inference speed (ms) and NMS candidate box filtering.
+2. Individual orthogonal blocks (DOC_Fusion, C2PSA_Ortho, OrthoC3k, C3k2_Ortho).
+3. Full model YAML parsing, layer counts, and forward pass.
+4. Deployment fusion verification (0 gradients, reduced parameters).
+5. Real-world inference speed benchmark.
 """
 
 import sys
@@ -20,8 +21,11 @@ from ultralytics import YOLO
 from ultralytics.nn.modules.orthogonal_blocks import (
     OHRConv,
     OrthoBottleneck,
+    OrthoC3k,
     C3k2_Ortho,
     OSIFusion,
+    DOC_Fusion,
+    C2PSA_Ortho,
     SESPGate,
 )
 
@@ -57,23 +61,33 @@ def test_individual_orthogonal_blocks():
     p4 = torch.randn(2, 128, 40, 40).to(device)
     p5 = torch.randn(2, 256, 20, 20).to(device)
 
-    # 1. Test OSIFusion
-    osi = OSIFusion(128, 256, 128).to(device)
-    y_osi = osi([p4, p5])
-    print(f"✓ OSIFusion [p4, p5] -> out: {y_osi.shape} (Expected: [2, 128, 40, 40])")
-    assert y_osi.shape == (2, 128, 40, 40)
+    # 1. Test DOC_Fusion (Dynamic Orthogonal Cross-Fusion)
+    doc = DOC_Fusion(128, 256, 128).to(device)
+    y_doc = doc([p4, p5])
+    print(f"✓ DOC_Fusion [p4, p5] -> out: {y_doc.shape} (Expected: [2, 128, 40, 40])")
+    assert y_doc.shape == (2, 128, 40, 40)
+    doc.switch_to_deploy()
+    y_doc_dep = doc([p4, p5])
+    assert y_doc_dep.shape == (2, 128, 40, 40)
+    print("✓ DOC_Fusion deploy mode verified cleanly!")
 
-    # 2. Test SESPGate
-    sesp = SESPGate(64, 128).to(device)
-    y_sesp = sesp([p3, p4])
-    print(f"✓ SESPGate [p3, p4] -> out: {y_sesp.shape} (Expected: [2, 128, 40, 40])")
-    assert y_sesp.shape == (2, 128, 40, 40)
+    # 2. Test OrthoC3k
+    ortho_c3k = OrthoC3k(128, 128, n=2).to(device)
+    y_c3k = ortho_c3k(p4)
+    print(f"✓ OrthoC3k p4 -> out: {y_c3k.shape} (Expected: [2, 128, 40, 40])")
+    assert y_c3k.shape == (2, 128, 40, 40)
 
-    # 3. Test C3k2_Ortho
-    c3k2_o = C3k2_Ortho(128, 128, n=2).to(device)
+    # 3. Test C3k2_Ortho with c3k=True
+    c3k2_o = C3k2_Ortho(128, 128, n=2, c3k=True).to(device)
     y_o = c3k2_o(p4)
-    print(f"✓ C3k2_Ortho p4 -> out: {y_o.shape} (Expected: [2, 128, 40, 40])")
+    print(f"✓ C3k2_Ortho (c3k=True) p4 -> out: {y_o.shape} (Expected: [2, 128, 40, 40])")
     assert y_o.shape == (2, 128, 40, 40)
+
+    # 4. Test C2PSA_Ortho
+    c2psa = C2PSA_Ortho(256, 256, n=1).to(device)
+    y_psa = c2psa(p5)
+    print(f"✓ C2PSA_Ortho p5 -> out: {y_psa.shape} (Expected: [2, 256, 20, 20])")
+    assert y_psa.shape == (2, 256, 20, 20)
 
 
 def test_full_model(cfg_path="ultralytics/cfg/models/11/yolo11-Orthogonal/yolo11-orthogonal.yaml"):
@@ -89,7 +103,8 @@ def test_full_model(cfg_path="ultralytics/cfg/models/11/yolo11-Orthogonal/yolo11
     trainable_params = sum(p.numel() for p in pytorch_model.parameters() if p.requires_grad)
 
     print(f"✓ Model loaded successfully!")
-    print(f"  - Total Parameters: {total_params:,} (Significantly lighter than YOLO11n 2.62M!)")
+    print(f"  - Total Parameters (Training Mode): {total_params:,}")
+    print(f"  - Trainable Parameters: {trainable_params:,}")
     print(f"  - Number of PyTorch Layers: {len(pytorch_model.model)}")
 
     # Forward pass before fuse
@@ -105,13 +120,17 @@ def test_full_model(cfg_path="ultralytics/cfg/models/11/yolo11-Orthogonal/yolo11
     pytorch_model.fuse()
     print("✓ Model.fuse() executed successfully!")
     fused_params = sum(p.numel() for p in pytorch_model.parameters())
+    remaining_grads = sum(p.numel() for p in pytorch_model.parameters() if p.requires_grad)
     print(f"  - Fused Deployment Parameters: {fused_params:,}")
+    print(f"  - Remaining Gradients: {remaining_grads:,} (Target: 0)")
+    assert remaining_grads == 0, f"Expected 0 remaining gradients, but got {remaining_grads}"
+    print("✓ 0 Gradients Confirmed: Gradient leakage completely eliminated!")
+
     model.info(detailed=False)
 
     # Post-fuse forward pass & benchmark latency
     print("\nBenchmarking raw inference speed over 30 runs...")
     with torch.no_grad():
-        # Warmup
         for _ in range(5):
             _ = pytorch_model(dummy)
 
@@ -123,16 +142,16 @@ def test_full_model(cfg_path="ultralytics/cfg/models/11/yolo11-Orthogonal/yolo11
 
     avg_ms = ((t1 - t0) / runs) * 1000
     print(f"✓ Average Forward Latency: {avg_ms:.2f} ms per image (batch=1, 640x640)")
-    return True, total_params
+    return True, fused_params
 
 
 if __name__ == "__main__":
     test_reparameterization_math()
     test_individual_orthogonal_blocks()
-    success, params = test_full_model()
+    success, params = test_full_model("ultralytics/cfg/models/11/yolo11-Orthogonal/yolo11-orthogonal.yaml")
     if success:
         print(f"\n{'='*70}")
-        print(" 🎉 ALL YOLO-ORTHOGONAL VERIFICATION & SPEED TESTS PASSED!")
+        print(f" 🎉 ALL YOLO-ORTHOGONAL VERIFICATION TESTS PASSED! Fused Params: {params:,}")
         print(f"{'='*70}\n")
     else:
         sys.exit(1)

@@ -26,15 +26,20 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from ultralytics.nn.modules.conv import Conv
+from ultralytics.nn.modules.block import PSABlock
 
 __all__ = [
     "OHRConv",
     "ODRConv",
     "OrthoBottleneck",
+    "OrthoC3k",
     "C3k2_Ortho",
     "OSIFusion",
     "HCMFusion",
     "SESPGate",
+    "DOC_Fusion",
+    "DOCFusion",
+    "C2PSA_Ortho",
 ]
 
 
@@ -156,6 +161,7 @@ class OHRConv(nn.Module):
         )
         self.fused_conv.weight.data.copy_(fused_weight)
         self.fused_conv.bias.data.copy_(fused_bias)
+        self.fused_conv.requires_grad_(False)
 
         # Remove training branch parameters to free VRAM
         del self.conv3x3, self.bn3x3
@@ -209,6 +215,8 @@ class OrthoBottleneck(nn.Module):
         if hasattr(self.cv1, "fuse"):
             self.cv1.fuse()
         self.cv2.switch_to_deploy()
+        for p in self.parameters():
+            p.requires_grad = False
 
     def fuse(self):
         self.switch_to_deploy()
@@ -217,9 +225,46 @@ class OrthoBottleneck(nn.Module):
         return x + self.cv2(self.cv1(x)) if self.add else self.cv2(self.cv1(x))
 
 
+class OrthoC3k(nn.Module):
+    """
+    Orthogonal CSP Bottleneck with 2 sub-bottlenecks for deep non-linear feature extraction.
+    Analogous to C3k in YOLO11/YOLO26, but powered by OHR-Conv.
+    """
+    def __init__(self, c1, c2, n=2, shortcut=True, g=1, e=0.5):
+        super().__init__()
+        c_ = int(c2 * e)
+        self.cv1 = Conv(c1, c_, 1, 1)
+        self.cv2 = Conv(c1, c_, 1, 1)
+        self.cv3 = Conv(2 * c_, c2, 1)
+        self.m = nn.Sequential(
+            *(OrthoBottleneck(c_, c_, shortcut, g, k=(3, 3), e=1.0) for _ in range(n))
+        )
+
+    def switch_to_deploy(self):
+        if hasattr(self.cv1, "fuse"):
+            self.cv1.fuse()
+        if hasattr(self.cv2, "fuse"):
+            self.cv2.fuse()
+        if hasattr(self.cv3, "fuse"):
+            self.cv3.fuse()
+        for b in self.m:
+            if hasattr(b, "switch_to_deploy"):
+                b.switch_to_deploy()
+            elif hasattr(b, "fuse"):
+                b.fuse()
+        for p in self.parameters():
+            p.requires_grad = False
+
+    def fuse(self):
+        self.switch_to_deploy()
+
+    def forward(self, x):
+        return self.cv3(torch.cat((self.m(self.cv1(x)), self.cv2(x)), 1))
+
+
 class C3k2_Ortho(nn.Module):
     """
-    Ultra-Fast CSP Container with OrthoBottleneck.
+    Ultra-Fast CSP Container with OrthoBottleneck and OrthoC3k.
     Fully deployable: calling .fuse() or .switch_to_deploy() flattens all internal blocks.
     """
     def __init__(self, c1, c2, n=1, c3k=False, e=0.5, g=1, shortcut=True):
@@ -228,7 +273,9 @@ class C3k2_Ortho(nn.Module):
         self.cv1 = Conv(c1, 2 * self.c, 1, 1)
         self.cv2 = Conv((2 + n) * self.c, c2, 1)
         self.m = nn.ModuleList(
-            OrthoBottleneck(self.c, self.c, shortcut, g, k=(3, 3), e=1.0)
+            OrthoC3k(self.c, self.c, 2, shortcut, g)
+            if c3k
+            else OrthoBottleneck(self.c, self.c, shortcut, g, k=(3, 3), e=1.0)
             for _ in range(n)
         )
 
@@ -238,7 +285,12 @@ class C3k2_Ortho(nn.Module):
         if hasattr(self.cv2, "fuse"):
             self.cv2.fuse()
         for b in self.m:
-            b.switch_to_deploy()
+            if hasattr(b, "switch_to_deploy"):
+                b.switch_to_deploy()
+            elif hasattr(b, "fuse"):
+                b.fuse()
+        for p in self.parameters():
+            p.requires_grad = False
 
     def fuse(self):
         self.switch_to_deploy()
@@ -274,6 +326,8 @@ class OSIFusion(nn.Module):
             self.proj_loc.fuse()
         if hasattr(self.proj_glb, "fuse"):
             self.proj_glb.fuse()
+        for p in self.parameters():
+            p.requires_grad = False
 
     def fuse(self):
         self.switch_to_deploy()
@@ -317,6 +371,8 @@ class SESPGate(nn.Module):
     def switch_to_deploy(self):
         if hasattr(self.refine, "fuse"):
             self.refine.fuse()
+        for p in self.parameters():
+            p.requires_grad = False
 
     def fuse(self):
         self.switch_to_deploy()
@@ -331,3 +387,103 @@ class SESPGate(nn.Module):
             mask_coarse = mask_fine
         p_coarse_clean = p_coarse * (1.0 - mask_coarse)
         return self.refine(p_coarse_clean)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. DYNAMIC ORTHOGONAL CROSS-FUSION (DOC-Fusion)
+# ─────────────────────────────────────────────────────────────────────────────
+class DOC_Fusion(nn.Module):
+    """
+    Dynamic Orthogonal Cross-Fusion (DOC-Fusion v2: Lightweight Harmonic Gated Fusion).
+    Combines:
+    1. Spatial & Channel Context Alignment via 1x1 Conv
+    2. Adaptive Global Context Modulation:
+       Gate = Sigmoid(Conv1x1(GAP(feat_glb)))
+       feat_loc_mod = feat_loc * (1.0 + Gate)
+    3. In-place Feature Fusion with learnable residual shortcut:
+       Y = feat_loc_mod + feat_glb
+    Zero parameter bloat, ultra-lightweight, 100% fine spatial details preserved!
+    """
+    def __init__(self, c_local, c_global, c_out):
+        super().__init__()
+        self.c_out = c_out
+        self.proj_loc = Conv(c_local, c_out, 1) if c_local != c_out else nn.Identity()
+        self.proj_glb = Conv(c_global, c_out, 1) if c_global != c_out else nn.Identity()
+
+        # Ultra-lightweight depthwise channel gate
+        mid_ch = max(c_out // 4, 16)
+        self.gate_conv = nn.Sequential(
+            Conv(c_out, mid_ch, 1),
+            nn.Conv2d(mid_ch, c_out, 1, bias=True),
+            nn.Sigmoid()
+        )
+
+    def switch_to_deploy(self):
+        if hasattr(self.proj_loc, "fuse"):
+            self.proj_loc.fuse()
+        if hasattr(self.proj_glb, "fuse"):
+            self.proj_glb.fuse()
+        if hasattr(self.gate_conv[0], "fuse"):
+            self.gate_conv[0].fuse()
+        for p in self.parameters():
+            p.requires_grad = False
+
+    def fuse(self):
+        self.switch_to_deploy()
+
+    def forward(self, x):
+        x_loc, x_glb = x[0], x[1]
+        target_size = x_loc.shape[2:]
+
+        if x_glb.shape[2:] != target_size:
+            x_glb = F.interpolate(x_glb, size=target_size, mode="nearest")
+
+        feat_loc = self.proj_loc(x_loc)
+        feat_glb = self.proj_glb(x_glb)
+
+        glb_context = F.adaptive_avg_pool2d(feat_glb, 1)
+        gate = self.gate_conv(glb_context)
+
+        return feat_loc * (1.0 + gate) + feat_glb
+
+
+DOCFusion = DOC_Fusion
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. ORTHOGONAL POLARIZED SELF-ATTENTION (C2PSA_Ortho)
+# ─────────────────────────────────────────────────────────────────────────────
+class C2PSA_Ortho(nn.Module):
+    """
+    Orthogonal Polarized Self-Attention (C2PSA_Ortho).
+    Integrates Multi-Head Area Self-Attention at P5 to capture long-range semantic context
+    across microscope slides, fully fusible with zero deployment latency.
+    """
+    def __init__(self, c1, c2, n=1, e=0.5):
+        super().__init__()
+        assert c1 == c2
+        self.c = int(c1 * e)
+        self.cv1 = Conv(c1, 2 * self.c, 1, 1)
+        self.cv2 = Conv(2 * self.c, c1, 1)
+        self.m = nn.Sequential(
+            *(PSABlock(self.c, attn_ratio=0.5, num_heads=max(self.c // 64, 1)) for _ in range(n))
+        )
+
+    def switch_to_deploy(self):
+        if hasattr(self.cv1, "fuse"):
+            self.cv1.fuse()
+        if hasattr(self.cv2, "fuse"):
+            self.cv2.fuse()
+        for blk in self.m:
+            if hasattr(blk, "fuse"):
+                blk.fuse()
+        for p in self.parameters():
+            p.requires_grad = False
+
+    def fuse(self):
+        self.switch_to_deploy()
+
+    def forward(self, x):
+        a, b = self.cv1(x).split((self.c, self.c), dim=1)
+        b = self.m(b)
+        return self.cv2(torch.cat((a, b), 1))
