@@ -247,6 +247,7 @@ from ultralytics.nn.modules import (
     OSIFusion,
     DOC_Fusion,
     DOCFusion,
+    OrthoModFusion,
     C2PSA_Ortho,
     SESPGate,
     DWT2D,
@@ -448,7 +449,7 @@ class BaseModel(torch.nn.Module):
                 if isinstance(m, RepVGGDW):
                     m.fuse()
                     m.forward = m.forward_fuse
-                if isinstance(m, (OHRConv, C3k2_Ortho, SESPGate, OSIFusion, DOC_Fusion, DOCFusion, C2PSA_Ortho, OSMConv, RepOSMConv, C3k2_Aether, AetherCSAF, AetherResonantCore, AetherCSP, AetherBottleneck)) and hasattr(m, "fuse"):
+                if isinstance(m, (OHRConv, C3k2_Ortho, SESPGate, OSIFusion, DOC_Fusion, DOCFusion, OrthoModFusion, C2PSA_Ortho, OSMConv, RepOSMConv, C3k2_Aether, AetherCSAF, AetherResonantCore, AetherCSP, AetherBottleneck, RepOWConv, OWBottleneck, OWBottleneckLight, C3k2_OmniWave, OmniWaveCSP, AMDetect)) and hasattr(m, "fuse"):
                     m.fuse()
                 if isinstance(m, Detect) and getattr(m, "end2end", False):
                     m.fuse()  # remove one2many head
@@ -2399,7 +2400,7 @@ def parse_model(d, ch, verbose=True):
             c1 = [ch[x] for x in f] if isinstance(f, list) else ch[f]
             c2 = make_divisible(min(args[0], max_channels) * width, 8)
             args = [c1, c2, *args[1:]]
-        elif m in frozenset({OSIFusion, DOC_Fusion, DOCFusion}):
+        elif m in frozenset({OSIFusion, DOC_Fusion, DOCFusion, OrthoModFusion}):
             c1_loc, c1_glb = ch[f[0]], ch[f[1]]
             c2 = make_divisible(min(args[0], max_channels) * width, 8)
             args = [c1_loc, c1_glb, c2, *args[1:]]

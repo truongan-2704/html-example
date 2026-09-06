@@ -137,6 +137,7 @@ from .orthogonal_blocks import (
     SESPGate,
     DOC_Fusion,
     DOCFusion,
+    OrthoModFusion,
     C2PSA_Ortho,
 )
 
@@ -495,6 +496,7 @@ __all__ = (
     "SESPGate",
     "DOC_Fusion",
     "DOCFusion",
+    "OrthoModFusion",
     "C2PSA_Ortho",
     "DWT2D",
     "IDWT2D",

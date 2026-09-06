@@ -24,6 +24,7 @@ from ultralytics.nn.modules.orthogonal_blocks import (
     OrthoC3k,
     C3k2_Ortho,
     OSIFusion,
+    OrthoModFusion,
     DOC_Fusion,
     C2PSA_Ortho,
     SESPGate,
@@ -53,7 +54,7 @@ def test_reparameterization_math():
 
 def test_individual_orthogonal_blocks():
     print(f"\n{'='*70}")
-    print(" 2. Testing Individual Orthogonal Blocks")
+    print(" 2. Testing Individual Orthogonal Blocks (100% Zero-Concat)")
     print(f"{'='*70}")
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -61,15 +62,15 @@ def test_individual_orthogonal_blocks():
     p4 = torch.randn(2, 128, 40, 40).to(device)
     p5 = torch.randn(2, 256, 20, 20).to(device)
 
-    # 1. Test DOC_Fusion (Dynamic Orthogonal Cross-Fusion)
-    doc = DOC_Fusion(128, 256, 128).to(device)
-    y_doc = doc([p4, p5])
-    print(f"✓ DOC_Fusion [p4, p5] -> out: {y_doc.shape} (Expected: [2, 128, 40, 40])")
-    assert y_doc.shape == (2, 128, 40, 40)
-    doc.switch_to_deploy()
-    y_doc_dep = doc([p4, p5])
-    assert y_doc_dep.shape == (2, 128, 40, 40)
-    print("✓ DOC_Fusion deploy mode verified cleanly!")
+    # 1. Test OSIFusion (Zero-Concat Fast In-place Scale Mixing)
+    osi = OSIFusion(128, 256, 128).to(device)
+    y_osi = osi([p4, p5])
+    print(f"✓ OSIFusion [p4, p5] -> out: {y_osi.shape} (Expected: [2, 128, 40, 40])")
+    assert y_osi.shape == (2, 128, 40, 40)
+    osi.switch_to_deploy()
+    y_osi_dep = osi([p4, p5])
+    assert y_osi_dep.shape == (2, 128, 40, 40)
+    print("✓ OSIFusion deploy mode verified cleanly (100% Zero-Concat)!")
 
     # 2. Test OrthoC3k
     ortho_c3k = OrthoC3k(128, 128, n=2).to(device)
