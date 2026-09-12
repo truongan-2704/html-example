@@ -1,0 +1,5 @@
+.venv/Scripts/python.exe -B research/validate_orthogonal_capacity.py
+.venv/Scripts/python.exe -B research/validate_orthogonal_capacity.py --nc 4
+.venv/Scripts/python.exe -B research/export_orthogonal_probe.py --capacity
+.venv/Scripts/python.exe train_orthogonal_capacity.py --prepare-only --seeds 0 1 2
+.venv/Scripts/python.exe train_orthogonal_capacity.py --variant yolo11 --prepare-only --seeds 0 1 2

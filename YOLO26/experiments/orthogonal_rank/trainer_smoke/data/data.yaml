@@ -1,0 +1,9 @@
+path: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data
+train: train/images
+val: valid/images
+nc: 4
+names:
+- Black Rot
+- Powdery_mildew
+- Rust
+- scab

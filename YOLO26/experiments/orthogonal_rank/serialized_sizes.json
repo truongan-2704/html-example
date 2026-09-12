@@ -1,0 +1,12 @@
+{
+  "baseline": {
+    "file_bytes": 7316584,
+    "parameters": 1813504,
+    "dtype": "float32"
+  },
+  "bc": {
+    "file_bytes": 4639286,
+    "parameters": 1141984,
+    "dtype": "float32"
+  }
+}

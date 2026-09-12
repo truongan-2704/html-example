@@ -1,0 +1,2 @@
+8874975d16995587f2310572158cec696caeb740
+Uncommitted implementation archived in source_snapshot.zip. Snapshot captured at finalization; benchmark inference code is unchanged since its runs.

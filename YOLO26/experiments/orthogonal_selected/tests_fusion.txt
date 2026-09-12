@@ -1,0 +1,17 @@
+test_all_yaml_scales_construct (__main__.OrthogonalEfficientTests) ... ok
+test_cpu_amp_forward_backward (__main__.OrthogonalEfficientTests) ... ok
+test_cuda_amp_and_fuse (__main__.OrthogonalEfficientTests) ... skipped 'CUDA unavailable in installed PyTorch build'
+test_eval_equivalence_shapes_weights_and_no_input_mutation (__main__.OrthogonalEfficientTests) ... ok
+test_existing_snapshots (__main__.OrthogonalEfficientTests) ... ok
+test_model_yaml_transfer_loss_and_fuse (__main__.OrthogonalEfficientTests) ... ok
+test_ohr_fuse_dtype_groups_stride_bn_and_idempotence (__main__.OrthogonalEfficientTests) ... ok
+test_projection_runs_at_native_resolution (__main__.OrthogonalEfficientTests) ... ok
+test_singleton_spatial_feature_finite (__main__.OrthogonalEfficientTests) ... ok
+test_training_outputs_gradients_bn_exact (__main__.OrthogonalEfficientTests) ... ok
+test_yolo_api_checkpoint_roundtrip (__main__.OrthogonalEfficientTests) ... WARNING no model scale passed. Assuming scale='n'.
+ok
+
+----------------------------------------------------------------------
+Ran 11 tests in 3.275s
+
+OK (skipped=1)

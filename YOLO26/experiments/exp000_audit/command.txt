@@ -1,0 +1,3 @@
+.venv/Scripts/python.exe -B research/audit_baseline.py
+.venv/Scripts/python.exe -B research/profile_baseline.py
+.venv/Scripts/python.exe -B research/audit_dataset.py --data ultralytics/data/apple_leaft_detection/data.yaml --output experiments/exp000_audit/apple_dataset_audit.json

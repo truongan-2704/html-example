@@ -159,7 +159,8 @@ class OHRConv(nn.Module):
         fused_weight, fused_bias = self.get_equivalent_kernel_bias()
         self.fused_conv = nn.Conv2d(
             self.c1, self.c2, 3, stride=self.s, padding=self.p, groups=self.g, bias=True
-        )
+        ).to(device=fused_weight.device, dtype=fused_weight.dtype)
+        self.fused_conv.train(self.training)
         self.fused_conv.weight.data.copy_(fused_weight)
         self.fused_conv.bias.data.copy_(fused_bias)
         self.fused_conv.requires_grad_(False)

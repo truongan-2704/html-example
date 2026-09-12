@@ -1,0 +1,865 @@
+{
+  "scope": "Fused Orthogonal n, nc80, CPU, batch1 640, Conv2d 2 FLOPs/MAC only; not latency or accuracy",
+  "total_conv_gflops": 5.5642752,
+  "stage_conv_gflops": {
+    "3": 0.4718592,
+    "5": 0.4718592,
+    "21": 1.8696832,
+    "1": 0.2359296,
+    "7": 0.2359296,
+    "2": 0.32767999999999997,
+    "4": 0.34078719999999996,
+    "15": 0.1179648,
+    "18": 0.1179648,
+    "9": 0.131072,
+    "11": 0.1048576,
+    "13": 0.2097152,
+    "0": 0.0884736,
+    "6": 0.22282239999999998,
+    "14": 0.17203200000000002,
+    "8": 0.09830399999999999,
+    "12": 0.09830399999999999,
+    "17": 0.09830399999999999,
+    "20": 0.09830399999999999,
+    "16": 0.0262144,
+    "19": 0.0262144
+  },
+  "convolutions": [
+    {
+      "name": "model.3.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.4718592
+    },
+    {
+      "name": "model.5.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 147584,
+      "conv_gflops": 0.4718592
+    },
+    {
+      "name": "model.21.one2one_cv2.0.0.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.4718592
+    },
+    {
+      "name": "model.21.one2one_cv2.0.1.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.4718592
+    },
+    {
+      "name": "model.1.conv",
+      "shape": [
+        1,
+        32,
+        160,
+        160
+      ],
+      "parameters": 4640,
+      "conv_gflops": 0.2359296
+    },
+    {
+      "name": "model.7.conv",
+      "shape": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "parameters": 295168,
+      "conv_gflops": 0.2359296
+    },
+    {
+      "name": "model.21.one2one_cv2.1.0.conv",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 73792,
+      "conv_gflops": 0.2359296
+    },
+    {
+      "name": "model.2.cv2.conv",
+      "shape": [
+        1,
+        64,
+        160,
+        160
+      ],
+      "parameters": 3136,
+      "conv_gflops": 0.1572864
+    },
+    {
+      "name": "model.4.cv2.conv",
+      "shape": [
+        1,
+        128,
+        80,
+        80
+      ],
+      "parameters": 12416,
+      "conv_gflops": 0.1572864
+    },
+    {
+      "name": "model.4.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        32,
+        80,
+        80
+      ],
+      "parameters": 9248,
+      "conv_gflops": 0.1179648
+    },
+    {
+      "name": "model.15.conv",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.1179648
+    },
+    {
+      "name": "model.18.conv",
+      "shape": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "parameters": 147584,
+      "conv_gflops": 0.1179648
+    },
+    {
+      "name": "model.21.one2one_cv2.1.1.conv",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.1179648
+    },
+    {
+      "name": "model.21.one2one_cv2.2.0.conv",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 147520,
+      "conv_gflops": 0.1179648
+    },
+    {
+      "name": "model.9.cv2.conv",
+      "shape": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "parameters": 131328,
+      "conv_gflops": 0.1048576
+    },
+    {
+      "name": "model.11.proj_glb.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 32896,
+      "conv_gflops": 0.1048576
+    },
+    {
+      "name": "model.13.proj_loc.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 8256,
+      "conv_gflops": 0.1048576
+    },
+    {
+      "name": "model.13.proj_glb.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 8256,
+      "conv_gflops": 0.1048576
+    },
+    {
+      "name": "model.0.conv",
+      "shape": [
+        1,
+        16,
+        320,
+        320
+      ],
+      "parameters": 448,
+      "conv_gflops": 0.0884736
+    },
+    {
+      "name": "model.21.one2one_cv3.0.1.1.conv",
+      "shape": [
+        1,
+        80,
+        80,
+        80
+      ],
+      "parameters": 6480,
+      "conv_gflops": 0.08192
+    },
+    {
+      "name": "model.21.one2one_cv3.0.2",
+      "shape": [
+        1,
+        80,
+        80,
+        80
+      ],
+      "parameters": 6480,
+      "conv_gflops": 0.08192
+    },
+    {
+      "name": "model.6.cv2.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 24704,
+      "conv_gflops": 0.0786432
+    },
+    {
+      "name": "model.14.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        24,
+        80,
+        80
+      ],
+      "parameters": 5208,
+      "conv_gflops": 0.0663552
+    },
+    {
+      "name": "model.21.one2one_cv3.0.0.1.conv",
+      "shape": [
+        1,
+        80,
+        80,
+        80
+      ],
+      "parameters": 5200,
+      "conv_gflops": 0.065536
+    },
+    {
+      "name": "model.2.m.0.cv1.conv",
+      "shape": [
+        1,
+        8,
+        160,
+        160
+      ],
+      "parameters": 1160,
+      "conv_gflops": 0.0589824
+    },
+    {
+      "name": "model.2.m.0.cv2.conv",
+      "shape": [
+        1,
+        16,
+        160,
+        160
+      ],
+      "parameters": 1168,
+      "conv_gflops": 0.0589824
+    },
+    {
+      "name": "model.14.cv2.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 4672,
+      "conv_gflops": 0.0589824
+    },
+    {
+      "name": "model.2.cv1.conv",
+      "shape": [
+        1,
+        32,
+        160,
+        160
+      ],
+      "parameters": 1056,
+      "conv_gflops": 0.0524288
+    },
+    {
+      "name": "model.4.cv1.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0524288
+    },
+    {
+      "name": "model.6.cv1.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 16512,
+      "conv_gflops": 0.0524288
+    },
+    {
+      "name": "model.21.one2one_cv2.0.2",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0524288
+    },
+    {
+      "name": "model.8.cv2.conv",
+      "shape": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "parameters": 49408,
+      "conv_gflops": 0.0393216
+    },
+    {
+      "name": "model.12.cv2.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 12416,
+      "conv_gflops": 0.0393216
+    },
+    {
+      "name": "model.14.cv1.conv",
+      "shape": [
+        1,
+        48,
+        80,
+        80
+      ],
+      "parameters": 3120,
+      "conv_gflops": 0.0393216
+    },
+    {
+      "name": "model.17.cv2.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 12416,
+      "conv_gflops": 0.0393216
+    },
+    {
+      "name": "model.20.cv2.conv",
+      "shape": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "parameters": 49408,
+      "conv_gflops": 0.0393216
+    },
+    {
+      "name": "model.21.one2one_cv3.1.0.1.conv",
+      "shape": [
+        1,
+        80,
+        40,
+        40
+      ],
+      "parameters": 10320,
+      "conv_gflops": 0.032768
+    },
+    {
+      "name": "model.6.m.0.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 9248,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.6.m.0.m.1.cv2.fused_conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 9248,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.8.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.12.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 9248,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.17.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 9248,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.20.m.0.cv2.fused_conv",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.21.one2one_cv2.2.1.conv",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 36928,
+      "conv_gflops": 0.0294912
+    },
+    {
+      "name": "model.8.cv1.conv",
+      "shape": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "parameters": 32896,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.9.cv1.conv",
+      "shape": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "parameters": 32896,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.12.cv1.conv",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 8256,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.16.proj_glb.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 8320,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.17.cv1.conv",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 8256,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.19.proj_glb.conv",
+      "shape": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "parameters": 33024,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.20.cv1.conv",
+      "shape": [
+        1,
+        128,
+        20,
+        20
+      ],
+      "parameters": 32896,
+      "conv_gflops": 0.0262144
+    },
+    {
+      "name": "model.21.one2one_cv3.1.1.1.conv",
+      "shape": [
+        1,
+        80,
+        40,
+        40
+      ],
+      "parameters": 6480,
+      "conv_gflops": 0.02048
+    },
+    {
+      "name": "model.21.one2one_cv3.1.2",
+      "shape": [
+        1,
+        80,
+        40,
+        40
+      ],
+      "parameters": 6480,
+      "conv_gflops": 0.02048
+    },
+    {
+      "name": "model.21.one2one_cv3.2.0.1.conv",
+      "shape": [
+        1,
+        80,
+        20,
+        20
+      ],
+      "parameters": 20560,
+      "conv_gflops": 0.016384
+    },
+    {
+      "name": "model.4.m.0.cv1.conv",
+      "shape": [
+        1,
+        32,
+        80,
+        80
+      ],
+      "parameters": 1056,
+      "conv_gflops": 0.0131072
+    },
+    {
+      "name": "model.6.m.0.cv3.conv",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0131072
+    },
+    {
+      "name": "model.21.one2one_cv2.1.2",
+      "shape": [
+        1,
+        64,
+        40,
+        40
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0131072
+    },
+    {
+      "name": "model.21.one2one_cv3.0.1.0.conv",
+      "shape": [
+        1,
+        80,
+        80,
+        80
+      ],
+      "parameters": 800,
+      "conv_gflops": 0.009216
+    },
+    {
+      "name": "model.14.m.0.cv1.conv",
+      "shape": [
+        1,
+        24,
+        80,
+        80
+      ],
+      "parameters": 600,
+      "conv_gflops": 0.0073728
+    },
+    {
+      "name": "model.21.one2one_cv3.0.0.0.conv",
+      "shape": [
+        1,
+        64,
+        80,
+        80
+      ],
+      "parameters": 640,
+      "conv_gflops": 0.0073728
+    },
+    {
+      "name": "model.6.m.0.cv1.conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 2080,
+      "conv_gflops": 0.0065536
+    },
+    {
+      "name": "model.6.m.0.cv2.conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 2080,
+      "conv_gflops": 0.0065536
+    },
+    {
+      "name": "model.21.one2one_cv3.2.1.1.conv",
+      "shape": [
+        1,
+        80,
+        20,
+        20
+      ],
+      "parameters": 6480,
+      "conv_gflops": 0.00512
+    },
+    {
+      "name": "model.21.one2one_cv3.2.2",
+      "shape": [
+        1,
+        80,
+        20,
+        20
+      ],
+      "parameters": 6480,
+      "conv_gflops": 0.00512
+    },
+    {
+      "name": "model.21.one2one_cv3.1.0.0.conv",
+      "shape": [
+        1,
+        128,
+        40,
+        40
+      ],
+      "parameters": 1280,
+      "conv_gflops": 0.0036864
+    },
+    {
+      "name": "model.6.m.0.m.0.cv1.conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 1056,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.6.m.0.m.1.cv1.conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 1056,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.8.m.0.cv1.conv",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.12.m.0.cv1.conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 1056,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.17.m.0.cv1.conv",
+      "shape": [
+        1,
+        32,
+        40,
+        40
+      ],
+      "parameters": 1056,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.20.m.0.cv1.conv",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.21.one2one_cv2.2.2",
+      "shape": [
+        1,
+        64,
+        20,
+        20
+      ],
+      "parameters": 4160,
+      "conv_gflops": 0.0032768
+    },
+    {
+      "name": "model.21.one2one_cv3.1.1.0.conv",
+      "shape": [
+        1,
+        80,
+        40,
+        40
+      ],
+      "parameters": 800,
+      "conv_gflops": 0.002304
+    },
+    {
+      "name": "model.21.one2one_cv3.2.0.0.conv",
+      "shape": [
+        1,
+        256,
+        20,
+        20
+      ],
+      "parameters": 2560,
+      "conv_gflops": 0.0018432
+    },
+    {
+      "name": "model.21.dfl.conv",
+      "shape": [
+        1,
+        1,
+        4,
+        8400
+      ],
+      "parameters": 16,
+      "conv_gflops": 0.0010752
+    },
+    {
+      "name": "model.21.one2one_cv3.2.1.0.conv",
+      "shape": [
+        1,
+        80,
+        20,
+        20
+      ],
+      "parameters": 800,
+      "conv_gflops": 0.000576
+    }
+  ]
+}

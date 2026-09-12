@@ -1,0 +1,49 @@
+{
+  "candidate": "B+C ratio0.25",
+  "scientific_decision": "REVISE pending full-dataset accuracy",
+  "full_dataset_mAP50": null,
+  "full_dataset_mAP50_95": null,
+  "APsmall": null,
+  "peak_gpu_memory": null,
+  "end_to_end_latency": null,
+  "architectural_tests": {
+    "passed": 8,
+    "cuda_skipped": 1
+  },
+  "dynamic_onnx": "PASS",
+  "serialized_sizes": {
+    "baseline": {
+      "file_bytes": 7316584,
+      "parameters": 1813504,
+      "dtype": "float32"
+    },
+    "bc": {
+      "file_bytes": 4639286,
+      "parameters": 1141984,
+      "dtype": "float32"
+    }
+  },
+  "smoke_training": {
+    "epochs": 1,
+    "imgsz": 128,
+    "batch": 2,
+    "train_images": 15,
+    "validation_images": 7,
+    "seed": 0,
+    "metrics": {
+      "baseline": {
+        "metrics/precision(B)": 0.0,
+        "metrics/recall(B)": 0.0,
+        "metrics/mAP50(B)": 0.0,
+        "metrics/mAP50-95(B)": 0.0
+      },
+      "bc": {
+        "metrics/precision(B)": 0.0,
+        "metrics/recall(B)": 0.0,
+        "metrics/mAP50(B)": 0.0,
+        "metrics/mAP50-95(B)": 0.0
+      }
+    },
+    "scope": "Real-data pipeline test only; neither baseline reproduction nor comparative accuracy evidence"
+  }
+}

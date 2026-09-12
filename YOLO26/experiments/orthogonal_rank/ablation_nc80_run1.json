@@ -1,0 +1,979 @@
+{
+  "environment": {
+    "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+    "torch": "2.2.2+cpu",
+    "cuda": null,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "threads": 1,
+    "device": "cpu"
+  },
+  "input": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "nc": 80,
+  "ratio": 0.25,
+  "precision": "float32",
+  "seed": 7,
+  "trained": false,
+  "warmup": 15,
+  "samples": 40,
+  "source_initialization": "preserved random snapshot",
+  "results": {
+    "baseline": {
+      "training_form_parameters": 2383960,
+      "deploy_parameters": 1813504,
+      "samples_ms": [
+        134.774,
+        131.8744,
+        131.4829,
+        129.9015,
+        129.4849,
+        154.5121,
+        131.3732,
+        133.2769,
+        135.8575,
+        131.6757,
+        130.4893,
+        139.061,
+        132.7615,
+        131.4173,
+        131.3788,
+        130.4031,
+        133.7432,
+        130.1376,
+        129.3474,
+        131.6777,
+        130.138,
+        132.5448,
+        129.8962,
+        133.594,
+        126.9552,
+        130.5193,
+        131.1009,
+        131.3317,
+        130.6835,
+        128.3452,
+        138.9396,
+        131.0903,
+        130.7276,
+        129.8493,
+        129.5391,
+        130.2506,
+        133.4347,
+        131.7319,
+        137.4777,
+        133.4246
+      ],
+      "conv_gflops": 5.5642752,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 132.405105,
+      "median_ms": 131.376,
+      "p95_ms": 138.94567,
+      "fps": 7.552578882815735
+    },
+    "a": {
+      "training_form_parameters": 2233624,
+      "deploy_parameters": 1737680,
+      "samples_ms": [
+        132.4574,
+        132.0812,
+        129.2025,
+        135.958,
+        130.0028,
+        132.8359,
+        131.5372,
+        129.917,
+        155.0345,
+        128.2062,
+        133.1717,
+        132.4568,
+        136.1592,
+        144.2307,
+        130.5189,
+        131.357,
+        130.5195,
+        130.4031,
+        130.8784,
+        132.5764,
+        130.3928,
+        131.3133,
+        128.8752,
+        131.6117,
+        130.8065,
+        130.587,
+        129.8201,
+        130.1936,
+        129.5238,
+        131.7922,
+        163.6342,
+        132.7367,
+        132.5892,
+        126.1312,
+        132.6689,
+        187.7456,
+        130.6332,
+        129.5789,
+        131.0289,
+        131.2018
+      ],
+      "conv_gflops": 5.3496448,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 134.30923,
+      "median_ms": 131.25754999999998,
+      "p95_ms": 155.464485,
+      "fps": 7.445504676037529
+    },
+    "b": {
+      "training_form_parameters": 2070104,
+      "deploy_parameters": 1584224,
+      "samples_ms": [
+        126.5655,
+        127.6854,
+        126.1429,
+        128.7476,
+        125.7398,
+        124.6588,
+        172.5482,
+        126.9498,
+        126.6417,
+        160.4432,
+        125.2302,
+        128.7985,
+        126.0445,
+        130.2168,
+        127.2874,
+        125.841,
+        126.172,
+        124.4206,
+        126.4112,
+        126.9046,
+        126.9745,
+        125.2618,
+        125.0574,
+        125.2284,
+        125.1006,
+        126.7454,
+        125.913,
+        124.3272,
+        124.0324,
+        122.2497,
+        126.3826,
+        127.9716,
+        125.0098,
+        128.6244,
+        127.8424,
+        128.4555,
+        126.4347,
+        128.5811,
+        128.5933,
+        128.283
+      ],
+      "conv_gflops": 4.6754432,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 128.51296250000001,
+      "median_ms": 126.5001,
+      "p95_ms": 131.72811999999993,
+      "fps": 7.781316223256466
+    },
+    "c": {
+      "training_form_parameters": 1956440,
+      "deploy_parameters": 1371264,
+      "samples_ms": [
+        129.3078,
+        129.2308,
+        124.0829,
+        123.4394,
+        124.5324,
+        128.4772,
+        129.2014,
+        171.7268,
+        126.5409,
+        124.3387,
+        125.7002,
+        126.4534,
+        126.7377,
+        128.4376,
+        131.5733,
+        124.9871,
+        127.6166,
+        124.82,
+        125.7082,
+        124.8314,
+        128.1367,
+        129.84,
+        126.7019,
+        125.6874,
+        126.492,
+        126.882,
+        124.9494,
+        125.6032,
+        126.4052,
+        124.2071,
+        125.498,
+        125.6549,
+        166.6295,
+        125.7474,
+        142.8185,
+        128.1384,
+        129.6053,
+        127.6789,
+        127.2132,
+        124.1089
+      ],
+      "conv_gflops": 4.6697088,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 129.14354250000002,
+      "median_ms": 126.51644999999999,
+      "p95_ms": 144.00904999999995,
+      "fps": 7.743321738289778
+    },
+    "ab": {
+      "training_form_parameters": 1919768,
+      "deploy_parameters": 1508400,
+      "samples_ms": [
+        122.9009,
+        126.2936,
+        126.7839,
+        138.5694,
+        122.8367,
+        162.8313,
+        126.559,
+        128.6222,
+        125.4713,
+        144.639,
+        124.4969,
+        125.5042,
+        126.8595,
+        127.931,
+        132.2069,
+        124.9977,
+        126.467,
+        125.4807,
+        125.8653,
+        123.0965,
+        126.6689,
+        130.1184,
+        123.5993,
+        124.2113,
+        124.8688,
+        122.9388,
+        126.8052,
+        124.6507,
+        124.2412,
+        124.164,
+        125.4209,
+        137.3936,
+        123.663,
+        125.6418,
+        162.4674,
+        124.593,
+        127.0405,
+        127.5023,
+        128.8913,
+        125.4563
+      ],
+      "conv_gflops": 4.4608128,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 128.71874250000002,
+      "median_ms": 125.75355,
+      "p95_ms": 145.53041999999996,
+      "fps": 7.768876393428097
+    },
+    "ac": {
+      "training_form_parameters": 1806104,
+      "deploy_parameters": 1295440,
+      "samples_ms": [
+        126.6507,
+        125.6087,
+        121.4036,
+        122.8344,
+        121.5631,
+        125.0728,
+        126.7446,
+        127.2827,
+        129.5318,
+        125.8514,
+        125.401,
+        124.4672,
+        132.2197,
+        131.5542,
+        138.6264,
+        124.339,
+        124.2899,
+        123.6746,
+        123.5409,
+        125.5444,
+        125.3355,
+        127.1017,
+        131.0104,
+        127.4845,
+        125.8984,
+        125.1791,
+        123.313,
+        124.3674,
+        123.4435,
+        125.218,
+        124.2912,
+        165.7037,
+        125.1926,
+        122.8541,
+        124.9992,
+        126.9143,
+        123.3942,
+        126.3222,
+        123.1353,
+        124.819
+      ],
+      "conv_gflops": 4.4550784,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 126.80445999999999,
+      "median_ms": 125.2053,
+      "p95_ms": 132.54003499999996,
+      "fps": 7.886157947441282
+    },
+    "bc": {
+      "training_form_parameters": 1642584,
+      "deploy_parameters": 1141984,
+      "samples_ms": [
+        118.3709,
+        119.7943,
+        118.4024,
+        124.9804,
+        121.9509,
+        120.5523,
+        124.1816,
+        132.7184,
+        141.2432,
+        123.188,
+        120.1978,
+        118.4435,
+        121.6177,
+        123.2246,
+        122.6396,
+        121.7704,
+        120.5003,
+        120.4867,
+        121.0015,
+        120.8155,
+        121.481,
+        120.8798,
+        117.7353,
+        121.2032,
+        119.1462,
+        121.2162,
+        122.4248,
+        122.0984,
+        119.9739,
+        119.7946,
+        120.4979,
+        121.9502,
+        120.3594,
+        118.3439,
+        119.809,
+        118.7504,
+        120.7867,
+        124.0717,
+        123.6064,
+        124.721
+      ],
+      "conv_gflops": 3.7808768,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 121.87325000000001,
+      "median_ms": 120.94065,
+      "p95_ms": 125.36729999999999,
+      "fps": 8.205246024045472
+    },
+    "abc": {
+      "training_form_parameters": 1492248,
+      "deploy_parameters": 1066160,
+      "samples_ms": [
+        120.2417,
+        120.5279,
+        120.4527,
+        125.3909,
+        121.5665,
+        118.7252,
+        124.0797,
+        120.5839,
+        120.9963,
+        120.1181,
+        121.7791,
+        119.2005,
+        121.0544,
+        127.456,
+        123.0422,
+        121.8325,
+        123.1845,
+        118.7946,
+        120.3959,
+        117.881,
+        122.1957,
+        120.1728,
+        120.4146,
+        117.0406,
+        119.5391,
+        119.1934,
+        120.9403,
+        119.5414,
+        119.9697,
+        120.4784,
+        118.8606,
+        120.81,
+        121.3186,
+        116.81,
+        123.508,
+        122.2933,
+        120.4984,
+        119.6211,
+        121.8972,
+        121.1297
+      ],
+      "conv_gflops": 3.5662464,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 120.8384125,
+      "median_ms": 120.51315,
+      "p95_ms": 124.14526,
+      "fps": 8.275514212006053
+    }
+  },
+  "paired_baseline_minus_candidate": {
+    "a": {
+      "mean_saving_ms": -1.9041249999999994,
+      "within_run_bootstrap95_ms": [
+        -5.6087261875,
+        1.211106250000002
+      ]
+    },
+    "b": {
+      "mean_saving_ms": 3.892142500000001,
+      "within_run_bootstrap95_ms": [
+        0.16573131249999887,
+        6.708288625
+      ]
+    },
+    "c": {
+      "mean_saving_ms": 3.2615625000000015,
+      "within_run_bootstrap95_ms": [
+        -0.3922730624999978,
+        6.143763499999998
+      ]
+    },
+    "ab": {
+      "mean_saving_ms": 3.6863625000000013,
+      "within_run_bootstrap95_ms": [
+        0.9463845625000009,
+        5.831765875
+      ]
+    },
+    "ac": {
+      "mean_saving_ms": 5.600645000000001,
+      "within_run_bootstrap95_ms": [
+        2.6993110000000016,
+        7.977824812499999
+      ]
+    },
+    "bc": {
+      "mean_saving_ms": 10.531855,
+      "within_run_bootstrap95_ms": [
+        8.831189375000001,
+        12.406261812499999
+      ]
+    },
+    "abc": {
+      "mean_saving_ms": 11.5666925,
+      "within_run_bootstrap95_ms": [
+        10.134702437500001,
+        13.402183500000007
+      ]
+    }
+  },
+  "approximate_weight_transfers": {
+    "a": {
+      "copied_tensors": 503,
+      "approximated_layers": {
+        "model.4.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7743961348908482
+        },
+        "model.6.m.0.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7802458354788957
+        },
+        "model.6.m.0.m.1.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7781414452074518
+        },
+        "model.8.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7793979807106884
+        },
+        "model.12.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7715590798895786
+        },
+        "model.14.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.6946867276274964
+        },
+        "model.17.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7734578809876216
+        },
+        "model.20.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7777159532651724
+        }
+      },
+      "exact_checkpoint_transfer": false
+    },
+    "b": {
+      "copied_tensors": 663,
+      "approximated_layers": {
+        "model.21.cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        },
+        "model.21.one2one_cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.one2one_cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.one2one_cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.one2one_cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.one2one_cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.one2one_cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        }
+      },
+      "exact_checkpoint_transfer": false
+    },
+    "c": {
+      "copied_tensors": 705,
+      "approximated_layers": {
+        "model.3": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7914230167654583
+        },
+        "model.5": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7922569197423669
+        },
+        "model.7": {
+          "rank": 32,
+          "relative_offcenter_error": 0.8736239009342947
+        },
+        "model.15": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7923435537990894
+        },
+        "model.18": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7936174667558377
+        }
+      },
+      "exact_checkpoint_transfer": false
+    },
+    "ab": {
+      "copied_tensors": 431,
+      "approximated_layers": {
+        "model.4.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7743961348908482
+        },
+        "model.6.m.0.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7802458354788957
+        },
+        "model.6.m.0.m.1.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7781414452074518
+        },
+        "model.8.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7793979807106884
+        },
+        "model.12.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7715590798895786
+        },
+        "model.14.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.6946867276274964
+        },
+        "model.17.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7734578809876216
+        },
+        "model.20.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7777159532651724
+        },
+        "model.21.cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        },
+        "model.21.one2one_cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.one2one_cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.one2one_cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.one2one_cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.one2one_cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.one2one_cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        }
+      },
+      "exact_checkpoint_transfer": false
+    },
+    "ac": {
+      "copied_tensors": 473,
+      "approximated_layers": {
+        "model.3": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7914230167654583
+        },
+        "model.4.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7743961348908482
+        },
+        "model.5": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7922569197423669
+        },
+        "model.6.m.0.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7802458354788957
+        },
+        "model.6.m.0.m.1.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7781414452074518
+        },
+        "model.7": {
+          "rank": 32,
+          "relative_offcenter_error": 0.8736239009342947
+        },
+        "model.8.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7793979807106884
+        },
+        "model.12.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7715590798895786
+        },
+        "model.14.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.6946867276274964
+        },
+        "model.15": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7923435537990894
+        },
+        "model.17.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7734578809876216
+        },
+        "model.18": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7936174667558377
+        },
+        "model.20.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7777159532651724
+        }
+      },
+      "exact_checkpoint_transfer": false
+    },
+    "bc": {
+      "copied_tensors": 633,
+      "approximated_layers": {
+        "model.3": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7914230167654583
+        },
+        "model.5": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7922569197423669
+        },
+        "model.7": {
+          "rank": 32,
+          "relative_offcenter_error": 0.8736239009342947
+        },
+        "model.15": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7923435537990894
+        },
+        "model.18": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7936174667558377
+        },
+        "model.21.cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        },
+        "model.21.one2one_cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.one2one_cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.one2one_cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.one2one_cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.one2one_cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.one2one_cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        }
+      },
+      "exact_checkpoint_transfer": false
+    },
+    "abc": {
+      "copied_tensors": 401,
+      "approximated_layers": {
+        "model.3": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7914230167654583
+        },
+        "model.4.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7743961348908482
+        },
+        "model.5": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7922569197423669
+        },
+        "model.6.m.0.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7802458354788957
+        },
+        "model.6.m.0.m.1.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7781414452074518
+        },
+        "model.7": {
+          "rank": 32,
+          "relative_offcenter_error": 0.8736239009342947
+        },
+        "model.8.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7793979807106884
+        },
+        "model.12.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7715590798895786
+        },
+        "model.14.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.6946867276274964
+        },
+        "model.15": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7923435537990894
+        },
+        "model.17.m.0.cv2": {
+          "rank": 8,
+          "relative_offcenter_error": 0.7734578809876216
+        },
+        "model.18": {
+          "rank": 32,
+          "relative_offcenter_error": 0.7936174667558377
+        },
+        "model.20.m.0.cv2": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7777159532651724
+        },
+        "model.21.cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        },
+        "model.21.one2one_cv2.0.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.791900581439338
+        },
+        "model.21.one2one_cv2.0.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7931709952326852
+        },
+        "model.21.one2one_cv2.1.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8157161535795273
+        },
+        "model.21.one2one_cv2.1.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928719508218204
+        },
+        "model.21.one2one_cv2.2.0": {
+          "rank": 16,
+          "relative_offcenter_error": 0.8320896813851292
+        },
+        "model.21.one2one_cv2.2.1": {
+          "rank": 16,
+          "relative_offcenter_error": 0.7928506106686865
+        }
+      },
+      "exact_checkpoint_transfer": false
+    }
+  },
+  "scope": "Fused eager model-only with top-k; randomized paired order. Conv2d only at 2 FLOPs/MAC, not all arithmetic. Excludes preprocessing/IO. No accuracy comparison; architectures have different functions. CUDA memory field, when available, is incremental allocation above all resident models/input, not total model memory."
+}

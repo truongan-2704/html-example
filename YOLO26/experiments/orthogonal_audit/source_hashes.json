@@ -1,0 +1,8 @@
+{
+  "ultralytics\\nn\\modules\\orthogonal_efficient.py": "58d81a5c295403b0c42121f9e552cf1e0dbf20e3c41c02c1786a310b0ee0ae49",
+  "ultralytics\\nn\\modules\\orthogonal_blocks.py": "da1f00e7a16a7684e66feee37bb067f635350f7cba89ac3583d243c2ea281a19",
+  "ultralytics\\nn\\modules\\SimAM.py": "ae150adb424057de905050ab514d1652665c0436624e6d5541c07db62d9069b1",
+  "ultralytics\\nn\\tasks.py": "334bc7ec5a2c6eedb0b44b327c021f813a137399a20ffff3da692cdb798702e1",
+  "ultralytics\\nn\\modules\\__init__.py": "11fd6e44235b089555eb0e7e34a56b0f27d3bdf34f2f7d98352ad481143ad69f",
+  "ultralytics\\cfg\\models\\11\\yolo11-Orthogonal\\yolo11-orthogonal-efficient.yaml": "8200eecab518710f48825e106c17a8c4e8d2bf2587f8b565b9b9dbfe95be05e4"
+}

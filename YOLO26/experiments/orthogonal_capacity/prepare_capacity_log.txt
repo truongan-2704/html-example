@@ -1,0 +1,2 @@
+Prepared model and matched baseline/candidate recipe: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_capacity\training\prepared\capacity_n
+No training or mAP evaluation was run.

@@ -141,6 +141,8 @@ from .orthogonal_blocks import (
     C2PSA_Ortho,
 )
 
+from .orthogonal_efficient import OSIFusionEfficient
+
 from .omniwave_blocks import (
     DWT2D,
     IDWT2D,
@@ -259,6 +261,8 @@ from .head import (
     YOLOESegment26,
     v10Detect,
 )
+from .selected_decode import SelectDecodeDetect
+from .orthogonal_rank import CenterRankConv, C3k2_OrthoRank, OrthoRankDetect
 from .transformer import (
     AIFI,
     MLP,
@@ -312,6 +316,10 @@ __all__ = (
     "BottleneckCSP",
     "Proto",
     "Detect",
+    "SelectDecodeDetect",
+    "CenterRankConv",
+    "C3k2_OrthoRank",
+    "OrthoRankDetect",
     "Segment",
     "Pose",
     "Classify",
@@ -492,6 +500,7 @@ __all__ = (
     "OrthoC3k",
     "C3k2_Ortho",
     "OSIFusion",
+    "OSIFusionEfficient",
     "HCMFusion",
     "SESPGate",
     "DOC_Fusion",

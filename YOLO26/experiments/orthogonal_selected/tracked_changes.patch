@@ -1,0 +1,111 @@
+diff --git a/YOLO26/ultralytics/nn/modules/SimAM.py b/YOLO26/ultralytics/nn/modules/SimAM.py
+index 50bdfe4e..32b2000c 100644
+--- a/YOLO26/ultralytics/nn/modules/SimAM.py
++++ b/YOLO26/ultralytics/nn/modules/SimAM.py
+@@ -21,7 +21,8 @@ class SimAM(torch.nn.Module):
+     def forward(self, x):
+         b, c, h, w = x.size()
+ 
+-        n = w * h - 1
++        # A singleton spatial map has zero centered variance, not an undefined 0/0.
++        n = max(w * h - 1, 1)
+ 
+         x_minus_mu_square = (x - x.mean(dim=[2, 3], keepdim=True)).pow(2)
+         y = x_minus_mu_square / (4 * (x_minus_mu_square.sum(dim=[2, 3], keepdim=True) / n + self.e_lambda)) + 0.5
+diff --git a/YOLO26/ultralytics/nn/modules/__init__.py b/YOLO26/ultralytics/nn/modules/__init__.py
+index 503ffa37..c972d659 100644
+--- a/YOLO26/ultralytics/nn/modules/__init__.py
++++ b/YOLO26/ultralytics/nn/modules/__init__.py
+@@ -141,6 +141,8 @@ from .orthogonal_blocks import (
+     C2PSA_Ortho,
+ )
+ 
++from .orthogonal_efficient import OSIFusionEfficient
++
+ from .omniwave_blocks import (
+     DWT2D,
+     IDWT2D,
+@@ -259,6 +261,7 @@ from .head import (
+     YOLOESegment26,
+     v10Detect,
+ )
++from .selected_decode import SelectDecodeDetect
+ from .transformer import (
+     AIFI,
+     MLP,
+@@ -312,6 +315,7 @@ __all__ = (
+     "BottleneckCSP",
+     "Proto",
+     "Detect",
++    "SelectDecodeDetect",
+     "Segment",
+     "Pose",
+     "Classify",
+@@ -492,6 +496,7 @@ __all__ = (
+     "OrthoC3k",
+     "C3k2_Ortho",
+     "OSIFusion",
++    "OSIFusionEfficient",
+     "HCMFusion",
+     "SESPGate",
+     "DOC_Fusion",
+diff --git a/YOLO26/ultralytics/nn/modules/orthogonal_blocks.py b/YOLO26/ultralytics/nn/modules/orthogonal_blocks.py
+index 3ff26739..1566cf79 100644
+--- a/YOLO26/ultralytics/nn/modules/orthogonal_blocks.py
++++ b/YOLO26/ultralytics/nn/modules/orthogonal_blocks.py
+@@ -159,7 +159,8 @@ class OHRConv(nn.Module):
+         fused_weight, fused_bias = self.get_equivalent_kernel_bias()
+         self.fused_conv = nn.Conv2d(
+             self.c1, self.c2, 3, stride=self.s, padding=self.p, groups=self.g, bias=True
+-        )
++        ).to(device=fused_weight.device, dtype=fused_weight.dtype)
++        self.fused_conv.train(self.training)
+         self.fused_conv.weight.data.copy_(fused_weight)
+         self.fused_conv.bias.data.copy_(fused_bias)
+         self.fused_conv.requires_grad_(False)
+diff --git a/YOLO26/ultralytics/nn/tasks.py b/YOLO26/ultralytics/nn/tasks.py
+index 47bfc9f8..13578970 100644
+--- a/YOLO26/ultralytics/nn/tasks.py
++++ b/YOLO26/ultralytics/nn/tasks.py
+@@ -49,6 +49,7 @@ from ultralytics.nn.modules import (
+     Conv2,
+     ConvTranspose,
+     Detect,
++    SelectDecodeDetect,
+     DWConv,
+     DWConvTranspose2d,
+     Focus,
+@@ -245,6 +246,7 @@ from ultralytics.nn.modules import (
+     OrthoC3k,
+     C3k2_Ortho,
+     OSIFusion,
++    OSIFusionEfficient,
+     DOC_Fusion,
+     DOCFusion,
+     OrthoModFusion,
+@@ -2359,6 +2361,7 @@ def parse_model(d, ch, verbose=True):
+         elif m in frozenset(
+             {
+                 Detect,
++                SelectDecodeDetect,
+                 WorldDetect,
+                 YOLOEDetect,
+                 Segment,
+@@ -2376,7 +2379,7 @@ def parse_model(d, ch, verbose=True):
+             args.extend([reg_max, end2end, [ch[x] for x in f]])
+             if m is Segment or m is YOLOESegment or m is Segment26 or m is YOLOESegment26:
+                 args[2] = make_divisible(min(args[2], max_channels) * width, 8)
+-            if m in {Detect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26, AF_Detect, AMDetect}:
++            if m in {Detect, SelectDecodeDetect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26, AF_Detect, AMDetect}:
+                 m.legacy = legacy
+         elif m is CBAM:
+             c1 = ch[f]
+@@ -2400,7 +2403,7 @@ def parse_model(d, ch, verbose=True):
+             c1 = [ch[x] for x in f] if isinstance(f, list) else ch[f]
+             c2 = make_divisible(min(args[0], max_channels) * width, 8)
+             args = [c1, c2, *args[1:]]
+-        elif m in frozenset({OSIFusion, DOC_Fusion, DOCFusion, OrthoModFusion}):
++        elif m in frozenset({OSIFusion, OSIFusionEfficient, DOC_Fusion, DOCFusion, OrthoModFusion}):
+             c1_loc, c1_glb = ch[f[0]], ch[f[1]]
+             c2 = make_divisible(min(args[0], max_channels) * width, 8)
+             args = [c1_loc, c1_glb, c2, *args[1:]]

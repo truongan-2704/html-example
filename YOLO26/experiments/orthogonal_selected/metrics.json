@@ -1,0 +1,18 @@
+{
+  "decision": "REVISE",
+  "trained": false,
+  "mAP50": null,
+  "mAP50_95": null,
+  "APsmall": null,
+  "peak_gpu_memory": null,
+  "end_to_end_latency": null,
+  "unit_test_methods": 18,
+  "passed": 16,
+  "skipped_cuda": 2,
+  "benchmark_files": [
+    "benchmark_640_run1.json",
+    "benchmark_640_run2.json"
+  ],
+  "export_file": "export_checks.json",
+  "claim": "No established incremental model latency gain over Efficient."
+}

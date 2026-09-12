@@ -1,0 +1,679 @@
+{
+  "environment": {
+    "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "torch": "2.2.2+cpu",
+    "cuda_build": null,
+    "cuda_available": false,
+    "ultralytics": "8.4.103",
+    "import_path": "E:\\Project\\nghien_cuu\\html-example\\YOLO26\\ultralytics\\__init__.py",
+    "threads": 1,
+    "git_commit": "8874975d16995587f2310572158cec696caeb740"
+  },
+  "config": {
+    "nc": 80,
+    "scales": {
+      "n": [
+        0.5,
+        0.25,
+        1024
+      ],
+      "s": [
+        0.5,
+        0.5,
+        1024
+      ],
+      "m": [
+        0.5,
+        1.0,
+        512
+      ],
+      "l": [
+        1.0,
+        1.0,
+        512
+      ],
+      "x": [
+        1.0,
+        1.5,
+        512
+      ]
+    },
+    "backbone": [
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          64,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          128,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          256,
+          false,
+          0.25
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          256,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          false,
+          0.25
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          512,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          1024,
+          3,
+          2
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          1024,
+          true
+        ]
+      ],
+      [
+        -1,
+        1,
+        "SPPF",
+        [
+          1024,
+          5
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C2PSA",
+        [
+          1024
+        ]
+      ]
+    ],
+    "head": [
+      [
+        -1,
+        1,
+        "nn.Upsample",
+        [
+          "None",
+          2,
+          "nearest"
+        ]
+      ],
+      [
+        [
+          -1,
+          6
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          false
+        ]
+      ],
+      [
+        -1,
+        1,
+        "nn.Upsample",
+        [
+          "None",
+          2,
+          "nearest"
+        ]
+      ],
+      [
+        [
+          -1,
+          4
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          256,
+          false
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          256,
+          3,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          13
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          512,
+          false
+        ]
+      ],
+      [
+        -1,
+        1,
+        "Conv",
+        [
+          512,
+          3,
+          2
+        ]
+      ],
+      [
+        [
+          -1,
+          10
+        ],
+        1,
+        "Concat",
+        [
+          1
+        ]
+      ],
+      [
+        -1,
+        2,
+        "C3k2",
+        [
+          1024,
+          true
+        ]
+      ],
+      [
+        [
+          16,
+          19,
+          22
+        ],
+        1,
+        "Detect",
+        [
+          "nc"
+        ]
+      ]
+    ],
+    "scale": "n",
+    "channels": 3
+  },
+  "seed": 0,
+  "input_shape": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "precision": "float32",
+  "device": "cpu",
+  "fused": false,
+  "trained": false,
+  "stages": [
+    {
+      "index": 0,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 464,
+      "output": [
+        1,
+        16,
+        320,
+        320
+      ]
+    },
+    {
+      "index": 1,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 4672,
+      "output": [
+        1,
+        32,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 2,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 6640,
+      "output": [
+        1,
+        64,
+        160,
+        160
+      ]
+    },
+    {
+      "index": 3,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 36992,
+      "output": [
+        1,
+        64,
+        80,
+        80
+      ]
+    },
+    {
+      "index": 4,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 26080,
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ]
+    },
+    {
+      "index": 5,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 147712,
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 6,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 87040,
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 7,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 295424,
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 8,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 346112,
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 9,
+      "module": "SPPF",
+      "source": -1,
+      "parameters": 164608,
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 10,
+      "module": "C2PSA",
+      "source": -1,
+      "parameters": 249728,
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 11,
+      "module": "Upsample",
+      "source": -1,
+      "parameters": 0,
+      "output": [
+        1,
+        256,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 12,
+      "module": "Concat",
+      "source": [
+        -1,
+        6
+      ],
+      "parameters": 0,
+      "output": [
+        1,
+        384,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 13,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 111296,
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 14,
+      "module": "Upsample",
+      "source": -1,
+      "parameters": 0,
+      "output": [
+        1,
+        128,
+        80,
+        80
+      ]
+    },
+    {
+      "index": 15,
+      "module": "Concat",
+      "source": [
+        -1,
+        4
+      ],
+      "parameters": 0,
+      "output": [
+        1,
+        256,
+        80,
+        80
+      ]
+    },
+    {
+      "index": 16,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 32096,
+      "output": [
+        1,
+        64,
+        80,
+        80
+      ]
+    },
+    {
+      "index": 17,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 36992,
+      "output": [
+        1,
+        64,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 18,
+      "module": "Concat",
+      "source": [
+        -1,
+        13
+      ],
+      "parameters": 0,
+      "output": [
+        1,
+        192,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 19,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 86720,
+      "output": [
+        1,
+        128,
+        40,
+        40
+      ]
+    },
+    {
+      "index": 20,
+      "module": "Conv",
+      "source": -1,
+      "parameters": 147712,
+      "output": [
+        1,
+        128,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 21,
+      "module": "Concat",
+      "source": [
+        -1,
+        10
+      ],
+      "parameters": 0,
+      "output": [
+        1,
+        384,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 22,
+      "module": "C3k2",
+      "source": -1,
+      "parameters": 378880,
+      "output": [
+        1,
+        256,
+        20,
+        20
+      ]
+    },
+    {
+      "index": 23,
+      "module": "Detect",
+      "source": [
+        16,
+        19,
+        22
+      ],
+      "parameters": 464912,
+      "output": [
+        [
+          1,
+          84,
+          8400
+        ],
+        {
+          "boxes": [
+            1,
+            64,
+            8400
+          ],
+          "scores": [
+            1,
+            80,
+            8400
+          ],
+          "feats": [
+            [
+              1,
+              64,
+              80,
+              80
+            ],
+            [
+              1,
+              128,
+              40,
+              40
+            ],
+            [
+              1,
+              256,
+              20,
+              20
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "parameters": 2624080,
+  "trainable_parameters": 2624064,
+  "latency_ms": [
+    145.7446,
+    145.4753,
+    149.9844,
+    150.9045,
+    147.4827,
+    147.077,
+    142.169,
+    147.1158,
+    145.9926,
+    144.3414,
+    147.6974,
+    153.3818,
+    147.8878,
+    147.9799,
+    145.4674,
+    145.71,
+    146.004,
+    150.0378,
+    145.5571,
+    144.4942,
+    149.8175,
+    145.4139,
+    145.2299,
+    146.9531,
+    146.8512,
+    148.6416,
+    143.62,
+    144.9588,
+    147.6809,
+    147.9502
+  ],
+  "warmup": 5,
+  "output_shape": [
+    1,
+    84,
+    8400
+  ],
+  "accuracy_status": "NOT_EVALUATED",
+  "note": "Synthetic input, untrained model, CPU model-only wall time; not GPU or end-to-end latency."
+}

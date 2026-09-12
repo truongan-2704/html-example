@@ -1,0 +1,9 @@
+# Benchmark commands reconstructed from saved run arguments.
+.venv/Scripts/python.exe -B research/benchmark_orthogonal_rank.py --variants baseline a b c ab ac bc abc --ratio 0.25 --nc 80 --imgsz 640 --samples 40 --warmup 15 --device cpu --output experiments/orthogonal_rank/ablation_nc80_run1.json
+.venv/Scripts/python.exe -B research/benchmark_orthogonal_rank.py --variants baseline bc abc --ratio 0.25 --nc 80 --imgsz 640 --samples 60 --warmup 20 --device cpu --output experiments/orthogonal_rank/confirm_nc80_run2.json
+.venv/Scripts/python.exe -B research/benchmark_orthogonal_rank.py --variants baseline bc --ratio 0.25 --nc 4 --imgsz 640 --samples 60 --warmup 20 --device cpu --output experiments/orthogonal_rank/confirm_nc4.json
+.venv/Scripts/python.exe -B research/benchmark_orthogonal_rank.py --variants baseline bc --ratio 0.375 --nc 80 --imgsz 640 --samples 40 --warmup 15 --device cpu --output experiments/orthogonal_rank/sensitivity_r0375.json
+.venv/Scripts/python.exe -B research/benchmark_orthogonal_rank.py --variants baseline bc --ratio 0.5 --nc 80 --imgsz 640 --samples 40 --warmup 15 --device cpu --output experiments/orthogonal_rank/sensitivity_r05.json
+.venv/Scripts/python.exe -B research/test_orthogonal_rank.py
+.venv/Scripts/python.exe -B research/export_orthogonal_probe.py --rank
+.venv/Scripts/python.exe -B research/smoke_train_orthogonal_rank.py

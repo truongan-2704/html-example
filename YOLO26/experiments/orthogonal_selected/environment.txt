@@ -1,0 +1,8 @@
+3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]
+Windows-10-10.0.26200-SP0
+Intel64 Family 6 Model 183 Stepping 1, GenuineIntel
+torch=2.2.2+cpu
+CUDA=None
+CUDA available=False
+CPU threads for all probes=1
+GPU measurements=NOT_EVALUATED

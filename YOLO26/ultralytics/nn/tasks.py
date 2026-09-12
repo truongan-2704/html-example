@@ -49,6 +49,10 @@ from ultralytics.nn.modules import (
     Conv2,
     ConvTranspose,
     Detect,
+    SelectDecodeDetect,
+    CenterRankConv,
+    C3k2_OrthoRank,
+    OrthoRankDetect,
     DWConv,
     DWConvTranspose2d,
     Focus,
@@ -245,6 +249,7 @@ from ultralytics.nn.modules import (
     OrthoC3k,
     C3k2_Ortho,
     OSIFusion,
+    OSIFusionEfficient,
     DOC_Fusion,
     DOCFusion,
     OrthoModFusion,
@@ -449,6 +454,8 @@ class BaseModel(torch.nn.Module):
                 if isinstance(m, RepVGGDW):
                     m.fuse()
                     m.forward = m.forward_fuse
+                if isinstance(m, CenterRankConv):
+                    m.switch_to_deploy()
                 if isinstance(m, (OHRConv, C3k2_Ortho, SESPGate, OSIFusion, DOC_Fusion, DOCFusion, OrthoModFusion, C2PSA_Ortho, OSMConv, RepOSMConv, C3k2_Aether, AetherCSAF, AetherResonantCore, AetherCSP, AetherBottleneck, RepOWConv, OWBottleneck, OWBottleneckLight, C3k2_OmniWave, OmniWaveCSP, AMDetect)) and hasattr(m, "fuse"):
                     m.fuse()
                 if isinstance(m, Detect) and getattr(m, "end2end", False):
@@ -2192,6 +2199,8 @@ def parse_model(d, ch, verbose=True):
             C3k2_Aether,
             AetherCSP,
             OHRConv,
+            CenterRankConv,
+            C3k2_OrthoRank,
             OrthoBottleneck,
             C3k2_Ortho,
             OWBottleneck,
@@ -2202,6 +2211,7 @@ def parse_model(d, ch, verbose=True):
     )
     repeat_modules = frozenset(  # modules with 'repeat' arguments
         {
+            C3k2_OrthoRank,
             BottleneckCSP,
             C1,
             C2,
@@ -2332,7 +2342,7 @@ def parse_model(d, ch, verbose=True):
             if m in repeat_modules:
                 args.insert(2, n)  # number of repeats
                 n = 1
-            if m in {C3k2, C3k2_Prism, C3k2_PrismV2, C3k2_Phoenix, C3k2_Chimera, C3k2_Nexus, C3k2_Zenith, C3k2_Spectra, C3k2_SafeGuard, C3k2_YOLO13, C3k2_Aether, C3k2_Ortho, C3k2_OmniWave}:  # for M/L/X sizes
+            if m in {C3k2, C3k2_Prism, C3k2_PrismV2, C3k2_Phoenix, C3k2_Chimera, C3k2_Nexus, C3k2_Zenith, C3k2_Spectra, C3k2_SafeGuard, C3k2_YOLO13, C3k2_Aether, C3k2_Ortho, C3k2_OrthoRank, C3k2_OmniWave}:  # for M/L/X sizes
                 legacy = False
                 if scale in "mlx":
                     args[3] = True
@@ -2359,6 +2369,8 @@ def parse_model(d, ch, verbose=True):
         elif m in frozenset(
             {
                 Detect,
+                SelectDecodeDetect,
+                OrthoRankDetect,
                 WorldDetect,
                 YOLOEDetect,
                 Segment,
@@ -2376,7 +2388,7 @@ def parse_model(d, ch, verbose=True):
             args.extend([reg_max, end2end, [ch[x] for x in f]])
             if m is Segment or m is YOLOESegment or m is Segment26 or m is YOLOESegment26:
                 args[2] = make_divisible(min(args[2], max_channels) * width, 8)
-            if m in {Detect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26, AF_Detect, AMDetect}:
+            if m in {Detect, SelectDecodeDetect, OrthoRankDetect, YOLOEDetect, Segment, Segment26, YOLOESegment, YOLOESegment26, Pose, Pose26, OBB, OBB26, AF_Detect, AMDetect}:
                 m.legacy = legacy
         elif m is CBAM:
             c1 = ch[f]
@@ -2400,7 +2412,7 @@ def parse_model(d, ch, verbose=True):
             c1 = [ch[x] for x in f] if isinstance(f, list) else ch[f]
             c2 = make_divisible(min(args[0], max_channels) * width, 8)
             args = [c1, c2, *args[1:]]
-        elif m in frozenset({OSIFusion, DOC_Fusion, DOCFusion, OrthoModFusion}):
+        elif m in frozenset({OSIFusion, OSIFusionEfficient, DOC_Fusion, DOCFusion, OrthoModFusion}):
             c1_loc, c1_glb = ch[f[0]], ch[f[1]]
             c2 = make_divisible(min(args[0], max_channels) * width, 8)
             args = [c1_loc, c1_glb, c2, *args[1:]]

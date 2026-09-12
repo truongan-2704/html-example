@@ -1,0 +1,62 @@
+Prepared model and matched baseline/candidate recipe: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\prepared\baseline_n_r0.25
+Ultralytics 8.4.103  Python-3.9.13 torch-2.2.2+cpu CPU (13th Gen Intel Core i7-13650HX)
+[34m[1mengine\trainer: [0magnostic_nms=False, amp=False, angle=1.0, augment=False, auto_augment=randaugment, batch=2, bgr=0.0, box=7.5, cache=False, cfg=None, classes=None, close_mosaic=10, cls=0.5, cls_pw=0.0, cls_remap=True, compile=False, conf=None, copy_paste=0.0, copy_paste_mode=flip, cos_lr=False, cutmix=0.0, data=E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\data.yaml, degrees=0.0, deterministic=True, device=cpu, dfl=1.5, dis=6.0, distill_model=None, dnn=False, dropout=0.0, dynamic=False, embed=None, end2end=None, epochs=1, erasing=0.4, exist_ok=False, fliplr=0.5, flipud=0.0, format=torchscript, fraction=1.0, freeze=None, hsv_h=0.015, hsv_s=0.7, hsv_v=0.4, imgsz=128, iou=0.7, keras=False, kobj=1.0, line_width=None, lr0=0.01, lrf=0.01, mask_ratio=4, max_det=300, mixup=0.0, mode=train, model=E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\prepared\baseline_n_r0.25\yolo11n-orthogonal-rank.yaml, momentum=0.937, mosaic=1.0, multi_scale=0.0, name=baseline_n_r0.25_seed0, nbs=64, nms=False, opset=None, optimize=False, optimizer=SGD, overlap_mask=True, patience=30, perspective=0.0, plots=False, pose=12.0, pretrained=False, profile=False, project=E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs, quantize=None, rect=False, resume=False, retina_masks=False, rle=1.0, save=True, save_conf=False, save_crop=False, save_dir=E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\baseline_n_r0.25_seed0, save_frames=False, save_json=False, save_period=10, save_txt=False, scale=0.5, seed=0, shear=0.0, show=False, show_boxes=True, show_conf=True, show_labels=True, simplify=True, single_cls=False, source=None, split=val, stream_buffer=False, task=detect, time=None, tracker=tracktrack.yaml, translate=0.1, val=True, verbose=True, vid_stride=1, visualize=False, warmup_bias_lr=0.1, warmup_epochs=3.0, warmup_momentum=0.8, weight_decay=0.0005, workers=0, workspace=None
+
+                   from  n    params  module                                       arguments                     
+  0                  -1  1       464  ultralytics.nn.modules.conv.Conv             [3, 16, 3, 2]                 
+  1                  -1  1      4672  ultralytics.nn.modules.conv.Conv             [16, 32, 3, 2]                
+  2                  -1  1      6640  ultralytics.nn.modules.block.C3k2            [32, 64, 1, False, 0.25]      
+  3                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+  4                  -1  1     34560  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[64, 128, 1, False, 0.25]     
+  5                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+  6                  -1  1     85504  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[128, 128, 1, True]           
+  7                  -1  1    295424  ultralytics.nn.modules.conv.Conv             [128, 256, 3, 2]              
+  8                  -1  1    153088  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[256, 256, 1, False, 0.25]    
+  9                  -1  1    164608  ultralytics.nn.modules.block.SPPF            [256, 256, 5]                 
+ 10                  -1  1         0  ultralytics.nn.modules.SimAM.SimAM           []                            
+ 11             [6, 10]  1     33026  ultralytics.nn.modules.orthogonal_blocks.OSIFusion[128, 256, 128]               
+ 12                  -1  1     38656  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[128, 128, 1, False, 0.25]    
+ 13             [4, 12]  1     16642  ultralytics.nn.modules.orthogonal_blocks.OSIFusion[128, 128, 64]                
+ 14                  -1  1     17984  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[64, 64, 1, False, 0.375]     
+ 15                  -1  1     36992  ultralytics.nn.modules.conv.Conv             [64, 64, 3, 2]                
+ 16            [12, 15]  1      8450  ultralytics.nn.modules.orthogonal_blocks.OSIFusion[128, 64, 128]                
+ 17                  -1  1     38656  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[128, 128, 1, False, 0.25]    
+ 18                  -1  1    147712  ultralytics.nn.modules.conv.Conv             [128, 128, 3, 2]              
+ 19            [10, 18]  1     33282  ultralytics.nn.modules.orthogonal_blocks.OSIFusion[256, 128, 256]               
+ 20                  -1  1    153088  ultralytics.nn.modules.orthogonal_blocks.C3k2_Ortho[256, 256, 1, False, 0.25]    
+ 21        [14, 17, 20]  1    862888  ultralytics.nn.modules.head.Detect           [4, 16, True, [64, 128, 256]] 
+YOLO11n-orthogonal-rank summary: 264 layers, 2,317,040 parameters, 2,317,024 gradients, 7.6 GFLOPs
+
+Freezing layer 'model.21.dfl.conv.weight'
+WARNING [34m[1mtrain: [0mSlow image access detected (ping: 0.10.0 ms, read: 4.52.3 MB/s, size: 42.4 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips/
+[K[34m[1mtrain: [0mScanning E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\train\labels... 14 images, 0 backgrounds, 0 corrupt: 93% ━━━━━━━━━━━─ 14/15 40.4it/s 0.1s<0.0s[K[34m[1mtrain: [0mScanning E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\train\labels... 15 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 15/15 144.2it/s 0.1s
+[34m[1mtrain: [0mNew cache created: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\train\labels.cache
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, num_output_channels=3, method='weighted_average'), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+WARNING [34m[1mval: [0mSlow image access detected (ping: 0.10.0 ms, read: 3.40.6 MB/s, size: 38.8 KB). Use local storage instead of remote/mounted storage for better performance. See https://docs.ultralytics.com/guides/model-training-tips/
+[K[34m[1mval: [0mScanning E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\valid\labels... 7 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 7/7 372.5it/s 0.0s
+[34m[1mval: [0mNew cache created: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\valid\labels.cache
+[34m[1moptimizer:[0m SGD(lr=0.01, momentum=0.937) with parameter groups 119 weight(decay=0.0), 128 weight(decay=0.0005), 131 bias(decay=0.0)
+Image sizes 128 train, 128 val
+Using 0 dataloader workers
+Logging results to [1mE:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\baseline_n_r0.25_seed0[0m
+Starting training for 1 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+[K        1/1         0G  1.649e-08     0.6505  9.302e-09          5        128: 0% ──────────── 0/8  1.3s[K        1/1         0G     0.2004     0.7753     0.1208          5        128: 12% ━─────────── 1/8 5.2s/it 2.8s<36.3s[K        1/1         0G     0.6732      1.097     0.4333          5        128: 25% ━━━───────── 2/8 2.6s/it 4.0s<15.4s[K        1/1         0G     0.5162     0.9931     0.3315         15        128: 37% ━━━━──────── 3/8 1.9s/it 5.2s<9.7s[K        1/1         0G     0.4969     0.9754     0.3144         33        128: 50% ━━━━━━────── 4/8 1.6s/it 6.3s<6.3s[K        1/1         0G     0.6086      1.035     0.4501         11        128: 62% ━━━━━━━───── 5/8 1.5s/it 7.7s<4.5s[K        1/1         0G      1.018      1.551      0.958         23        128: 75% ━━━━━━━━━─── 6/8 1.2s/it 8.5s<2.3s[K        1/1         0G     0.8905      1.398     0.8383          7        128: 87% ━━━━━━━━━━── 7/8 1.6it/s 8.8s<0.6s[K        1/1         0G     0.8905      1.398     0.8383          7        128: 100% ━━━━━━━━━━━━ 8/8 1.1s/it 8.8s
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 1/2 1.0it/s 0.3s<1.0s[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 2/2 4.1it/s 0.5s
+                   all          7         47          0          0          0          0
+
+1 epochs completed in 0.003 hours.
+Optimizer stripped from E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\baseline_n_r0.25_seed0\weights\last.pt, 5.0MB
+Optimizer stripped from E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\baseline_n_r0.25_seed0\weights\best.pt, 5.0MB
+
+Validating E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\baseline_n_r0.25_seed0\weights\best.pt...
+Ultralytics 8.4.103  Python-3.9.13 torch-2.2.2+cpu CPU (13th Gen Intel Core i7-13650HX)
+YOLO11n-orthogonal-rank summary (fused): 97 layers, 1,780,188 parameters, 0 gradients, 5.4 GFLOPs
+[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 50% ━━━━━━────── 1/2 1.5it/s 0.2s<0.7s[K                 Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 2/2 6.9it/s 0.3s
+                   all          7         47          0          0          0          0
+             Black Rot          2          7          0          0          0          0
+        Powdery_mildew          2          3          0          0          0          0
+                  Rust          4         26          0          0          0          0
+                  scab          2         11          0          0          0          0
+Speed: 0.4ms preprocess, 31.7ms inference, 0.0ms loss, 0.1ms postprocess per image

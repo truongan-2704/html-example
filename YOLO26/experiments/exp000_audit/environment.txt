@@ -1,0 +1,12 @@
+{
+  "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "torch": "2.2.2+cpu",
+  "cuda_build": null,
+  "cuda_available": false,
+  "ultralytics": "8.4.103",
+  "import_path": "E:\\Project\\nghien_cuu\\html-example\\YOLO26\\ultralytics\\__init__.py",
+  "threads": 1,
+  "git_commit": "8874975d16995587f2310572158cec696caeb740"
+}

@@ -1,0 +1,21 @@
+initialization: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\baseline_n_r0.25_seed0\weights\best.pt
+recipes:
+- model: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_capacity\trainer_smoke\prepared\capacity_n\yolo11n-capacity.yaml
+  data: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\data.yaml
+  imgsz: 128
+  batch: 2
+  epochs: 1
+  cache: false
+  amp: false
+  optimizer: SGD
+  patience: 30
+  save_period: 10
+  seed: 0
+  project: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_capacity\trainer_smoke
+  name: capacity_n_seed0
+  workers: 0
+  device: cpu
+  val: true
+  deterministic: true
+  pretrained: false
+  plots: false

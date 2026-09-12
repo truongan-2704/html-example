@@ -1,0 +1,227 @@
+{
+  "environment": {
+    "python": "3.9.13 (tags/v3.9.13:6de2ca5, May 17 2022, 16:36:42) [MSC v.1929 64 bit (AMD64)]",
+    "torch": "2.2.2+cpu",
+    "cuda": null,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "threads": 1,
+    "device": "cpu"
+  },
+  "input": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "nc": 80,
+  "ratio": 0.375,
+  "precision": "float32",
+  "seed": 7,
+  "trained": false,
+  "warmup": 15,
+  "samples": 40,
+  "source_initialization": "preserved random snapshot",
+  "results": {
+    "baseline": {
+      "training_form_parameters": 2383960,
+      "deploy_parameters": 1813504,
+      "samples_ms": [
+        132.3885,
+        130.0831,
+        131.1816,
+        131.1519,
+        132.6361,
+        127.7869,
+        132.7355,
+        131.0529,
+        133.4745,
+        130.05,
+        134.0325,
+        133.0621,
+        132.8743,
+        130.0364,
+        130.9182,
+        129.8738,
+        130.4198,
+        126.1486,
+        129.1169,
+        132.5942,
+        133.2458,
+        130.4362,
+        128.6824,
+        130.9447,
+        132.4298,
+        133.2487,
+        132.9173,
+        130.7952,
+        133.8943,
+        130.4047,
+        132.387,
+        128.2188,
+        132.4582,
+        131.1105,
+        131.5721,
+        132.7545,
+        133.4047,
+        129.9805,
+        133.5852,
+        133.4815
+      ],
+      "conv_gflops": 5.5642752,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 131.43924750000002,
+      "median_ms": 131.37685,
+      "p95_ms": 133.600655,
+      "fps": 7.608077640584482
+    },
+    "bc": {
+      "training_form_parameters": 1894488,
+      "deploy_parameters": 1264976,
+      "samples_ms": [
+        167.6725,
+        126.4477,
+        123.5657,
+        121.9103,
+        124.9474,
+        174.4684,
+        124.2748,
+        123.3791,
+        123.844,
+        131.9378,
+        124.2915,
+        124.6527,
+        127.3886,
+        123.1616,
+        121.409,
+        120.5798,
+        122.6444,
+        146.1781,
+        123.4391,
+        124.575,
+        122.215,
+        123.8516,
+        121.2638,
+        122.4569,
+        124.4236,
+        124.9779,
+        124.0363,
+        123.0741,
+        123.6793,
+        127.4175,
+        122.6605,
+        123.4423,
+        121.2239,
+        126.1502,
+        124.5286,
+        121.676,
+        123.5535,
+        124.3682,
+        123.0708,
+        123.5682
+      ],
+      "conv_gflops": 4.160576,
+      "output_shape": [
+        1,
+        300,
+        6
+      ],
+      "peak_cuda_allocated_bytes": null,
+      "mean_ms": 126.81014249999998,
+      "median_ms": 123.76165,
+      "p95_ms": 147.25281999999993,
+      "fps": 7.885804560151804
+    }
+  },
+  "paired_baseline_minus_candidate": {
+    "bc": {
+      "mean_saving_ms": 4.629104999999999,
+      "within_run_bootstrap95_ms": [
+        0.7641566249999979,
+        7.643659874999997
+      ]
+    }
+  },
+  "approximate_weight_transfers": {
+    "bc": {
+      "copied_tensors": 633,
+      "approximated_layers": {
+        "model.3": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6916841707173612
+        },
+        "model.5": {
+          "rank": 48,
+          "relative_offcenter_error": 0.6926790041856136
+        },
+        "model.7": {
+          "rank": 48,
+          "relative_offcenter_error": 0.8146315381144028
+        },
+        "model.15": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6927289553908964
+        },
+        "model.18": {
+          "rank": 48,
+          "relative_offcenter_error": 0.6938330098476384
+        },
+        "model.21.cv2.0.0": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6930307089713552
+        },
+        "model.21.cv2.0.1": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6938560121048852
+        },
+        "model.21.cv2.1.0": {
+          "rank": 24,
+          "relative_offcenter_error": 0.7239617262878277
+        },
+        "model.21.cv2.1.1": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6924705510692857
+        },
+        "model.21.cv2.2.0": {
+          "rank": 24,
+          "relative_offcenter_error": 0.7452448972590898
+        },
+        "model.21.cv2.2.1": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6939226637580047
+        },
+        "model.21.one2one_cv2.0.0": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6930307089713552
+        },
+        "model.21.one2one_cv2.0.1": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6938560121048852
+        },
+        "model.21.one2one_cv2.1.0": {
+          "rank": 24,
+          "relative_offcenter_error": 0.7239617262878277
+        },
+        "model.21.one2one_cv2.1.1": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6924705510692857
+        },
+        "model.21.one2one_cv2.2.0": {
+          "rank": 24,
+          "relative_offcenter_error": 0.7452448972590898
+        },
+        "model.21.one2one_cv2.2.1": {
+          "rank": 24,
+          "relative_offcenter_error": 0.6939226637580047
+        }
+      },
+      "exact_checkpoint_transfer": false
+    }
+  },
+  "scope": "Fused eager model-only with top-k; randomized paired order. Conv2d only at 2 FLOPs/MAC, not all arithmetic. Excludes preprocessing/IO. No accuracy comparison; architectures have different functions. CUDA memory field, when available, is incremental allocation above all resident models/input, not total model memory."
+}

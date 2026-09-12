@@ -1,0 +1,37 @@
+{
+  "scope": "Only decode + top-k from synthetic precomputed logits, cached anchors; excludes regression/class convolutions and all other model stages.",
+  "torch": "2.2.2+cpu",
+  "threads": 1,
+  "device": "cpu",
+  "precision": "float32",
+  "batch": 1,
+  "nc": 80,
+  "reg_max": 16,
+  "positions": 8400,
+  "max_det": 300,
+  "warmup": 50,
+  "samples": 200,
+  "trained": false,
+  "results": {
+    "decode_all": {
+      "mean_ms": 10.9750275,
+      "median_ms": 10.88575,
+      "p95_ms": 12.883309999999996
+    },
+    "select_first": {
+      "mean_ms": 7.7405314999999995,
+      "median_ms": 7.654,
+      "p95_ms": 9.243905
+    }
+  },
+  "paired_saving_ms": 3.2344960000000005,
+  "within_run_bootstrap_95_interval_ms": [
+    3.0658926625,
+    3.4076730375000004
+  ],
+  "derived_dfl_probability_tensor_bytes": {
+    "decode_all": 2150400,
+    "select_first": 76800,
+    "note": "Calculated tensor size, NOT measured peak memory. Raw dense logits and feature maps are still allocated."
+  }
+}

@@ -1,0 +1,21 @@
+initialization: scratch
+recipes:
+- model: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs\prepared\baseline_n_r0.25\yolo11n-orthogonal-rank.yaml
+  data: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\data\data.yaml
+  imgsz: 128
+  batch: 2
+  epochs: 1
+  cache: false
+  amp: false
+  optimizer: SGD
+  patience: 30
+  save_period: 10
+  seed: 0
+  project: E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_rank\trainer_smoke\runs
+  name: baseline_n_r0.25_seed0
+  workers: 0
+  device: cpu
+  val: true
+  deterministic: true
+  pretrained: false
+  plots: false

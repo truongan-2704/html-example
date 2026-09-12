@@ -1,0 +1,359 @@
+[
+  {
+    "name": "aten::conv2d",
+    "calls": 88,
+    "self_cpu_time_us": 748,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 6481062400
+  },
+  {
+    "name": "aten::convolution",
+    "calls": 88,
+    "self_cpu_time_us": 1044,
+    "self_cpu_memory_bytes": 102400,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_convolution",
+    "calls": 88,
+    "self_cpu_time_us": 987,
+    "self_cpu_memory_bytes": -102400,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::mkldnn_convolution",
+    "calls": 42,
+    "self_cpu_time_us": 119407,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::empty",
+    "calls": 624,
+    "self_cpu_time_us": 1202,
+    "self_cpu_memory_bytes": 101027840,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::as_strided_",
+    "calls": 42,
+    "self_cpu_time_us": 173,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::resize_",
+    "calls": 88,
+    "self_cpu_time_us": 300,
+    "self_cpu_memory_bytes": 38630400,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::batch_norm",
+    "calls": 81,
+    "self_cpu_time_us": 714,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_batch_norm_impl_index",
+    "calls": 81,
+    "self_cpu_time_us": 1304,
+    "self_cpu_memory_bytes": -1728,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::native_batch_norm",
+    "calls": 81,
+    "self_cpu_time_us": 12459,
+    "self_cpu_memory_bytes": -467712,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::empty_like",
+    "calls": 85,
+    "self_cpu_time_us": 539,
+    "self_cpu_memory_bytes": 409600,
+    "supported_flops": 0
+  },
+  {
+    "name": "[memory]",
+    "calls": 226,
+    "self_cpu_time_us": 0,
+    "self_cpu_memory_bytes": -190672000,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::silu_",
+    "calls": 76,
+    "self_cpu_time_us": 87158,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::thnn_conv2d",
+    "calls": 46,
+    "self_cpu_time_us": 477,
+    "self_cpu_memory_bytes": 102400,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_slow_conv2d_forward",
+    "calls": 46,
+    "self_cpu_time_us": 57757,
+    "self_cpu_memory_bytes": 595200,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::view",
+    "calls": 108,
+    "self_cpu_time_us": 353,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::detach",
+    "calls": 46,
+    "self_cpu_time_us": 50,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::chunk",
+    "calls": 9,
+    "self_cpu_time_us": 73,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::split",
+    "calls": 9,
+    "self_cpu_time_us": 336,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::narrow",
+    "calls": 19,
+    "self_cpu_time_us": 323,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::slice",
+    "calls": 19,
+    "self_cpu_time_us": 190,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::as_strided",
+    "calls": 33,
+    "self_cpu_time_us": 58,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::add",
+    "calls": 16,
+    "self_cpu_time_us": 1109,
+    "self_cpu_memory_bytes": 5664000,
+    "supported_flops": 1416000
+  },
+  {
+    "name": "aten::cat",
+    "calls": 21,
+    "self_cpu_time_us": 6703,
+    "self_cpu_memory_bytes": 35443200,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::max_pool2d",
+    "calls": 3,
+    "self_cpu_time_us": 800,
+    "self_cpu_memory_bytes": -1228800,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::max_pool2d_with_indices",
+    "calls": 3,
+    "self_cpu_time_us": 18484,
+    "self_cpu_memory_bytes": 1843200,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::split_with_sizes",
+    "calls": 2,
+    "self_cpu_time_us": 21,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::mul",
+    "calls": 2,
+    "self_cpu_time_us": 78,
+    "self_cpu_memory_bytes": 236796,
+    "supported_flops": 59200
+  },
+  {
+    "name": "aten::to",
+    "calls": 2,
+    "self_cpu_time_us": 209,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_to_copy",
+    "calls": 2,
+    "self_cpu_time_us": 174,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::empty_strided",
+    "calls": 2,
+    "self_cpu_time_us": 12,
+    "self_cpu_memory_bytes": 8,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::copy_",
+    "calls": 13,
+    "self_cpu_time_us": 2073,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::transpose",
+    "calls": 3,
+    "self_cpu_time_us": 30,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::matmul",
+    "calls": 2,
+    "self_cpu_time_us": 96,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::expand",
+    "calls": 4,
+    "self_cpu_time_us": 20,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::reshape",
+    "calls": 11,
+    "self_cpu_time_us": 878,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_reshape_alias",
+    "calls": 4,
+    "self_cpu_time_us": 7,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::bmm",
+    "calls": 2,
+    "self_cpu_time_us": 1873,
+    "self_cpu_memory_bytes": 1484800,
+    "supported_flops": 61440000
+  },
+  {
+    "name": "aten::resolve_conj",
+    "calls": 4,
+    "self_cpu_time_us": 1,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_unsafe_view",
+    "calls": 3,
+    "self_cpu_time_us": 7,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::softmax",
+    "calls": 2,
+    "self_cpu_time_us": 18,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::_softmax",
+    "calls": 2,
+    "self_cpu_time_us": 8030,
+    "self_cpu_memory_bytes": 1280000,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::clone",
+    "calls": 4,
+    "self_cpu_time_us": 46,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::upsample_nearest2d",
+    "calls": 2,
+    "self_cpu_time_us": 1781,
+    "self_cpu_memory_bytes": 2865280,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::contiguous",
+    "calls": 3,
+    "self_cpu_time_us": 8,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::ones",
+    "calls": 2,
+    "self_cpu_time_us": 18,
+    "self_cpu_memory_bytes": 320,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::fill_",
+    "calls": 2,
+    "self_cpu_time_us": 7,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::unsqueeze",
+    "calls": 1,
+    "self_cpu_time_us": 6,
+    "self_cpu_memory_bytes": 0,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::sub",
+    "calls": 2,
+    "self_cpu_time_us": 212,
+    "self_cpu_memory_bytes": 134400,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::div",
+    "calls": 1,
+    "self_cpu_time_us": 61,
+    "self_cpu_memory_bytes": 67196,
+    "supported_flops": 0
+  },
+  {
+    "name": "aten::sigmoid",
+    "calls": 1,
+    "self_cpu_time_us": 7412,
+    "self_cpu_memory_bytes": 2688000,
+    "supported_flops": 0
+  }
+]

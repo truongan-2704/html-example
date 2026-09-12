@@ -1,0 +1,15 @@
+test_all_ablations_real_loss_and_deploy (__main__.OrthogonalRankTests) ... ok
+test_baseline_pre_edit_snapshots (__main__.OrthogonalRankTests) ... ok
+test_cpu_amp_and_non_end2end (__main__.OrthogonalRankTests) ... ok
+test_cuda_amp_backward_and_half_fuse (__main__.OrthogonalRankTests) ... skipped 'Installed torch has no CUDA support'
+test_deploy_equivalence_nontrivial_bn_dtype_stride (__main__.OrthogonalRankTests) ... ok
+test_scale_topology_matches_baseline_and_yaml_api_roundtrip (__main__.OrthogonalRankTests) ... WARNING no model scale passed. Assuming scale='n'.
+ok
+test_shapes_backward_odd_even_stride_and_invalid_args (__main__.OrthogonalRankTests) ... ok
+test_svd_center_exact_rank_error_and_full_rank_oracle (__main__.OrthogonalRankTests) ... ok
+test_svd_model_transfer_unaffected_tensors_and_no_source_mutation (__main__.OrthogonalRankTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 17.391s
+
+OK (skipped=1)

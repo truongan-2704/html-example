@@ -1,0 +1,67 @@
+{
+  "data": "E:\\Project\\nghien_cuu\\html-example\\YOLO26\\ultralytics\\data\\apple_leaft_detection\\data.yaml",
+  "config": {
+    "train": "../train/images",
+    "val": "../valid/images",
+    "test": "../test/images",
+    "nc": 4,
+    "names": [
+      "Black Rot",
+      "Powdery_mildew",
+      "Rust",
+      "scab"
+    ],
+    "roboflow": {
+      "workspace": "clljy",
+      "project": "apple_leaf_detection",
+      "version": 1,
+      "license": "CC BY 4.0",
+      "url": "https://universe.roboflow.com/clljy/apple_leaf_detection/dataset/1"
+    }
+  },
+  "splits": {
+    "train": {
+      "images": 4556,
+      "directory": "E:\\Project\\nghien_cuu\\html-example\\YOLO26\\ultralytics\\data\\apple_leaft_detection\\train\\images",
+      "class_instances": {
+        "2": 6787,
+        "0": 6044,
+        "3": 1701,
+        "1": 1975
+      },
+      "empty_labels": 1,
+      "missing_labels": [],
+      "split_manifest_sha256": "49a277f6101ef4802f20b9b0111f5f37051c5b26dcf999fe436607b8f81fe3c6"
+    },
+    "val": {
+      "images": 570,
+      "directory": "E:\\Project\\nghien_cuu\\html-example\\YOLO26\\ultralytics\\data\\apple_leaft_detection\\valid\\images",
+      "class_instances": {
+        "2": 722,
+        "3": 251,
+        "0": 695,
+        "1": 272
+      },
+      "empty_labels": 0,
+      "missing_labels": [],
+      "split_manifest_sha256": "9d43414b9c787804b653c63856ae0cbce3899dd3f486e206562643ab93dcccd5"
+    },
+    "test": {
+      "images": 569,
+      "directory": "E:\\Project\\nghien_cuu\\html-example\\YOLO26\\ultralytics\\data\\apple_leaft_detection\\test\\images",
+      "class_instances": {
+        "2": 764,
+        "3": 209,
+        "0": 820,
+        "1": 271
+      },
+      "empty_labels": 0,
+      "missing_labels": [],
+      "split_manifest_sha256": "fba5b42d7f4430e6748482a73bc031143ff293ace5330db9a27e8de7437509f5"
+    }
+  },
+  "invalid_labels": [],
+  "cross_split_identical_image_hashes": {},
+  "cross_split_original_filename_candidates": {},
+  "limitations": "Exact bytes and filename heuristics only. No perceptual dedup, group/scene leakage audit, image decode validation or annotation correctness verification."
+}

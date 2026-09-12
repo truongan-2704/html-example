@@ -1,0 +1,6 @@
+.venv/Scripts/python.exe -B research/test_orthogonal_efficient.py
+.venv/Scripts/python.exe -B research/test_selected_decode.py
+.venv/Scripts/python.exe -B research/benchmark_orthogonal.py --selected-ablation --output experiments/orthogonal_selected/benchmark_640_run1.json
+.venv/Scripts/python.exe -B research/benchmark_orthogonal.py --selected-ablation --output experiments/orthogonal_selected/benchmark_640_run2.json
+.venv/Scripts/python.exe -B research/profile_selected_decode.py
+.venv/Scripts/python.exe -B research/export_orthogonal_probe.py --selected

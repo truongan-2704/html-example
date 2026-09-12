@@ -1,0 +1,159 @@
+{
+  "scope": "Tiny pipeline smoke test, not representative accuracy evaluation",
+  "samples": [
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000001_jpg.rf.5c9654a687d59607dc44d05a24645885.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000001_jpg.rf.5c9654a687d59607dc44d05a24645885.txt",
+      "image_sha256": "5b62e962476e21947424474cb87c85df27e65e88cae4835087dbb908a9eee3b9",
+      "label_sha256": "ad96fbd56a643f11e780ab59e5dae7af30b367dd8ba743e90645647bdba6a230"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000003_jpg.rf.4fe5f8708a0abbae82089039a744c55b.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000003_jpg.rf.4fe5f8708a0abbae82089039a744c55b.txt",
+      "image_sha256": "52fa3628135179a971b3fdae32fa4ad3cc9e61de429ec2847b5bee2138969ef2",
+      "label_sha256": "37cd6c7608d8e944cd20869227c6ec2526449f89589a6b1383325dce617e659a"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000004_jpg.rf.d54a0e470e751e3fb7ec217193f1e724.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000004_jpg.rf.d54a0e470e751e3fb7ec217193f1e724.txt",
+      "image_sha256": "b87abc09e3a8759ad284db903abb483c3138710e9b72896d20523e0446dba11d",
+      "label_sha256": "86f187e48c2259b79296727ec7db789a23210b7fd820ff9c83e4680861ea1582"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000006_jpg.rf.f48822035ae841689155b46cbfa6b52d.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000006_jpg.rf.f48822035ae841689155b46cbfa6b52d.txt",
+      "image_sha256": "fc35c8e014d95af0546cdfc7c22007838f2de10ec9c71581e506c97de0cbd7a5",
+      "label_sha256": "bb925b530bd3cdeb5c76cff11bf94ce8f696584fa882664cae4a606ef7ed574e"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000020_jpg.rf.064ede040165faa6e4daf6bba6d77b57.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000020_jpg.rf.064ede040165faa6e4daf6bba6d77b57.txt",
+      "image_sha256": "43a69315cc6d7a7ca44b53b4754213a5630eed4e71647197e2177331c82943b6",
+      "label_sha256": "25652e91ec4bb0af89aaaa1bc53e6b6cc7ea92db4fee5d60d5b9e7d95a58465f"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000031_jpg.rf.aad6d74cb3f92198f3323414a496c257.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000031_jpg.rf.aad6d74cb3f92198f3323414a496c257.txt",
+      "image_sha256": "9de9588443e8106efc4f9f8916b1ddf6dc520c5c6b8a339a2a94ae66f6d4468f",
+      "label_sha256": "a5e111d04f7ea37753a9bc4033e532013958cf8fbc4307460fd2bf2c2d662b00"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000034_jpg.rf.2d0ee88344469755170441b8f797f6d1.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000034_jpg.rf.2d0ee88344469755170441b8f797f6d1.txt",
+      "image_sha256": "0566a274b4946e5a7b9df25b620efbbd37ff90d6b0a98b124a51c053e479978f",
+      "label_sha256": "26ba3a0811fe61ba80571133bc92be22a066412fab27c7206726cbf3dc68a0c3"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000042_jpg.rf.79cf3fa179fa256e0d06bc3588031155.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000042_jpg.rf.79cf3fa179fa256e0d06bc3588031155.txt",
+      "image_sha256": "92bd05c3757ad320a0adcc2e41a935ee2db680d4c74de7b261f19fd977767122",
+      "label_sha256": "05f1c630e98f4ba4b991adc0ca1e28922e331abf099b27f8dd259201b66f8f35"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000047_jpg.rf.6359703b7843e93d035cfc18a5c25f63.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000047_jpg.rf.6359703b7843e93d035cfc18a5c25f63.txt",
+      "image_sha256": "1cbbafa40414e907c65a7f041654155ca1a84a11703e5bef6ae09c8886e44557",
+      "label_sha256": "40dbdf20ce0b4df56d32919b66b53e4abee460ba94232b5d6b0bc2eaa52e26c6"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000078_jpg.rf.532293c940bd1ebbe1b077d8fb83a16f.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000078_jpg.rf.532293c940bd1ebbe1b077d8fb83a16f.txt",
+      "image_sha256": "9e84f54d5f53db9ff8206ae4dd43a610524ffe25f900a6d6337cc69978831227",
+      "label_sha256": "ce74b9b9fb9505c77a94dd7d312e79a22568a147617ccaae452fa42aa8910ccd"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000242_jpg.rf.4e22c577ff853fb672525b049991f992.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000242_jpg.rf.4e22c577ff853fb672525b049991f992.txt",
+      "image_sha256": "c05f1feef80b0f92a85be1d87a9c33a558fc77367b0809b1b3d2e50e2694972d",
+      "label_sha256": "690f8bafe694a11ca3a7e54663c654d65dc189722ba41ec13aaf18cf797391fe"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000474_jpg.rf.5783c240f679f41f579e58cbb0482c58.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000474_jpg.rf.5783c240f679f41f579e58cbb0482c58.txt",
+      "image_sha256": "dbd5e6c7623b5a26bbed5415699c8ce0e7de21445e9333a808c0d6f0f3588d79",
+      "label_sha256": "19402151c5f9692779effb2a47966221d5e8198d66eb5e6891bfeaed2ddf0cff"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\000811_jpg.rf.80ec6c5306b9f7414f3ada702b7c524b.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\000811_jpg.rf.80ec6c5306b9f7414f3ada702b7c524b.txt",
+      "image_sha256": "0d261196aaf925b189a60613e290369491a58be44bcbb50ee352e561523f515c",
+      "label_sha256": "6a137c1adecf210ae5fbe5bae54c6392f629a0c1fe477a8a066747e78b4af0f4"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\001499_jpg.rf.d44488d3817ddd5444e69cdffecc83b1.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\001499_jpg.rf.d44488d3817ddd5444e69cdffecc83b1.txt",
+      "image_sha256": "3a18a3f783abfad391a6cae239c83b355caea1819b1749717074e4de20c60678",
+      "label_sha256": "41b6eef264ae77baf278dfcab90f30f008510b4f7abbc2b611bead17d152d6e5"
+    },
+    {
+      "split": "train",
+      "image": "ultralytics\\data\\apple_leaft_detection\\train\\images\\011086_jpg.rf.e406cb4127ecd0ee90c8959d6a9c62e3.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\train\\labels\\011086_jpg.rf.e406cb4127ecd0ee90c8959d6a9c62e3.txt",
+      "image_sha256": "6a4b4679575a7e9bf21d07817a76825235c10f15ab44ee371d83c8ce3774c1eb",
+      "label_sha256": "fa49ba11ed9d0faeb9e0eba7b637c96ff79ee5df0597e4333aef7856aa7bdf76"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\000002_jpg.rf.abaa6d40d48331fb9b9ed9980f65c596.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\000002_jpg.rf.abaa6d40d48331fb9b9ed9980f65c596.txt",
+      "image_sha256": "71795805661945b3b3692df1d5f4fae7fd88c1bc00a25944a47f1356e02b2208",
+      "label_sha256": "2ab0f9166ad1034de3740948e2471b3a9851522bc8d1e215d48ad163a18a7f7b"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\000005_jpg.rf.2aeab4cc3f73c1bc058540d037dbfb3f.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\000005_jpg.rf.2aeab4cc3f73c1bc058540d037dbfb3f.txt",
+      "image_sha256": "4dc6ba31867859d94e1a766aa60fb461af7d4ba9e285d9ea0ca1ca3971d271a4",
+      "label_sha256": "df70caa9388d806b12895b6c3938b820eec8c3496277f250dfc1f74520ece379"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\000029_jpg.rf.52710175782d6179fdcfc615c6a2d3bd.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\000029_jpg.rf.52710175782d6179fdcfc615c6a2d3bd.txt",
+      "image_sha256": "c3e393deabecdb7c688d4839ef6e9f6228a8b63c3a10b0fbe9623a61bd5de189",
+      "label_sha256": "af1a2ab45096fe190481454da4c1007a3c92ccf12706a2d653e51544ec0fcf73"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\000263_jpg.rf.6ea8d977a51b95b560f5b05173a57926.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\000263_jpg.rf.6ea8d977a51b95b560f5b05173a57926.txt",
+      "image_sha256": "dbf284b49e24c5d1e9985f6e5fdf66ff30115d6a4d3c5aa82aa6931faddfc9f9",
+      "label_sha256": "2f58ca89cc4cbaf0b9656870f03a80714cd2fc31e1faf6c7c464c016d851d6f9"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\000758_jpg.rf.c19cdedef26eab1fcb7fa4d9d03b48b4.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\000758_jpg.rf.c19cdedef26eab1fcb7fa4d9d03b48b4.txt",
+      "image_sha256": "dc9e1d872eb4ed948b0a64846fcc9f91591645db423d6ad3d29f63db8348347b",
+      "label_sha256": "41dec979b0e5c1feee3bc64558153a725bd113d4dc3ad1b6a625c7db66728ab4"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\001290_jpg.rf.a24cd5c5e3fc0a1ef699677cc6f1dbd3.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\001290_jpg.rf.a24cd5c5e3fc0a1ef699677cc6f1dbd3.txt",
+      "image_sha256": "2c7fbe4b92dbd02a1addafda283d29ec6ae5b28c8d82d743c2e5f134f231baa8",
+      "label_sha256": "0d2f4d17671687f7e830f8b086a823c434e49e94f363d793982e15701be50732"
+    },
+    {
+      "split": "valid",
+      "image": "ultralytics\\data\\apple_leaft_detection\\valid\\images\\011093_jpg.rf.2342dd02d5be2a59c44245aaa81a1f6b.jpg",
+      "label": "ultralytics\\data\\apple_leaft_detection\\valid\\labels\\011093_jpg.rf.2342dd02d5be2a59c44245aaa81a1f6b.txt",
+      "image_sha256": "a5eb4b5081c631cad6c4a449f7d867ab9011e5c470a8d9a84fb8f15ff4c9564c",
+      "label_sha256": "d6d841cbe5bc66205d69ddb0a60ed5a11b0c568faa810288ca845500f5a267d1"
+    }
+  ]
+}

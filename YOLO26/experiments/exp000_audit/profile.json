@@ -1,0 +1,1455 @@
+{
+  "device": "cpu",
+  "precision": "FP32",
+  "batch": 1,
+  "imgsz": [
+    640,
+    640
+  ],
+  "threads": 1,
+  "trained": false,
+  "stages": [
+    {
+      "index": 0,
+      "module": "Conv",
+      "parameters": 464,
+      "conv_matmul_flops": 88473600,
+      "output_storage_bytes": 6553600,
+      "wall_time": {
+        "mean_ms": 18.816885,
+        "median_ms": 18.118850000000002,
+        "p95_ms": 25.27589,
+        "fps": 53.1437589165263,
+        "samples_ms": [
+          14.8177,
+          25.23,
+          22.193,
+          18.5543,
+          21.0567,
+          16.5426,
+          17.0768,
+          15.8267,
+          17.6834,
+          17.4544,
+          21.4451,
+          22.6074,
+          26.1478,
+          13.0488,
+          19.4533,
+          16.4676,
+          19.8247,
+          12.7239,
+          21.3647,
+          16.8188
+        ]
+      }
+    },
+    {
+      "index": 1,
+      "module": "Conv",
+      "parameters": 4672,
+      "conv_matmul_flops": 235929600,
+      "output_storage_bytes": 3276800,
+      "wall_time": {
+        "mean_ms": 18.095785,
+        "median_ms": 18.1398,
+        "p95_ms": 23.556575,
+        "fps": 55.26148768898393,
+        "samples_ms": [
+          20.6556,
+          17.818,
+          18.8741,
+          14.6296,
+          18.4616,
+          13.0857,
+          21.5382,
+          18.6091,
+          17.6693,
+          17.4027,
+          16.4974,
+          22.0071,
+          23.6074,
+          14.3525,
+          14.9949,
+          13.9658,
+          21.6538,
+          13.6363,
+          23.5539,
+          18.9027
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "module": "C3k2",
+      "parameters": 6640,
+      "conv_matmul_flops": 327680000,
+      "output_storage_bytes": 6553600,
+      "wall_time": {
+        "mean_ms": 42.88588,
+        "median_ms": 43.7801,
+        "p95_ms": 51.531865,
+        "fps": 23.31769803954122,
+        "samples_ms": [
+          38.1933,
+          46.3114,
+          33.6092,
+          43.9357,
+          51.5007,
+          47.1108,
+          40.7097,
+          42.4923,
+          50.3967,
+          50.5096,
+          43.6245,
+          52.124,
+          49.678,
+          39.3441,
+          36.9769,
+          30.8609,
+          46.6037,
+          31.9467,
+          33.2772,
+          48.5122
+        ]
+      }
+    },
+    {
+      "index": 3,
+      "module": "Conv",
+      "parameters": 36992,
+      "conv_matmul_flops": 471859200,
+      "output_storage_bytes": 1638400,
+      "wall_time": {
+        "mean_ms": 19.64921,
+        "median_ms": 19.9715,
+        "p95_ms": 23.667935000000003,
+        "fps": 50.89263130680572,
+        "samples_ms": [
+          14.1337,
+          15.9951,
+          15.251,
+          19.6554,
+          22.3691,
+          21.0441,
+          18.2812,
+          18.0901,
+          21.199,
+          28.0956,
+          23.3612,
+          20.443,
+          23.4349,
+          18.5189,
+          20.2876,
+          15.5182,
+          22.7299,
+          16.0859,
+          15.4623,
+          23.028
+        ]
+      }
+    },
+    {
+      "index": 4,
+      "module": "C3k2",
+      "parameters": 26080,
+      "conv_matmul_flops": 327680000,
+      "output_storage_bytes": 3276800,
+      "wall_time": {
+        "mean_ms": 25.35986,
+        "median_ms": 25.80755,
+        "p95_ms": 34.01094500000001,
+        "fps": 39.43239434287098,
+        "samples_ms": [
+          18.9071,
+          23.8784,
+          29.7205,
+          28.1038,
+          22.8541,
+          27.5459,
+          27.327,
+          24.7772,
+          22.896,
+          29.2836,
+          33.965,
+          30.8922,
+          34.8839,
+          22.0212,
+          19.1004,
+          18.0269,
+          27.2108,
+          19.6214,
+          26.8379,
+          19.3439
+        ]
+      }
+    },
+    {
+      "index": 5,
+      "module": "Conv",
+      "parameters": 147712,
+      "conv_matmul_flops": 471859200,
+      "output_storage_bytes": 819200,
+      "wall_time": {
+        "mean_ms": 17.936095,
+        "median_ms": 18.398000000000003,
+        "p95_ms": 23.669700000000002,
+        "fps": 55.75349595327187,
+        "samples_ms": [
+          23.6289,
+          19.07,
+          17.205,
+          17.2527,
+          24.4449,
+          14.9008,
+          19.619,
+          13.4797,
+          18.2114,
+          21.168,
+          20.712,
+          18.5421,
+          19.2775,
+          12.7961,
+          13.2336,
+          14.9209,
+          20.2133,
+          12.8768,
+          18.9153,
+          18.2539
+        ]
+      }
+    },
+    {
+      "index": 6,
+      "module": "C3k2",
+      "parameters": 87040,
+      "conv_matmul_flops": 275251200,
+      "output_storage_bytes": 819200,
+      "wall_time": {
+        "mean_ms": 18.47554,
+        "median_ms": 17.96905,
+        "p95_ms": 24.024345000000004,
+        "fps": 54.12561689671858,
+        "samples_ms": [
+          22.1446,
+          21.3549,
+          21.6482,
+          17.6322,
+          19.8415,
+          17.9301,
+          26.176,
+          16.0199,
+          15.1641,
+          23.9111,
+          15.5541,
+          21.8697,
+          19.8963,
+          13.3563,
+          12.8552,
+          15.4519,
+          18.008,
+          13.3808,
+          21.7908,
+          15.5251
+        ]
+      }
+    },
+    {
+      "index": 7,
+      "module": "Conv",
+      "parameters": 295424,
+      "conv_matmul_flops": 235929600,
+      "output_storage_bytes": 409600,
+      "wall_time": {
+        "mean_ms": 9.04443,
+        "median_ms": 7.7438,
+        "p95_ms": 12.832560000000012,
+        "fps": 110.56528714357897,
+        "samples_ms": [
+          7.2645,
+          8.2972,
+          27.5473,
+          8.5651,
+          8.9912,
+          7.018,
+          6.7102,
+          9.4711,
+          7.3677,
+          7.3699,
+          6.8856,
+          8.877,
+          12.0581,
+          7.8968,
+          6.5049,
+          7.5416,
+          8.6429,
+          5.985,
+          10.3037,
+          7.5908
+        ]
+      }
+    },
+    {
+      "index": 8,
+      "module": "C3k2",
+      "parameters": 346112,
+      "conv_matmul_flops": 275251200,
+      "output_storage_bytes": 409600,
+      "wall_time": {
+        "mean_ms": 14.99995,
+        "median_ms": 15.2556,
+        "p95_ms": 19.187350000000002,
+        "fps": 66.66688888962963,
+        "samples_ms": [
+          19.0559,
+          15.9572,
+          12.5019,
+          16.9498,
+          18.8305,
+          11.2388,
+          13.994,
+          15.9309,
+          15.251,
+          15.2602,
+          11.496,
+          21.6849,
+          17.3125,
+          13.2365,
+          11.4582,
+          10.8372,
+          18.4497,
+          11.1987,
+          17.8732,
+          11.4819
+        ]
+      }
+    },
+    {
+      "index": 9,
+      "module": "SPPF",
+      "parameters": 164608,
+      "conv_matmul_flops": 131072000,
+      "output_storage_bytes": 409600,
+      "wall_time": {
+        "mean_ms": 32.727415,
+        "median_ms": 33.54845,
+        "p95_ms": 43.43482,
+        "fps": 30.55542272434288,
+        "samples_ms": [
+          43.3879,
+          33.8354,
+          30.5453,
+          36.592,
+          36.1532,
+          24.4153,
+          35.8131,
+          37.1654,
+          33.2615,
+          44.3263,
+          24.0108,
+          39.3442,
+          30.9591,
+          24.9539,
+          22.8272,
+          23.8798,
+          42.3875,
+          24.2176,
+          37.6625,
+          28.8103
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "module": "C2PSA",
+      "parameters": 249728,
+      "conv_matmul_flops": 258969600,
+      "output_storage_bytes": 409600,
+      "wall_time": {
+        "mean_ms": 17.71117,
+        "median_ms": 18.509900000000002,
+        "p95_ms": 23.65573,
+        "fps": 56.461543760237184,
+        "samples_ms": [
+          19.4015,
+          18.3785,
+          14.7496,
+          21.7648,
+          19.5799,
+          16.6338,
+          21.5211,
+          19.938,
+          14.2152,
+          24.9255,
+          11.9827,
+          19.6098,
+          16.6743,
+          12.5182,
+          13.0553,
+          13.1422,
+          18.6413,
+          13.1008,
+          23.5889,
+          20.802
+        ]
+      }
+    },
+    {
+      "index": 11,
+      "module": "Upsample",
+      "parameters": 0,
+      "conv_matmul_flops": 0,
+      "output_storage_bytes": 1638400,
+      "wall_time": {
+        "mean_ms": 1.72137,
+        "median_ms": 1.67445,
+        "p95_ms": 2.3618,
+        "fps": 580.9326292429866,
+        "samples_ms": [
+          1.1,
+          1.1027,
+          1.1204,
+          1.5544,
+          2.3381,
+          2.0958,
+          1.5359,
+          2.193,
+          1.082,
+          2.8121,
+          1.527,
+          2.2783,
+          2.3343,
+          2.2211,
+          1.1868,
+          1.8545,
+          1.2228,
+          1.1683,
+          1.7945,
+          1.9054
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "module": "Concat",
+      "parameters": 0,
+      "conv_matmul_flops": 0,
+      "output_storage_bytes": 2457600,
+      "wall_time": {
+        "mean_ms": 0.569665,
+        "median_ms": 0.5212,
+        "p95_ms": 0.7754700000000001,
+        "fps": 1755.4176577462194,
+        "samples_ms": [
+          0.4503,
+          0.482,
+          0.4544,
+          0.7452,
+          0.7701,
+          0.5975,
+          0.4855,
+          0.7622,
+          0.8775,
+          0.5988,
+          0.5302,
+          0.4596,
+          0.5122,
+          0.5929,
+          0.4529,
+          0.4642,
+          0.3912,
+          0.7363,
+          0.6031,
+          0.4272
+        ]
+      }
+    },
+    {
+      "index": 13,
+      "module": "C3k2",
+      "parameters": 111296,
+      "conv_matmul_flops": 353894400,
+      "output_storage_bytes": 819200,
+      "wall_time": {
+        "mean_ms": 18.687665,
+        "median_ms": 17.99355,
+        "p95_ms": 25.546185,
+        "fps": 53.51123321185392,
+        "samples_ms": [
+          19.3215,
+          20.6286,
+          18.4665,
+          23.9491,
+          28.1337,
+          13.5733,
+          15.0318,
+          23.5211,
+          12.1513,
+          25.41,
+          12.9449,
+          20.1722,
+          17.5206,
+          14.2817,
+          23.7488,
+          15.0934,
+          16.9329,
+          14.4062,
+          23.496,
+          14.9697
+        ]
+      }
+    },
+    {
+      "index": 14,
+      "module": "Upsample",
+      "parameters": 0,
+      "conv_matmul_flops": 0,
+      "output_storage_bytes": 3276800,
+      "wall_time": {
+        "mean_ms": 2.22447,
+        "median_ms": 2.2756499999999997,
+        "p95_ms": 3.396995,
+        "fps": 449.5452849442788,
+        "samples_ms": [
+          1.5789,
+          1.8456,
+          1.7808,
+          2.6755,
+          3.4767,
+          2.3422,
+          2.2986,
+          1.5733,
+          2.2925,
+          3.3928,
+          2.3967,
+          2.482,
+          1.7454,
+          1.5703,
+          2.6344,
+          1.6133,
+          1.5907,
+          2.2588,
+          3.2049,
+          1.736
+        ]
+      }
+    },
+    {
+      "index": 15,
+      "module": "Concat",
+      "parameters": 0,
+      "conv_matmul_flops": 0,
+      "output_storage_bytes": 6553600,
+      "wall_time": {
+        "mean_ms": 1.630315,
+        "median_ms": 1.52785,
+        "p95_ms": 2.389415,
+        "fps": 613.3783961995075,
+        "samples_ms": [
+          1.6899,
+          1.709,
+          1.5999,
+          2.3885,
+          1.9547,
+          1.6303,
+          1.381,
+          1.4421,
+          1.5037,
+          2.4068,
+          1.4981,
+          1.7225,
+          1.552,
+          1.3709,
+          1.3877,
+          1.3627,
+          1.241,
+          1.3364,
+          2.1535,
+          1.2756
+        ]
+      }
+    },
+    {
+      "index": 16,
+      "module": "C3k2",
+      "parameters": 32096,
+      "conv_matmul_flops": 406323200,
+      "output_storage_bytes": 1638400,
+      "wall_time": {
+        "mean_ms": 24.09132,
+        "median_ms": 24.29185,
+        "p95_ms": 29.143330000000006,
+        "fps": 41.50872596437223,
+        "samples_ms": [
+          26.9122,
+          25.6253,
+          21.6879,
+          28.8044,
+          25.1543,
+          17.3775,
+          23.4294,
+          26.8337,
+          17.6991,
+          35.583,
+          20.1887,
+          26.2737,
+          20.0798,
+          20.1319,
+          28.2463,
+          19.5026,
+          20.5713,
+          22.9085,
+          27.2622,
+          27.5546
+        ]
+      }
+    },
+    {
+      "index": 17,
+      "module": "Conv",
+      "parameters": 36992,
+      "conv_matmul_flops": 117964800,
+      "output_storage_bytes": 409600,
+      "wall_time": {
+        "mean_ms": 5.80942,
+        "median_ms": 5.394349999999999,
+        "p95_ms": 9.09633,
+        "fps": 172.13422338202437,
+        "samples_ms": [
+          5.7154,
+          9.0487,
+          7.3853,
+          8.1217,
+          10.0013,
+          4.0331,
+          4.4381,
+          4.3697,
+          4.2701,
+          7.0025,
+          5.3454,
+          5.1146,
+          4.0285,
+          4.7545,
+          7.436,
+          5.4433,
+          4.1295,
+          5.8262,
+          5.8736,
+          3.8509
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "module": "Concat",
+      "parameters": 0,
+      "conv_matmul_flops": 0,
+      "output_storage_bytes": 1228800,
+      "wall_time": {
+        "mean_ms": 0.32843,
+        "median_ms": 0.2989,
+        "p95_ms": 0.4478750000000003,
+        "fps": 3044.788843893676,
+        "samples_ms": [
+          0.3235,
+          0.3556,
+          0.4284,
+          0.2826,
+          0.8179,
+          0.2556,
+          0.3928,
+          0.2814,
+          0.2665,
+          0.3379,
+          0.2474,
+          0.3426,
+          0.2533,
+          0.2771,
+          0.3165,
+          0.3152,
+          0.317,
+          0.2526,
+          0.2511,
+          0.2536
+        ]
+      }
+    },
+    {
+      "index": 19,
+      "module": "C3k2",
+      "parameters": 86720,
+      "conv_matmul_flops": 275251200,
+      "output_storage_bytes": 819200,
+      "wall_time": {
+        "mean_ms": 16.06663,
+        "median_ms": 14.16295,
+        "p95_ms": 24.995340000000017,
+        "fps": 62.24080594374801,
+        "samples_ms": [
+          15.683,
+          14.3716,
+          16.8876,
+          16.2659,
+          43.7168,
+          11.9594,
+          13.9543,
+          14.9125,
+          12.3129,
+          24.01,
+          12.047,
+          17.2228,
+          12.5119,
+          12.8724,
+          14.607,
+          12.7727,
+          10.1429,
+          13.5658,
+          17.7017,
+          13.8144
+        ]
+      }
+    },
+    {
+      "index": 20,
+      "module": "Conv",
+      "parameters": 147712,
+      "conv_matmul_flops": 117964800,
+      "output_storage_bytes": 204800,
+      "wall_time": {
+        "mean_ms": 4.8750350000000005,
+        "median_ms": 4.7127,
+        "p95_ms": 6.6243549999999995,
+        "fps": 205.12673242345952,
+        "samples_ms": [
+          6.8838,
+          6.2857,
+          5.0985,
+          6.4888,
+          6.3486,
+          4.2244,
+          4.1317,
+          5.0098,
+          4.1808,
+          5.5196,
+          3.279,
+          6.6107,
+          3.47,
+          3.4773,
+          3.563,
+          3.3071,
+          3.6854,
+          4.4156,
+          6.3502,
+          5.1707
+        ]
+      }
+    },
+    {
+      "index": 21,
+      "module": "Concat",
+      "parameters": 0,
+      "conv_matmul_flops": 0,
+      "output_storage_bytes": 614400,
+      "wall_time": {
+        "mean_ms": 0.165235,
+        "median_ms": 0.13265,
+        "p95_ms": 0.3450800000000001,
+        "fps": 6051.986564589827,
+        "samples_ms": [
+          0.3363,
+          0.1159,
+          0.2676,
+          0.143,
+          0.5119,
+          0.1665,
+          0.1284,
+          0.1065,
+          0.1357,
+          0.1206,
+          0.1354,
+          0.1158,
+          0.1395,
+          0.1114,
+          0.1576,
+          0.0863,
+          0.1173,
+          0.1299,
+          0.1729,
+          0.1062
+        ]
+      }
+    },
+    {
+      "index": 22,
+      "module": "C3k2",
+      "parameters": 378880,
+      "conv_matmul_flops": 301465600,
+      "output_storage_bytes": 409600,
+      "wall_time": {
+        "mean_ms": 15.82949,
+        "median_ms": 15.02065,
+        "p95_ms": 21.93412,
+        "fps": 63.173229207005406,
+        "samples_ms": [
+          13.6463,
+          15.5362,
+          16.8957,
+          17.0716,
+          22.6964,
+          14.2427,
+          14.4244,
+          19.6997,
+          14.5051,
+          18.6318,
+          11.8345,
+          16.7439,
+          12.7697,
+          13.5494,
+          12.2425,
+          11.6101,
+          12.6506,
+          18.674,
+          21.894,
+          17.2712
+        ]
+      }
+    },
+    {
+      "index": 23,
+      "module": "Detect",
+      "parameters": 464912,
+      "conv_matmul_flops": 1869683200,
+      "output_storage_bytes": 10528000,
+      "wall_time": {
+        "mean_ms": 120.316075,
+        "median_ms": 121.1423,
+        "p95_ms": 156.608655,
+        "fps": 8.311441343145544,
+        "samples_ms": [
+          126.1463,
+          114.0008,
+          109.0496,
+          137.5119,
+          156.587,
+          122.9804,
+          116.2138,
+          125.4321,
+          123.7074,
+          129.4904,
+          104.489,
+          157.0201,
+          90.431,
+          94.5537,
+          119.3042,
+          110.828,
+          95.3898,
+          105.9464,
+          129.8694,
+          137.3702
+        ]
+      }
+    }
+  ],
+  "primitive_flops": [
+    {
+      "name": "model.0.conv",
+      "module": "Conv2d",
+      "flops": 88473600
+    },
+    {
+      "name": "model.1.conv",
+      "module": "Conv2d",
+      "flops": 235929600
+    },
+    {
+      "name": "model.2.cv1.conv",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.2.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.2.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.2.cv2.conv",
+      "module": "Conv2d",
+      "flops": 157286400
+    },
+    {
+      "name": "model.3.conv",
+      "module": "Conv2d",
+      "flops": 471859200
+    },
+    {
+      "name": "model.4.cv1.conv",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.4.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.4.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.4.cv2.conv",
+      "module": "Conv2d",
+      "flops": 157286400
+    },
+    {
+      "name": "model.5.conv",
+      "module": "Conv2d",
+      "flops": 471859200
+    },
+    {
+      "name": "model.6.cv1.conv",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.6.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 6553600
+    },
+    {
+      "name": "model.6.m.0.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.6.m.0.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.6.m.0.m.1.cv1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.6.m.0.m.1.cv2.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.6.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 6553600
+    },
+    {
+      "name": "model.6.m.0.cv3.conv",
+      "module": "Conv2d",
+      "flops": 13107200
+    },
+    {
+      "name": "model.6.cv2.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.7.conv",
+      "module": "Conv2d",
+      "flops": 235929600
+    },
+    {
+      "name": "model.8.cv1.conv",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.8.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 6553600
+    },
+    {
+      "name": "model.8.m.0.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.8.m.0.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.8.m.0.m.1.cv1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.8.m.0.m.1.cv2.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.8.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 6553600
+    },
+    {
+      "name": "model.8.m.0.cv3.conv",
+      "module": "Conv2d",
+      "flops": 13107200
+    },
+    {
+      "name": "model.8.cv2.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.9.cv1.conv",
+      "module": "Conv2d",
+      "flops": 26214400
+    },
+    {
+      "name": "model.9.cv2.conv",
+      "module": "Conv2d",
+      "flops": 104857600
+    },
+    {
+      "name": "model.10.cv1.conv",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.10.m.0.attn.qkv.conv",
+      "module": "Conv2d",
+      "flops": 26214400
+    },
+    {
+      "name": "model.10.m.0.attn.pe.conv",
+      "module": "Conv2d",
+      "flops": 921600
+    },
+    {
+      "name": "model.10.m.0.attn.proj.conv",
+      "module": "Conv2d",
+      "flops": 13107200
+    },
+    {
+      "name": "model.10.m.0.attn",
+      "module": "Attention",
+      "flops": 61440000
+    },
+    {
+      "name": "model.10.m.0.ffn.0.conv",
+      "module": "Conv2d",
+      "flops": 26214400
+    },
+    {
+      "name": "model.10.m.0.ffn.1.conv",
+      "module": "Conv2d",
+      "flops": 26214400
+    },
+    {
+      "name": "model.10.cv2.conv",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.13.cv1.conv",
+      "module": "Conv2d",
+      "flops": 157286400
+    },
+    {
+      "name": "model.13.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.13.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.13.cv2.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.16.cv1.conv",
+      "module": "Conv2d",
+      "flops": 209715200
+    },
+    {
+      "name": "model.16.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.16.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.16.cv2.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.17.conv",
+      "module": "Conv2d",
+      "flops": 117964800
+    },
+    {
+      "name": "model.19.cv1.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.19.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.19.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 58982400
+    },
+    {
+      "name": "model.19.cv2.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.20.conv",
+      "module": "Conv2d",
+      "flops": 117964800
+    },
+    {
+      "name": "model.22.cv1.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.22.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 6553600
+    },
+    {
+      "name": "model.22.m.0.m.0.cv1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.22.m.0.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.22.m.0.m.1.cv1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.22.m.0.m.1.cv2.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.22.m.0.cv2.conv",
+      "module": "Conv2d",
+      "flops": 6553600
+    },
+    {
+      "name": "model.22.m.0.cv3.conv",
+      "module": "Conv2d",
+      "flops": 13107200
+    },
+    {
+      "name": "model.22.cv2.conv",
+      "module": "Conv2d",
+      "flops": 78643200
+    },
+    {
+      "name": "model.23.cv2.0.0.conv",
+      "module": "Conv2d",
+      "flops": 471859200
+    },
+    {
+      "name": "model.23.cv2.0.1.conv",
+      "module": "Conv2d",
+      "flops": 471859200
+    },
+    {
+      "name": "model.23.cv2.0.2",
+      "module": "Conv2d",
+      "flops": 52428800
+    },
+    {
+      "name": "model.23.cv2.1.0.conv",
+      "module": "Conv2d",
+      "flops": 235929600
+    },
+    {
+      "name": "model.23.cv2.1.1.conv",
+      "module": "Conv2d",
+      "flops": 117964800
+    },
+    {
+      "name": "model.23.cv2.1.2",
+      "module": "Conv2d",
+      "flops": 13107200
+    },
+    {
+      "name": "model.23.cv2.2.0.conv",
+      "module": "Conv2d",
+      "flops": 117964800
+    },
+    {
+      "name": "model.23.cv2.2.1.conv",
+      "module": "Conv2d",
+      "flops": 29491200
+    },
+    {
+      "name": "model.23.cv2.2.2",
+      "module": "Conv2d",
+      "flops": 3276800
+    },
+    {
+      "name": "model.23.cv3.0.0.0.conv",
+      "module": "Conv2d",
+      "flops": 7372800
+    },
+    {
+      "name": "model.23.cv3.0.0.1.conv",
+      "module": "Conv2d",
+      "flops": 65536000
+    },
+    {
+      "name": "model.23.cv3.0.1.0.conv",
+      "module": "Conv2d",
+      "flops": 9216000
+    },
+    {
+      "name": "model.23.cv3.0.1.1.conv",
+      "module": "Conv2d",
+      "flops": 81920000
+    },
+    {
+      "name": "model.23.cv3.0.2",
+      "module": "Conv2d",
+      "flops": 81920000
+    },
+    {
+      "name": "model.23.cv3.1.0.0.conv",
+      "module": "Conv2d",
+      "flops": 3686400
+    },
+    {
+      "name": "model.23.cv3.1.0.1.conv",
+      "module": "Conv2d",
+      "flops": 32768000
+    },
+    {
+      "name": "model.23.cv3.1.1.0.conv",
+      "module": "Conv2d",
+      "flops": 2304000
+    },
+    {
+      "name": "model.23.cv3.1.1.1.conv",
+      "module": "Conv2d",
+      "flops": 20480000
+    },
+    {
+      "name": "model.23.cv3.1.2",
+      "module": "Conv2d",
+      "flops": 20480000
+    },
+    {
+      "name": "model.23.cv3.2.0.0.conv",
+      "module": "Conv2d",
+      "flops": 1843200
+    },
+    {
+      "name": "model.23.cv3.2.0.1.conv",
+      "module": "Conv2d",
+      "flops": 16384000
+    },
+    {
+      "name": "model.23.cv3.2.1.0.conv",
+      "module": "Conv2d",
+      "flops": 576000
+    },
+    {
+      "name": "model.23.cv3.2.1.1.conv",
+      "module": "Conv2d",
+      "flops": 5120000
+    },
+    {
+      "name": "model.23.cv3.2.2",
+      "module": "Conv2d",
+      "flops": 5120000
+    },
+    {
+      "name": "model.23.dfl.conv",
+      "module": "Conv2d",
+      "flops": 1075200
+    }
+  ],
+  "latency": {
+    "unfused": {
+      "mean_ms": 395.82237,
+      "median_ms": 389.3215,
+      "p95_ms": 465.1993499999999,
+      "fps": 2.526385762381242,
+      "samples_ms": [
+        398.4436,
+        372.2115,
+        358.1794,
+        375.2823,
+        400.1634,
+        367.2031,
+        351.4671,
+        426.844,
+        371.0414,
+        387.7875,
+        358.8397,
+        414.33,
+        386.2578,
+        385.3643,
+        364.6084,
+        348.3085,
+        439.6916,
+        367.8406,
+        400.8609,
+        371.7434,
+        364.4013,
+        382.3462,
+        397.9575,
+        360.0823,
+        370.3851,
+        437.0626,
+        376.0004,
+        380.1861,
+        447.3538,
+        395.2745,
+        429.3483,
+        390.8555,
+        497.1846,
+        450.175,
+        411.0802,
+        411.0294,
+        423.977,
+        375.0007,
+        477.492,
+        397.2541,
+        419.5378,
+        414.2229,
+        333.921,
+        341.5915,
+        482.7524,
+        390.932,
+        400.4013,
+        423.1991,
+        381.0409,
+        382.6045
+      ],
+      "warmup": 10,
+      "parameters": 2624080,
+      "maximum_absolute_output_error": 0.0
+    },
+    "fused": {
+      "mean_ms": 390.029856,
+      "median_ms": 389.98215,
+      "p95_ms": 448.77955999999995,
+      "fps": 2.5639062872151,
+      "samples_ms": [
+        397.9243,
+        394.1599,
+        346.8129,
+        365.6088,
+        396.6601,
+        324.2517,
+        344.5205,
+        399.5859,
+        432.7312,
+        380.4359,
+        403.3136,
+        376.4232,
+        391.7073,
+        351.0463,
+        387.5636,
+        401.3286,
+        412.2463,
+        379.1495,
+        457.6775,
+        388.257,
+        351.5765,
+        423.7016,
+        458.9068,
+        392.4406,
+        374.1206,
+        385.9327,
+        386.8951,
+        412.4767,
+        412.958,
+        361.7198,
+        357.2376,
+        365.5786,
+        397.6362,
+        375.0688,
+        377.9029,
+        355.2321,
+        338.6097,
+        479.475,
+        400.0256,
+        368.9042,
+        347.8206,
+        368.7116,
+        401.0326,
+        432.6478,
+        406.8263,
+        401.7341,
+        347.4761,
+        420.8013,
+        437.9043,
+        428.7349
+      ],
+      "warmup": 10,
+      "parameters": 2616248,
+      "maximum_absolute_output_error": 0.0
+    }
+  },
+  "tests": {
+    "reference_roundtrip_exact": true,
+    "cuda": "SKIP: torch is CPU-only",
+    "cuda_amp": "SKIP: torch is CPU-only",
+    "standard_fuse_equivalence": true,
+    "batch2_rectangular_forward_loss_backward_finite": true,
+    "loss_components_synthetic_only": [
+      3.12518572807312,
+      2.895559549331665,
+      1.9514555931091309
+    ],
+    "trainable_parameters_with_gradient": 255,
+    "sppf_activation_only_probe": {
+      "max_abs_error": 0.654511570930481,
+      "input_shape": [
+        2,
+        256,
+        19,
+        21
+      ],
+      "equal": false,
+      "note": "Same local SPPF weights; change cv1 activation on copy only. Not full upstream equivalence test."
+    },
+    "original_source_config_hashes_unchanged": 527
+  },
+  "gpu_kernel_time": null,
+  "gpu_peak_memory": null,
+  "dram_bandwidth": null,
+  "peak_cpu_activation_memory": null,
+  "total_conv_matmul_gflops": 6.5425024,
+  "scope": "2 FLOPs per MAC; Conv2d and Attention matmuls. Excludes BN, activation, softmax, pooling, resize, concat, decode/NMS arithmetic. Storage footprint is not peak or bandwidth."
+}

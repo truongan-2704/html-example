@@ -1,0 +1,74 @@
+{
+  "copied_tensors": 633,
+  "approximated_layers": {
+    "model.3": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7914230167654583
+    },
+    "model.5": {
+      "rank": 32,
+      "relative_offcenter_error": 0.7922569197423669
+    },
+    "model.7": {
+      "rank": 32,
+      "relative_offcenter_error": 0.8736239009342947
+    },
+    "model.15": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7923435537990894
+    },
+    "model.18": {
+      "rank": 32,
+      "relative_offcenter_error": 0.7936174667558377
+    },
+    "model.21.cv2.0.0": {
+      "rank": 16,
+      "relative_offcenter_error": 0.791900581439338
+    },
+    "model.21.cv2.0.1": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7931709952326852
+    },
+    "model.21.cv2.1.0": {
+      "rank": 16,
+      "relative_offcenter_error": 0.8157161535795273
+    },
+    "model.21.cv2.1.1": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7928719508218204
+    },
+    "model.21.cv2.2.0": {
+      "rank": 16,
+      "relative_offcenter_error": 0.8320896813851292
+    },
+    "model.21.cv2.2.1": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7928506106686865
+    },
+    "model.21.one2one_cv2.0.0": {
+      "rank": 16,
+      "relative_offcenter_error": 0.791900581439338
+    },
+    "model.21.one2one_cv2.0.1": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7931709952326852
+    },
+    "model.21.one2one_cv2.1.0": {
+      "rank": 16,
+      "relative_offcenter_error": 0.8157161535795273
+    },
+    "model.21.one2one_cv2.1.1": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7928719508218204
+    },
+    "model.21.one2one_cv2.2.0": {
+      "rank": 16,
+      "relative_offcenter_error": 0.8320896813851292
+    },
+    "model.21.one2one_cv2.2.1": {
+      "rank": 16,
+      "relative_offcenter_error": 0.7928506106686865
+    }
+  },
+  "exact_checkpoint_transfer": false
+}

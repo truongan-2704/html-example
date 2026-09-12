@@ -1,0 +1,39 @@
+{
+  "scope": "Measured from constructing/fusing each local scale at nc80; same construction procedure as validate_orthogonal_capacity.py",
+  "columns": [
+    "stock_train",
+    "capacity_train",
+    "stock_deploy",
+    "capacity_deploy"
+  ],
+  "n": [
+    2624080,
+    2587288,
+    2616248,
+    1959072
+  ],
+  "s": [
+    9458752,
+    8305272,
+    9443760,
+    6820728
+  ],
+  "m": [
+    20114688,
+    17726904,
+    20091712,
+    15436744
+  ],
+  "l": [
+    25372160,
+    17726904,
+    25340992,
+    15436744
+  ],
+  "x": [
+    56966176,
+    39702744,
+    56919424,
+    34647240
+  ]
+}

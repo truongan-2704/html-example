@@ -1,0 +1,21 @@
+{
+  "settings_version": "0.0.6",
+  "datasets_dir": "E:\\Project\\nghien_cuu\\datasets",
+  "weights_dir": "E:\\Project\\nghien_cuu\\html-example\\weights",
+  "runs_dir": "E:\\Project\\nghien_cuu\\html-example\\runs",
+  "uuid": "f7b4480385318767ea593dbfc27898e933f589abe05838a2607ad75861459212",
+  "sync": true,
+  "api_key": "",
+  "openai_api_key": "",
+  "clearml": true,
+  "comet": true,
+  "dvc": true,
+  "hub": true,
+  "mlflow": true,
+  "neptune": true,
+  "raytune": true,
+  "tensorboard": false,
+  "wandb": false,
+  "vscode_msg": true,
+  "openvino_msg": true
+}

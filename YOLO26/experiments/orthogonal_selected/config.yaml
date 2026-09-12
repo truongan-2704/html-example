@@ -1,0 +1,17 @@
+scope: inference_execution_ablation
+scale: n
+nc: 80
+imgsz: 640
+batch: 1
+precision: float32
+device: cpu
+threads: 1
+fused: true
+seed: 7
+warmup: 20
+samples_per_model_per_run: 60
+runs: 2
+trained: false
+accuracy: NOT_EVALUATED
+reference: experiments/orthogonal_audit/before_changes.pt
+variants: [original, efficient, selected, efficient_selected]

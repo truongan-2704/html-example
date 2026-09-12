@@ -1,0 +1,13 @@
+test_cpu_autocast (__main__.SelectedDecodeTests) ... ok
+test_cuda_amp_selected_decoding (__main__.SelectedDecodeTests) ... skipped 'CUDA unavailable in installed PyTorch build'
+test_decode_oracle_classes_bins_ties_batch_and_limits (__main__.SelectedDecodeTests) ... ok
+test_dfl_receives_only_selected_positions_and_preserves_duplicates (__main__.SelectedDecodeTests) ... ok
+test_full_model_training_loss_gradients_and_eval (__main__.SelectedDecodeTests) ... ok
+test_non_end2end_delegates (__main__.SelectedDecodeTests) ... ok
+test_parser_scales_and_api_checkpoint (__main__.SelectedDecodeTests) ... WARNING no model scale passed. Assuming scale='n'.
+ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 4.840s
+
+OK (skipped=1)

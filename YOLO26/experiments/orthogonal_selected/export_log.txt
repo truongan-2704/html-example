@@ -1,0 +1,109 @@
+WARNING no model scale passed. Assuming scale='n'.
+Ultralytics 8.4.103  Python-3.9.13 torch-2.2.2+cpu CPU (13th Gen Intel Core i7-13650HX)
+YOLO11-orthogonal-efficient-sd summary (fused): 97 layers, 1,813,504 parameters, 0 gradients, 5.4 GFLOPs
+
+[34m[1mPyTorch:[0m starting from 'E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_selected\efficient_untrained.pt' with input shape (1, 3, 128, 128) BCHW and output shape(s) (1, 100, 6) (4.9 MB)
+
+[34m[1mONNX:[0m starting export with onnx 1.14.0 opset 17...
+E:\Project\nghien_cuu\html-example\YOLO26\.venv\lib\site-packages\torch\onnx\symbolic_opset9.py:5859: UserWarning: Exporting aten::index operator of advanced indexing in opset 17 is achieved by combination of multiple ONNX operators, including Reshape, Transpose, Concat, and Gather. If indices include negative values, the exported graph will produce incorrect results.
+  warnings.warn(
+[34m[1mONNX:[0m export success  1.1s, saved as 'E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_selected\efficient_untrained.onnx' (7.0 MB)
+
+Export complete (1.4s)
+Results saved to [1mE:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_selected\efficient_untrained.onnx[0m
+Predict:         yolo predict task=detect model=E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_selected\efficient_untrained.onnx imgsz=128 
+Validate:        yolo val task=detect model=E:\Project\nghien_cuu\html-example\YOLO26\experiments\orthogonal_selected\efficient_untrained.onnx imgsz=128 data=None  
+Visualize:       https://netron.app
+{
+  "onnx": "1.14.0",
+  "onnxruntime": "1.15.1",
+  "provider": "CPUExecutionProvider",
+  "opset": 17,
+  "checks": [
+    {
+      "input": [
+        1,
+        3,
+        128,
+        160
+      ],
+      "output": [
+        1,
+        100,
+        6
+      ],
+      "finite": true,
+      "raw_logits_max_abs_errors": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "input": [
+        2,
+        3,
+        160,
+        192
+      ],
+      "output": [
+        2,
+        100,
+        6
+      ],
+      "finite": true,
+      "raw_logits_max_abs_errors": [
+        2.384185791015625e-07,
+        0.0
+      ]
+    }
+  ],
+  "trained": false,
+  "numerical_scope": "Raw logits compared at 1e-4 tolerance. Official post-topk outputs checked for shape/finite values only; tied random predictions may rank differently across backends.",
+  "config": "yolo11-orthogonal-efficient-sd.yaml",
+  "selected_decoder_oracle": [
+    {
+      "agnostic": false,
+      "input": [
+        1,
+        3,
+        128,
+        160
+      ],
+      "max_abs_error": 3.0517578125e-05,
+      "class_indices_equal": true
+    },
+    {
+      "agnostic": false,
+      "input": [
+        2,
+        3,
+        160,
+        192
+      ],
+      "max_abs_error": 6.103515625e-05,
+      "class_indices_equal": true
+    },
+    {
+      "agnostic": true,
+      "input": [
+        1,
+        3,
+        128,
+        160
+      ],
+      "max_abs_error": 6.103515625e-05,
+      "class_indices_equal": true
+    },
+    {
+      "agnostic": true,
+      "input": [
+        2,
+        3,
+        160,
+        192
+      ],
+      "max_abs_error": 6.103515625e-05,
+      "class_indices_equal": true
+    }
+  ]
+}
